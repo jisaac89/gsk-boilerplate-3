@@ -4,7 +4,7 @@ import {Recoil, Table, Button, Toolbar, Input, Emerge, Layer, SlideIn, Loading, 
 
 import {observer} from 'mobx-react';
 
-import {appStore, prescribeStore, prescriptionsStore} from '../../stores/_GlobalStore';
+import {appStore, prescriptionsStore} from '../../stores/_GlobalStore';
 
 import RouterButton from '../helpers/RouterButton';
 

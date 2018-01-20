@@ -15,6 +15,8 @@ import AuthPane from './navigation/AuthPane';
 
 import Dashboard from './routes/dashboard/Dashboard';
 import SelectPrescription from './routes/selectPrescription/SelectPrescription';
+import LabResults from './routes/labResults/LabResults';
+import Discounts from './routes/discounts/Discounts';
 
 @observer
 export default class Entry extends React.Component<any, any> {
@@ -42,6 +44,8 @@ export default class Entry extends React.Component<any, any> {
                         <Header />
                         <Route exact path="/" component={Dashboard} />
                         <Route path="/selectPrescription" component={SelectPrescription} />
+                        <Route path="/labResults" component={LabResults} />
+                        <Route path="/discounts" component={Discounts} />
                     </Layer>
                     <MenuPane history={this.props.history} />
                     <AuthPane history={this.props.history} />

@@ -4,7 +4,7 @@ import {Recoil, Table, Button, Toolbar, Input, Emerge, Layer, SlideIn, Loading, 
 
 import {observer} from 'mobx-react';
 
-import {appStore, prescribeStore, prescriptionsStore} from '../../stores/_GlobalStore';
+import {appStore, prescriptionsStore, labResultsStore} from '../../stores/_GlobalStore';
 
 import RouterButton from '../helpers/RouterButton';
 import { _$ } from '../../../recoil/src/components/OOCSS/StepThrough';
@@ -32,14 +32,17 @@ export default class MenuPane extends React.Component<any, any> {
                             <Emerge enter="fadeIn" if={appStore.menu}>
                                 <div></div>
                                 <Toolbar block flush flex className="mb20">
-                                    <Button theme="error">1</Button>
+                                    <Button theme="error">{labResultsStore.list.length}</Button>
                                     <RouterButton block size="large" history={history} route="/labResults" title="Lab Results" />
                                 </Toolbar>                      
                                 <Toolbar block flush flex className="mb20">
-                                    <Button theme="error">3</Button>
-                                    <RouterButton block size="large" history={history} route="/selectPrescription" title="Prescription" />
+                                    <Button theme="error">0</Button>
+                                    <RouterButton block size="large" history={history} route="/selectPrescription" title="Prescriptions" />
                                 </Toolbar>
-                                <RouterButton className="mb20" disabled block size="large" history={history} route="/" title="Discounts" />
+                                <Toolbar block flush flex className="mb20">
+                                    <Button theme="error">2</Button>
+                                    <RouterButton block size="large" history={history} route="/discounts" title="Discounts" />
+                                </Toolbar>
                                 <RouterButton className="mb20" disabled block size="large" history={history} route="/" title="My Profile" />
                                 <RouterButton disabled block size="large" history={history} route="/" title="Settings" />
                                 </Emerge>
