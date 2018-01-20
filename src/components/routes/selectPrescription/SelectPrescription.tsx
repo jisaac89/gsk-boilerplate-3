@@ -33,15 +33,12 @@ export default class SelectPrescription extends React.Component<IPrescribeProps,
                         <Layer fill  flexCenter>
                             <Emerge if={!appStore.menu}>
                                 <Layer className="p20">
-                                    <i className="material-icons super-xl mb20 floatL">highlight</i>
-                                    <h2 className="mb20">Selected Prescription</h2>
+                                    <i className="material-icons super-xl mb20 floatL">link</i>
+                                    <h2 className="mb20">No Prescriptions Found</h2>
                                     <h1 className="mb20">
-                                        <small>Selected Prescription.</small>
+                                        <small>Looks like you have nothing here.</small>
                                     </h1>
-                                    
-                                    <Toolbar block size="large" className="mt20">
-                                        <Button onClick={this.gotoSlideIndex.bind(this, 1)} icon="chevron-right" outline theme="error">Get Started</Button>
-                                    </Toolbar>
+                                
                                 </Layer>
                             </Emerge>
                         </Layer>
@@ -51,3 +48,8 @@ export default class SelectPrescription extends React.Component<IPrescribeProps,
         )
     }
 } 
+
+
+{/* <Toolbar block size="large" className="mt20">
+<Button onClick={this.gotoSlideIndex.bind(this, 1)} icon="chevron-right" outline theme="error">Get Started</Button>
+</Toolbar> */}

@@ -41,11 +41,10 @@ export default class Entry extends React.Component<any, any> {
                     <Layer flex {...styles}>
                         <Header />
                         <Route exact path="/" component={Dashboard} />
-                        <Route path="/prescribe" component={SelectPrescription} />
+                        <Route path="/selectPrescription" component={SelectPrescription} />
                     </Layer>
                     <MenuPane history={this.props.history} />
                     <AuthPane history={this.props.history} />
-                    <LoadingPane />
                 </Layer>
             </Recoil>
         </Router>

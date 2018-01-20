@@ -16,12 +16,7 @@ export class PatientStore extends BaseStore {
     }
     
     addObject(){
-        return {
-            "$class": "org.acme.sample.SampleAsset",
-            "assetId": "as",
-            "owner": "resource:org.acme.sample.SampleParticipant#P1",
-            "value": "as"
-        }
+        return null;
     }
 }
 

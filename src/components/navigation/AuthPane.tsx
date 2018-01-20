@@ -16,11 +16,11 @@ export default class AuthPane extends React.Component<any, any> {
 
         return (
             <SlideIn className="z5" if={appStore.auth} from="top" fill>
-                <Layer flexCenter className="text-center pt50" fill theme="dark">
+                <Layer flexCenter className="text-center pt50" fill theme="e-NightMode">
                     <Emerge enter="fadeIn" if={appStore.auth}>
                         <div className="p10">
-                            <Toolbar block className="w300px center-width" spacing vertical>
-                                <RouterButton auth block size="large" theme="primary" history={history} icon="facebook" route="/" title="Sign in with Facebook" />
+                            <Toolbar block className="w400px center-width" spacing vertical>
+                                <RouterButton auth block size="xlarge" theme="primary" history={history} icon="facebook" route="/" title="Sign in with Facebook" />
                             </Toolbar>
                         </div>
                     </Emerge>
