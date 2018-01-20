@@ -13,6 +13,14 @@ export default class Dashboard extends React.Component<any, any> {
         super(props);
     }
 
+    componentDidMount(){
+        if (appStore.auth){
+            appStore.auth = true;
+        } else{
+            appStore.menu = true;
+        }
+    }
+
     render() {
         return null;
     } 

@@ -19,7 +19,7 @@ export default class MenuPane extends React.Component<any, any> {
         let {history} = this.props;
 
         return (
-            <SlideIn className="z4" if={appStore.menu} from="top" fill>
+            <SlideIn className="z4" if={appStore.menu} from="bottom" fill>
                 <Layer id="main" flexCenter fill className="text-left pt50" theme="light">
                         <div className="p10 w500px center-width">
                     
@@ -31,12 +31,16 @@ export default class MenuPane extends React.Component<any, any> {
                             <Toolbar block className="center-width text-left" spacing vertical>
                             <Emerge enter="fadeIn" if={appStore.menu}>
                                 <div></div>
-                                <RouterButton className="mb20" disabled block size="large" history={history} route="/" title="My Profile" />
-                                <RouterButton className="mb20" disabled block size="large" history={history} route="/" title="My Pharmacies" />
-                                <Toolbar flush flex className="mb20">
+                                <Toolbar block flush flex className="mb20">
+                                    <Button theme="error">1</Button>
+                                    <RouterButton block size="large" history={history} route="/labResults" title="Lab Results" />
+                                </Toolbar>                      
+                                <Toolbar block flush flex className="mb20">
                                     <Button theme="error">3</Button>
                                     <RouterButton block size="large" history={history} route="/selectPrescription" title="Prescription" />
                                 </Toolbar>
+                                <RouterButton className="mb20" disabled block size="large" history={history} route="/" title="Discounts" />
+                                <RouterButton className="mb20" disabled block size="large" history={history} route="/" title="My Profile" />
                                 <RouterButton disabled block size="large" history={history} route="/" title="Settings" />
                                 </Emerge>
                             </Toolbar>
