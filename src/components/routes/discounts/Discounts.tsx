@@ -58,14 +58,9 @@ export default class Discounts extends React.Component<{}, {}> {
                                     <Layer className="w80 center-width">
                                         <i className="material-icons super-xl mb20">star</i>
                                         <h2 className="mb20">Discounts</h2>
-                                        <h1 className="mb20">
-                                            Your results came in, send them out for extra benefits!
-                                        </h1>
-                                        <Layer className="text-left">
-                                            <Table hideHeader hidePageSize columns={[{ name: 'labTestUUID', width: '200px' }, { name: 'description' }, { template: menuTemplate }]} pageSize={5} overflow dataSource={[labResultsStore.list[0]]} />
-                                        </Layer>
+
                                         <h1 className="mtb40">
-                                            OR, take choose a survey to recieve discounts of your co-pay.
+                                            Take a survey to recieve discounts of from your co-pay.
                                         </h1>
                                         <Layer className="text-left">
                                             <Table hideHeader hidePageSize columns={[{ name: 'name', width: '200px' }, { name: 'description' }, { template: surveyTemplate }]} pageSize={5} overflow dataSource={[{name:'Personal Health', description: 'Take this anon survey and recieve 10% off copay'}]} />
@@ -80,3 +75,10 @@ export default class Discounts extends React.Component<{}, {}> {
         )
     }
 }
+
+// <h1 className="mb20">
+// Your results came in, send them out for extra benefits!
+// </h1>
+// <Layer className="text-left">
+// <Table hideHeader hidePageSize columns={[{ name: 'labTestUUID', width: '200px' }, { name: 'description' }, { template: menuTemplate }]} pageSize={5} overflow dataSource={[labResultsStore.list[0]]} />
+// </Layer>

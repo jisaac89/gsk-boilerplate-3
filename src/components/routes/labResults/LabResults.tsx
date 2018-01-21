@@ -54,7 +54,7 @@ export default class LabResults extends React.Component<{}, {}> {
                                             Below is a list of recently sent results.
                                         </h1>
                                         <Layer className="text-left">
-                                            <Table hidePageSize columns={[{ name: 'labTestUUID', width: '200px' }, { name: 'description' }, { template: menuTemplate }]} pageSize={5} overflow dataSource={labResultsStore.list} />
+                                            <Table hidePageSize pageSize={5} overflow dataSource={labResultsStore.list} />
                                         </Layer>
                                     </Layer>
                                 </Emerge>

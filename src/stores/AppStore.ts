@@ -5,6 +5,7 @@ import {IAppStore} from '../interfaces/stores/IAppStore';
 import {patientStore} from './_GlobalStore';
 import { PatientStore } from './PatientStore';
 import { labResultsStore } from './LabResultsStore';
+import { prescriptionsStore } from './PrescriptionsStore';
 
 export class AppStore implements IAppStore {
     
@@ -20,6 +21,7 @@ export class AppStore implements IAppStore {
 
     initializeApp() {
         labResultsStore.init();
+        prescriptionsStore.init();
     }
 
     toggleNightmode(){
@@ -33,6 +35,10 @@ export class AppStore implements IAppStore {
     toggleAuth(){
         this.auth = !this.auth;
         this.menu = !this.menu;
+    }
+
+    onMobile(isMobile){
+        this.mobile = isMobile;
     }
 
 }
