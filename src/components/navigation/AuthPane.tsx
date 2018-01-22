@@ -15,7 +15,7 @@ export default class AuthPane extends React.Component<any, any> {
         let {history} = this.props;
 
         return (
-            <SlideIn className="z5" if={appStore.auth} from="top" fill>
+            <SlideIn className="z4" if={appStore.auth} from="top" fill>
                 <Layer flexCenter className="text-center pt50" fill theme="e-NightMode">
                     <Emerge enter="fadeIn" if={appStore.auth}>
                         <div className="p10">

@@ -11,6 +11,8 @@ export default abstract class BaseStore extends Store{
 
     @observable loading : boolean = true;
 
+    @observable currentRowCount : number = 0;
+
     constructor(ref : string) {
         super(ref);
         this.ref = ref;
@@ -30,6 +32,7 @@ export default abstract class BaseStore extends Store{
                    context.loading = false;
                    context.list = data;
                    console.log(context.list);
+                   context.currentRowCount = context.list.length;
                 })
             }
         });

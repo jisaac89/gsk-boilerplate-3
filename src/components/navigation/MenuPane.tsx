@@ -19,7 +19,7 @@ export default class MenuPane extends React.Component<any, any> {
         let {history} = this.props;
 
         return (
-            <SlideIn className="z4" if={appStore.menu} from="bottom" fill>
+            <SlideIn className="z3" if={appStore.menu} from="bottom" fill>
                 <Layer id="main" flexCenter={!appStore.mobile} fill className="text-left pt50" theme="light">
                         <div className="p20 w500px center-width">
                     

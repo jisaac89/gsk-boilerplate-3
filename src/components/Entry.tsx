@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {Recoil, Layer} from '../../recoil/src/index';
+import {Recoil, Layer, Notifications, SlideIn} from '../../recoil/src/index';
 
 import {observer} from 'mobx-react';
 
@@ -17,6 +17,7 @@ import Dashboard from './routes/dashboard/Dashboard';
 import SelectPrescription from './routes/selectPrescription/SelectPrescription';
 import LabResults from './routes/labResults/LabResults';
 import Discounts from './routes/discounts/Discounts';
+import { notifications } from '../state/Notifications';
 
 @observer
 export default class Entry extends React.Component<any, any> {
@@ -44,6 +45,9 @@ export default class Entry extends React.Component<any, any> {
         <Router>
             <Recoil onMobile={this.onMobile.bind(this)} nightmode={appStore.nightmode} {...styles}>
                 <Layer {...styles}>
+                <SlideIn className="z5" from="top" if={true}>
+                    {notifications.list.length ? <Notifications className="notifications" dataSource={notifications.list} /> : null}
+                </SlideIn>
                     <Layer flex {...styles}>
                         <Header />
                         <Route exact path="/" component={Dashboard} />
@@ -51,6 +55,7 @@ export default class Entry extends React.Component<any, any> {
                         <Route path="/labResults" component={LabResults} />
                         <Route path="/discounts" component={Discounts} />
                     </Layer>
+                    
                     <MenuPane history={this.props.history} />
                     <AuthPane history={this.props.history} />
                 </Layer>
