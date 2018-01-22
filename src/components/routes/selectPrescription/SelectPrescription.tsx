@@ -90,9 +90,9 @@ export default class SelectPrescription extends React.Component<IPrescribeProps,
                                     <small>Inscription: <strong>{selectedPrescription.inscription}</strong></small>
                                 </h1>
                                 <Toolbar textCenter vertical spacing block size="large" className="mt20 w300px center-width">
-                                    <Button theme="primary" block>Request Advocatey</Button>
-                                    <Button theme="primary" block>Request Benefits Verifcication</Button>
-                                    <Button theme="primary" block>Assign Pharmacy</Button>
+                                    <Button theme="primary" block>Request Advocacy</Button>
+                                    <Button theme="primary" block>Request Benefits Verification</Button>
+                                    <Button theme="primary" block>Send to Pharmacy</Button>
                                     <Button block onClick={this.cancelSelectPrescription.bind(this)} icon="chevron-left">Go Back</Button>
                                 </Toolbar>
                             </Layer>

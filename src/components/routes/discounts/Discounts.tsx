@@ -60,7 +60,7 @@ export default class Discounts extends React.Component<{}, {}> {
                                         <h2 className="mb20">Discounts</h2>
 
                                         <h1 className="mtb40">
-                                            Take a survey to recieve discounts of from your co-pay.
+                                            Take a functional survey to recieve discounts of from your co-pay.
                                         </h1>
                                         <Layer className="text-left">
                                             <Table hideHeader hidePageSize columns={[{ name: 'name', width: '200px' }, { name: 'description' }, { template: surveyTemplate }]} pageSize={5} overflow dataSource={[{name:'Personal Health', description: 'Take this anon survey and recieve 10% off copay'}]} />
