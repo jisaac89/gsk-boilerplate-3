@@ -20,7 +20,7 @@ export default class AuthPane extends React.Component<any, any> {
                     <Emerge enter="fadeIn" if={appStore.auth}>
                         <div className="p10">
                             <Toolbar block className="w400px center-width" spacing vertical>
-                                <RouterButton auth block size="xlarge" theme="primary" history={history} icon="facebook" route="/" title="Sign in with Facebook" />
+                                <RouterButton auth block size="xlarge" theme="primary" history={history} icon="facebook" route="/" title="Sign in" />
                             </Toolbar>
                         </div>
                     </Emerge>

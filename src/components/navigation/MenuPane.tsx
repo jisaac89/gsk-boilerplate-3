@@ -32,15 +32,15 @@ export default class MenuPane extends React.Component<any, any> {
                             <Emerge enter="fadeIn" if={appStore.menu}>
                                 <div></div>
                                 <Toolbar block flush flex className="mb20">
-                                    <Button theme="error">{labResultsStore.list.length}</Button>
+                                    {labResultsStore.list.length ? <Button theme="error">{labResultsStore.list.length}</Button> : null}
                                     <RouterButton block size="large" history={history} route="/labResults" title="Lab Results" />
                                 </Toolbar>                      
                                 <Toolbar block flush flex className="mb20">
-                                    <Button theme="error">{prescriptionsStore.list.length}</Button>
+                                    {prescriptionsStore.list.length ? <Button theme="error">{prescriptionsStore.list.length}</Button> : null}
                                     <RouterButton block size="large" history={history} route="/selectPrescription" title="Prescriptions" />
                                 </Toolbar>
                                 <Toolbar block flush flex className="mb20">
-                                    <Button theme="error">2</Button>
+                                    <Button theme="error">1</Button>
                                     <RouterButton block size="large" history={history} route="/discounts" title="Discounts" />
                                 </Toolbar>
                                 <RouterButton className="mb20" disabled block size="large" history={history} route="/" title="My Profile" />
