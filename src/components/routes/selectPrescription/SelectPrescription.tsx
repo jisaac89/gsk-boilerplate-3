@@ -12,6 +12,7 @@ import { IPrescribeProps } from '../../../interfaces/views/IPrescribeProps';
 import SignatureCanvas from 'react-signature-canvas';
 
 import { IPatient } from '../../../interfaces/data/IPatient';
+import MobileTemplate from '../../../../recoil/src/components/DatePicker/MobileTemplate';
 
 @observer
 export default class SelectPrescription extends React.Component<IPrescribeProps, {}> {
@@ -45,6 +46,14 @@ export default class SelectPrescription extends React.Component<IPrescribeProps,
                 </Toolbar>
             )
         }
+
+        let mobileTemplate = (item, index) =>{
+            return (
+                <div>
+                    <p>{item.drug + ' ' + item.dose + ' ' + item.issueUnit }</p>
+                </div>
+            )
+        }
         return (
             <Layer fill flex>
                 <Layer fill flex>
@@ -70,13 +79,13 @@ export default class SelectPrescription extends React.Component<IPrescribeProps,
                                             Below is a list of recent prescriptions.
                                         </h1>
                                         <Layer className="text-left">
-                                            <Table rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={[{ name: 'drug', width: '200px' }, { name: 'dose' }, { name: 'issueUnit' }, { template: menuTemplate }]}  hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.list} />
+                                            <Table rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={appStore.mobile ? [{template: mobileTemplate}, {template: menuTemplate}]: [{ name: 'drug', width: '200px' }, { name: 'dose' }, { name: 'issueUnit' }, { template: menuTemplate }]}  hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.list} />
                                         </Layer>
                                     </Layer>
                                 </Emerge>
                             }
                         </Layer>
-                        <Layer flexCenter fill className="border-right">
+                        <Layer flexCenter={!appStore.mobile} scrollY={appStore.mobile} fill className={appStore.mobile ? "text-center" : "border-right"}>
                             <Layer>
                                 <img height={175} width={175} src="https://www.qrstuff.com/images/default_qrcode.png" />
                                 <h2 className="mb20">Prescription ID : 0x210958102985108</h2>
