@@ -58,9 +58,9 @@ export class PrescriptionsStore extends BaseStore {
           
             var p = generator.next();
             p.value.then(function(d){
-              if(d.length > context.currentRowCount){
+              if(d.length > context.list.length){
                 runPolling(generator);
-                context.currentRowCount = d.length;
+                context.currentDataSourceLength = d.length;
                 context.list = d;
                 notifications.pushNotification(d.reverse()[d.length - 1]);
               } else {
@@ -69,6 +69,10 @@ export class PrescriptionsStore extends BaseStore {
             });
           }
           runPolling();
+    }
+
+    afterAdd(){
+      this.listenForNotifications();
     }
 
 }

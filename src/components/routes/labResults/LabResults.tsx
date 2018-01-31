@@ -29,6 +29,12 @@ export default class LabResults extends React.Component<{}, {}> {
             )
         }
 
+        let submitTestForDiscount = (item, index) =>{
+            return (
+                <Button right theme="error">Submit for discount</Button>
+            )
+        }
+
         return (
             <Layer fill flex>
                 <Layer fill flex>
@@ -54,7 +60,7 @@ export default class LabResults extends React.Component<{}, {}> {
                                             Below is a list of recently sent results.
                                         </h1>
                                         <Layer className="text-left">
-                                            <Table hidePageSize pageSize={5} overflow dataSource={labResultsStore.list} />
+                                            <Table columns={[{name:'description'},{name:'owner'}, {template:submitTestForDiscount}]}  hidePageSize pageSize={5} overflow dataSource={labResultsStore.list} />
                                         </Layer>
                                     </Layer>
                                 </Emerge>

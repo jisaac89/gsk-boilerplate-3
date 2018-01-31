@@ -21,8 +21,8 @@ export class AppStore implements IAppStore {
 
     initializeApp() {
         labResultsStore.init();
-        // prescriptionsStore.init()
-        prescriptionsStore.listenForNotifications();
+        prescriptionsStore.init()
+        // prescriptionsStore.listenForNotifications();
     }
 
     toggleNightmode(){

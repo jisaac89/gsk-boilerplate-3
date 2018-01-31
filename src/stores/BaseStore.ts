@@ -23,6 +23,11 @@ export default abstract class BaseStore extends Store{
         self.loadNewPage();
     }
 
+    
+    // afterAdd?() : void;
+
+    afterAdd?() : void;
+
     loadNewPage() {
         const context = this;
         let urlString = this.ref;
@@ -33,6 +38,7 @@ export default abstract class BaseStore extends Store{
                    context.list = data;
                    console.log(context.list);
                    context.currentRowCount = context.list.length;
+                   context.afterAdd ? context.afterAdd() : null;
                 })
             }
         });
