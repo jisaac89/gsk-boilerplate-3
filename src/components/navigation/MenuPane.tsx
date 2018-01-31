@@ -26,7 +26,7 @@ export default class MenuPane extends React.Component<any, any> {
                             <img className="profile-pic pull-left mb40" src="https://www.lawlogix.com/wp-content/uploads/2015/05/LW-603-p28-partner-profile.jpg" />
                             <div className="pull-left dinblock mt20 ml20">
                                 <h1>Welcome back,</h1>
-                                <h2>Tony</h2>
+                                <h2>Stokes</h2>
                             </div>
                             <Toolbar block className="center-width text-left" spacing vertical>
                             <Emerge enter="fadeIn" if={appStore.menu}>
