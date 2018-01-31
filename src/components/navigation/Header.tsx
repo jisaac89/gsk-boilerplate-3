@@ -16,11 +16,11 @@ export default class Header extends React.Component<any, any> {
     render() {
         return (
             <Emerge enter="fadeIn" exit="fadeOut" if={!appStore.menu}>
-                <Layer className="z5">
+                <Emerge if={!appStore.menu} className="z5">
                     <Toolbar block spacing className="p10 text-right">
-                        <Button right materialIcon simple icon={"menu"} onClick={this.toggleMenu.bind(this)}></Button>   
-                    </Toolbar>
-                </Layer>
+                        <Button right materialIcon icon={"menu"} onClick={this.toggleMenu.bind(this)}> Dashboard</Button>   
+                    </Toolbar>                                                                                                                                                                                                                                                                                                                               
+                </Emerge>
             </Emerge>
         )
      } 

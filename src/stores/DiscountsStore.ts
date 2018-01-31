@@ -41,6 +41,17 @@ export class DiscountsStore {
           
           runPolling();
     }
+
+    resetStore(){
+      this.slideIndex = 0;
+    }
+
+    submitSurvey(){
+      this.slideIndex = 2;
+      setTimeout(()=>{
+        this.slideIndex = 3
+      }, 6000)
+    }
 }
 
 export const discountsStore = new DiscountsStore();
