@@ -62,7 +62,7 @@ export class PrescriptionsStore extends BaseStore {
                 runPolling(generator);
                 context.currentDataSourceLength = d.length;
                 context.list = d;
-                notifications.pushNotification(d.reverse()[d.length - 1]);
+                notifications.pushNotification(d.reverse()[d.length - 1], 'prescription');
               } else {
                 // console.log(d);
               }
