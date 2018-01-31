@@ -22,7 +22,6 @@ export default class MenuPane extends React.Component<any, any> {
             <SlideIn className="z3" if={appStore.menu} from="bottom" fill>
                 <Layer id="main" flexCenter={!appStore.mobile} fill className="text-left pt50" theme="light">
                         <div className="p20 w500px center-width">
-                    
                             <img className="profile-pic pull-left mb40" src="https://www.lawlogix.com/wp-content/uploads/2015/05/LW-603-p28-partner-profile.jpg" />
                             <div className="pull-left dinblock mt20 ml20">
                                 <h1>Welcome back,</h1>
