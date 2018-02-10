@@ -6,6 +6,8 @@ import {observer, inject} from 'mobx-react';
 
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 
+import {PrivateRoute} from './helpers/PrivateRoute';
+
 import Header from './navigation/Header';
 import LoadingPane from './navigation/LoadingPane';
 import MenuPane from './navigation/MenuPane';
@@ -51,9 +53,9 @@ export default class Entry extends React.Component<any, any> {
                     <Layer flex {...styles}>
                         <Header />
                         <Route exact path="/" component={Dashboard} />
-                        <Route path="/selectPrescription" component={Prescriptions} />
-                        <Route path="/labResults" component={LabResults} />
-                        <Route path="/discounts" component={Discounts} />
+                        <PrivateRoute path="/prescriptions" component={Prescriptions} />
+                        <PrivateRoute path="/labResults" component={LabResults} />
+                        <PrivateRoute path="/discounts" component={Discounts} />
                     </Layer>
                     <MenuPane history={this.props.history} />
                     <AuthPane history={this.props.history} />

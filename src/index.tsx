@@ -7,7 +7,7 @@ import * as promiseFinally from 'promise.prototype.finally';
 
 import { Provider } from 'mobx-react';
 
-import {appStore,labResultsStore, authStore, prescriptionsStore, discountsStore, notificationStore} from './stores/_GlobalStore'
+import { appStore, labResultsStore, authStore, prescriptionsStore, discountsStore, notificationStore } from './stores/_GlobalStore'
 
 import 'core-js';
 
@@ -27,7 +27,7 @@ promiseFinally.shim();
 
 ReactDOM.render(
     <Provider {...stores}>
-        <Entry />   
+        <Entry />
     </Provider>,
     document.getElementById("root")
 ); 
