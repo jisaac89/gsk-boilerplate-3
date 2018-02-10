@@ -3,17 +3,18 @@ import * as React from 'react';
 
 import { Layer, Open, Emerge, Stepper, Loading, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
 
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
-import { appStore, patientStore, prescriptionsStore } from '../../../stores/_GlobalStore';
+import { appStore, prescriptionsStore } from '../../../stores/_GlobalStore';
 
-import { IPrescribeProps } from '../../../interfaces/views/IPrescribeProps';
+import { IPrescribeProps } from '../../../interfaces/components/IPrescribeProps';
 
 import SignatureCanvas from 'react-signature-canvas';
 
 import { IPatient } from '../../../interfaces/data/IPatient';
 import MobileTemplate from '../../../../recoil/src/components/DatePicker/MobileTemplate';
 
+@inject('appStore','prescriptionsStore')
 @observer
 export default class SelectPrescription extends React.Component<IPrescribeProps, {}> {
 
@@ -22,22 +23,23 @@ export default class SelectPrescription extends React.Component<IPrescribeProps,
     }
 
     gotoSlideIndex(n: number) {
-        prescriptionsStore.gotoSlideIndex(n);
+        this.props.prescriptionsStore.gotoSlideIndex(n);
     }
 
     selectPrescription(prescription) {
-        prescriptionsStore.selectPrescription(prescription);
+        this.props.prescriptionsStore.selectPrescription(prescription);
         this.gotoSlideIndex(1);
     }
 
-    cancelSelectPrescription(){
-        prescriptionsStore.selectPrescription({});
+    cancelSelectPrescription() {
+        this.props.prescriptionsStore.selectPrescription({});
         this.gotoSlideIndex(0);
     }
 
     render() {
 
-        let {selectedPrescription} = prescriptionsStore;
+        let prescriptionsStore = this.props.prescriptionsStore;
+        let { selectedPrescription } = prescriptionsStore;
 
         let menuTemplate = (item, index) => {
             return (
@@ -47,10 +49,10 @@ export default class SelectPrescription extends React.Component<IPrescribeProps,
             )
         }
 
-        let mobileTemplate = (item, index) =>{
+        let mobileTemplate = (item, index) => {
             return (
                 <div>
-                    <p>{item.drug + ' ' + item.dose + ' ' + item.issueUnit }</p>
+                    <p>{item.drug + ' ' + item.dose + ' ' + item.issueUnit}</p>
                 </div>
             )
         }
@@ -59,7 +61,7 @@ export default class SelectPrescription extends React.Component<IPrescribeProps,
                 <Layer fill flex>
                     <Wizard fill flex slideIndex={prescriptionsStore.slideIndex}>
                         <Layer fill flexCenter>
-                                {prescriptionsStore.list.length === 0 ?
+                            {prescriptionsStore.list.length === 0 ?
                                 <Emerge if={!appStore.menu}>
                                     <Layer className="p20">
                                         <i className="material-icons super-xl mb20 floatL">link</i>
@@ -79,7 +81,7 @@ export default class SelectPrescription extends React.Component<IPrescribeProps,
                                             Below is a list of recent prescriptions.
                                         </h1>
                                         <Layer className="text-left">
-                                            <Table rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={appStore.mobile ? [{template: mobileTemplate}, {template: menuTemplate}]: [{ name: 'drug', width: '200px' }, { name: 'dose' }, { name: 'issueUnit' }, { template: menuTemplate }]}  hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.list} />
+                                            <Table rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={appStore.mobile ? [{ template: mobileTemplate }, { template: menuTemplate }] : [{ name: 'drug', width: '200px' }, { name: 'dose' }, { name: 'issueUnit' }, { template: menuTemplate }]} hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.list} />
                                         </Layer>
                                     </Layer>
                                 </Emerge>
@@ -112,8 +114,3 @@ export default class SelectPrescription extends React.Component<IPrescribeProps,
         )
     }
 }
-
-
-{/* <Toolbar block size="large" className="mt20">
-<Button onClick={this.gotoSlideIndex.bind(this, 1)} icon="chevron-right" outline theme="error">Get Started</Button>
-</Toolbar> */}

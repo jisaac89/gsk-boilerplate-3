@@ -1,6 +1,6 @@
 import {observable, computed, ObservableMap, toJS} from 'mobx';
 
-class Notifications{
+class NotificationStore{
 
     @observable list : Array<any> = [];
 
@@ -27,4 +27,4 @@ class Notifications{
     }
 }
 
-export const notifications = new Notifications();
+export const notificationStore = new NotificationStore();

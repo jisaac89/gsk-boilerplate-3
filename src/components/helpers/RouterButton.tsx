@@ -1,25 +1,28 @@
 import * as React from "react";
 import {withRouter} from "react-router-dom";
 
-import { Recoil, Table, Button, IButtonProps, Toolbar, Input, Emerge, Layer, SlideIn, Loading, Open, Checkbox } from '../../../recoil/src/index';
-import { observer } from 'mobx-react';
-import { appStore } from '../../stores/_GlobalStore';
+import { Button } from '../../../recoil/src/index';
+import { observer, inject } from 'mobx-react';
 
-interface IRouterButton extends IButtonProps{
+import {IAppStore} from '../../interfaces/stores/IAppStore';
+
+interface IRouterButton{
     history: any;
     route: string;
     title?: string;
     auth?: boolean;
+    appStore?: IAppStore; 
 }
 
+@inject('appStore')
 @observer
 class RouterButton extends React.Component<IRouterButton, any> {
 
   gotoRoute(route) {
     if(this.props.auth){
-      appStore.toggleAuth();
+      this.props.appStore.toggleAuth();
     } else{
-      appStore.menu = false;
+      this.props.appStore.menu = false;
     }
     this.props.history.push(route);
   }

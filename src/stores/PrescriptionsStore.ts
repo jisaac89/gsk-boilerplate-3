@@ -4,7 +4,7 @@ import {appStore} from '../stores/_GlobalStore';
 
 import BaseStore from './BaseStore';
 
-import {notifications} from '../state/Notifications';
+import {notificationStore} from '../stores/NotificationStore';
 
 import {IPrescription} from '../interfaces/data/IPrescription';
 
@@ -62,7 +62,7 @@ export class PrescriptionsStore extends BaseStore {
                 runPolling(generator);
                 context.currentDataSourceLength = d.length;
                 context.list = d;
-                notifications.pushNotification(d.reverse()[d.length - 1], 'prescription');
+                notificationStore.pushNotification(d.reverse()[d.length - 1], 'prescription');
               } else {
                 // console.log(d);
               }

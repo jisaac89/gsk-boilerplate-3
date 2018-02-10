@@ -2,18 +2,20 @@ import * as React from 'react';
 
 import {Toolbar, Button, Layer, Emerge} from '../../../recoil/src/index';
 
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 
-import {appStore} from '../../stores/_GlobalStore';
-
+@inject('appStore')
 @observer
 export default class Header extends React.Component<any, any> {
 
     toggleMenu(){
-        appStore.toggleMenu();
+        this.props.appStore.toggleMenu();
     }
 
     render() {
+
+        let appStore = this.props.appStore;
+
         return (
             <Emerge enter="fadeIn" exit="fadeOut" if={!appStore.menu}>
                 <Emerge if={!appStore.menu} className="z5">

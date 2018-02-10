@@ -3,7 +3,7 @@ import {observable, computed, ObservableMap, toJS} from 'mobx';
 import BaseStore from './BaseStore';
 import { IPatient } from '../interfaces/data/IPatient';
 
-import {notifications} from '../state/Notifications';
+import {notificationStore} from '../stores/NotificationStore';
 
 function *pollForLabResults(){
   while(true){
@@ -52,7 +52,7 @@ export class LabResultsStore extends BaseStore {
               runPolling(generator);
               context.currentDataSourceLength = d.length;
               context.list = d;
-              notifications.pushNotification(d.reverse()[d.length - 1], 'labresult');
+              notificationStore.pushNotification(d.reverse()[d.length - 1], 'labresult');
             } else {
               // console.log(d);
             }

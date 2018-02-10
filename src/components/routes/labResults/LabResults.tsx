@@ -1,25 +1,26 @@
 
 import * as React from 'react';
 
-import { Layer, Open, Emerge, Stepper, Loading, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
+import { Layer, Emerge, Table, Button, Wizard, Toolbar } from '../../../../recoil/src/index';
 
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
-import { appStore, labResultsStore } from '../../../stores/_GlobalStore';
-
-
+@inject('appStore', 'labResultsStore')
 @observer
-export default class LabResults extends React.Component<{}, {}> {
+export default class LabResults extends React.Component<any, {}> {
 
     constructor(props) {
         super(props);
     }
 
     gotoSlideIndex(n: number) {
-        labResultsStore.gotoSlideIndex(n);
+        this.props.labResultsStore.gotoSlideIndex(n);
     }
 
     render() {
+
+        let appStore = this.props.appStore;
+        let labResultsStore = this.props.labResultsStore;
 
         let menuTemplate = (item, index) => {
             return (

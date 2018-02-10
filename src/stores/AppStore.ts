@@ -1,4 +1,4 @@
-import {observable, computed} from 'mobx';
+import {observable, computed, action, reaction} from 'mobx';
 
 import {IAppStore} from '../interfaces/stores/IAppStore';
 
@@ -15,10 +15,34 @@ export class AppStore implements IAppStore {
     @observable menu = false;
     @observable loading = false;
     @observable auth : boolean = true;
+ //
 
-    constructor() {
-        const self = this;
-    }
+ @observable appName = 'Prescription Prototype';
+ @observable token = window.localStorage.getItem('jwt');
+ @observable appLoaded = false;
+
+ constructor() {
+   reaction(
+     () => this.token,
+     token => {
+       if (token) {
+         window.localStorage.setItem('jwt', token);
+       } else {
+         window.localStorage.removeItem('jwt');
+       }
+     }
+   );
+ }
+
+ @action setToken(token) {
+     this.token = token;
+   }
+ 
+ @action setAppLoaded() {
+     this.appLoaded = true;
+ }    
+
+ //
 
     initializeApp() {
         labResultsStore.init();

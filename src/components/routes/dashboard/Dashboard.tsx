@@ -1,11 +1,8 @@
 import * as React from 'react';
 
-import {Recoil, Layer} from '../../../../recoil/src/index';
+import {observer, inject} from 'mobx-react';
 
-import {observer} from 'mobx-react';
-
-import {appStore} from '../../../stores/_GlobalStore';
-
+@inject('appStore')
 @observer
 export default class Dashboard extends React.Component<any, any> {
 
@@ -14,6 +11,7 @@ export default class Dashboard extends React.Component<any, any> {
     }
 
     componentDidMount(){
+        let appStore = this.props.appStore;
         if (appStore.auth){
             appStore.auth = true;
         } else{

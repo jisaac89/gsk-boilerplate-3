@@ -2,9 +2,7 @@ import * as React from 'react';
 
 import {Recoil, Layer, Notifications, SlideIn} from '../../recoil/src/index';
 
-import {observer} from 'mobx-react';
-
-import {appStore} from '../stores/_GlobalStore';
+import {observer, inject} from 'mobx-react';
 
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -12,13 +10,12 @@ import Header from './navigation/Header';
 import LoadingPane from './navigation/LoadingPane';
 import MenuPane from './navigation/MenuPane';
 import AuthPane from './navigation/AuthPane';
-
 import Dashboard from './routes/dashboard/Dashboard';
 import SelectPrescription from './routes/selectPrescription/SelectPrescription';
 import LabResults from './routes/labResults/LabResults';
 import Discounts from './routes/discounts/Discounts';
-import { notifications } from '../state/Notifications';
 
+@inject('appStore', 'notificationStore')
 @observer
 export default class Entry extends React.Component<any, any> {
 
@@ -27,14 +24,17 @@ export default class Entry extends React.Component<any, any> {
     }
 
     componentDidMount(){
-        appStore.initializeApp();
+        this.props.appStore.initializeApp();
     }
 
     onMobile(isMobile){
-        appStore.onMobile(isMobile);
+        this.props.appStore.onMobile(isMobile);
     }
 
     render() {
+
+    let appStore = this.props.appStore;
+    let notificationStore = this.props.notificationStore;
         
     let styles = {
         overflow : true,
@@ -46,7 +46,7 @@ export default class Entry extends React.Component<any, any> {
             <Recoil onMobile={this.onMobile.bind(this)} nightmode={appStore.nightmode} {...styles}>
                 <Layer {...styles}>
                     <SlideIn className="z5" from="top" if={true}>
-                        {notifications.list.length ? <Notifications className="notifications" dataSource={notifications.list} /> : null}
+                        {notificationStore.list.length ? <Notifications className="notifications" dataSource={notificationStore.list} /> : null}
                     </SlideIn>
                     <Layer flex {...styles}>
                         <Header />

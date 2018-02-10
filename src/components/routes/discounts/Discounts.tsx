@@ -3,31 +3,32 @@ import * as React from 'react';
 
 import { Layer, Open, Emerge, Stepper, Loading, Checkbox, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
 
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
-import { appStore, discountsStore, labResultsStore } from '../../../stores/_GlobalStore';
-
-
+@inject('appStore', 'discountsStore', 'labResultsStore')
 @observer
-export default class Discounts extends React.Component<{}, {}> {
+export default class Discounts extends React.Component<any, {}> {
 
     constructor(props) {
         super(props);
     }
 
     componentDidMount(){
-        discountsStore.slideIndex = 0;
+        this.props.discountsStore.slideIndex = 0;
     }
 
     gotoSlideIndex(n: number) {
-        discountsStore.gotoSlideIndex(n);
+        this.props.discountsStore.gotoSlideIndex(n);
     }
 
     submitSurvey(){
-        discountsStore.submitSurvey();
+        this.props.discountsStore.submitSurvey();
     }
 
     render() {
+
+        let appStore = this.props.appStore;
+        let discountsStore = this.props.discountsStore;
 
         let menuTemplate = (item, index) => {
             return (
