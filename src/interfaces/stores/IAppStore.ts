@@ -5,4 +5,6 @@ export interface IAppStore{
     loading : boolean;
     token: string;
     toggleAuth(): void;
+    toggleMenu(): void;
+    auth?: boolean;
 }

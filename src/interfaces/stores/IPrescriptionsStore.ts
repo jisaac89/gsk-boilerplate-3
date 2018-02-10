@@ -1,7 +1,9 @@
-import {IPrescription} from '../data/IPrescription';
+import { IPrescription } from "../data/IPrescription";
 
-export interface IPrescribeStore{
+export interface IPrescriptionsStore{
     slideIndex: number;
-    prescriptions: IPrescription[];
     gotoSlideIndex(n: number) : void;
-}
+    selectPrescription(prescription: IPrescription): void;
+    list : Array<any>;
+    selectedPrescription: IPrescription;
+} 

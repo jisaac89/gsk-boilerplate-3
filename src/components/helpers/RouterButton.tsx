@@ -6,17 +6,11 @@ import { observer, inject } from 'mobx-react';
 
 import {IAppStore} from '../../interfaces/stores/IAppStore';
 
-interface IRouterButton{
-    history: any;
-    route: string;
-    title?: string;
-    auth?: boolean;
-    appStore?: IAppStore; 
-}
+import {IRouterButtonProps} from '../../interfaces/components/helpers/IRouterButtonProps';
 
 @inject('appStore')
 @observer
-class RouterButton extends React.Component<IRouterButton, any> {
+class RouterButton extends React.Component<IRouterButtonProps, any> {
 
   gotoRoute(route) {
     if(this.props.auth){

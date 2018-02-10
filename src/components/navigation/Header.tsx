@@ -4,9 +4,11 @@ import {Toolbar, Button, Layer, Emerge} from '../../../recoil/src/index';
 
 import {observer, inject} from 'mobx-react';
 
+import {IHeaderProps} from '../../interfaces/components/navigation/IHeaderProps';
+
 @inject('appStore')
 @observer
-export default class Header extends React.Component<any, any> {
+export default class Header extends React.Component<IHeaderProps, any> {
 
     toggleMenu(){
         this.props.appStore.toggleMenu();

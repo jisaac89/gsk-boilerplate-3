@@ -11,7 +11,7 @@ import LoadingPane from './navigation/LoadingPane';
 import MenuPane from './navigation/MenuPane';
 import AuthPane from './navigation/AuthPane';
 import Dashboard from './routes/dashboard/Dashboard';
-import SelectPrescription from './routes/selectPrescription/SelectPrescription';
+import Prescriptions from './routes/prescriptions/Prescriptions';
 import LabResults from './routes/labResults/LabResults';
 import Discounts from './routes/discounts/Discounts';
 
@@ -51,7 +51,7 @@ export default class Entry extends React.Component<any, any> {
                     <Layer flex {...styles}>
                         <Header />
                         <Route exact path="/" component={Dashboard} />
-                        <Route path="/selectPrescription" component={SelectPrescription} />
+                        <Route path="/selectPrescription" component={Prescriptions} />
                         <Route path="/labResults" component={LabResults} />
                         <Route path="/discounts" component={Discounts} />
                     </Layer>

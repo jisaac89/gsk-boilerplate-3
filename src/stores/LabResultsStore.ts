@@ -5,6 +5,8 @@ import { IPatient } from '../interfaces/data/IPatient';
 
 import {notificationStore} from '../stores/NotificationStore';
 
+import {ILabResultsStore} from '../interfaces/stores/ILabResultsStore';
+
 function *pollForLabResults(){
   while(true){
     yield fetch('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/cloud.aperio.viiv.viralLoadTest',{
@@ -16,7 +18,7 @@ function *pollForLabResults(){
   }
 }
 
-export class LabResultsStore extends BaseStore {
+export class LabResultsStore extends BaseStore implements ILabResultsStore {
 
   @observable slideIndex : number = 0;
   @observable currentDataSourceLength : number = 0;

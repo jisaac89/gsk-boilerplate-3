@@ -74,38 +74,6 @@ export class AuthStore implements IAuthStore {
         this.isRegistered = false;
     }
 
-    register() {
-        
-        let context = this;
-        this.loading = true;
-        let urlString = '';
-        
-        // setTimeout(()=>{
-        //     this.isRegistered = true;
-        //     this.loading = false;
-        // }, 1000);
-
-        this.user.password = passwordHash.generate(this.user.password);
-
-        var request = new Request(`${urlString}`, {
-            method: 'POST', 
-            mode: 'cors', 
-            redirect: 'follow',
-            body: JSON.stringify(context.user),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        });
-
-        fetch(request).then(function(response) {
-          return response.json();
-        }).then(function(data) {
-            console.log(data);
-            context.loading = false;
-        });
-
-    }
-
     onChangeCompanyCode(companyCode){
         this.user.companyCode = companyCode;
     }
@@ -131,7 +99,7 @@ export class AuthStore implements IAuthStore {
           .finally(action(() => { this.loading = false; }));
       }
     
-      @action registera() {
+      @action register() {
         this.loading = true;
         return api.Auth.register(this.user.email, this.user.password)
           .then(({ user }) => appStore.setToken(user.token))

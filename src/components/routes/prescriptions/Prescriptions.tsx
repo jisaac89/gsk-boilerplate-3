@@ -7,7 +7,7 @@ import { observer, inject } from 'mobx-react';
 
 import { appStore, prescriptionsStore } from '../../../stores/_GlobalStore';
 
-import { IPrescribeProps } from '../../../interfaces/components/IPrescribeProps';
+import { IPrescriptionsProps } from '../../../interfaces/components/routes/prescriptions/IPrescriptionsProps';
 
 import SignatureCanvas from 'react-signature-canvas';
 
@@ -16,7 +16,7 @@ import MobileTemplate from '../../../../recoil/src/components/DatePicker/MobileT
 
 @inject('appStore','prescriptionsStore')
 @observer
-export default class SelectPrescription extends React.Component<IPrescribeProps, {}> {
+export default class Prescriptions extends React.Component<IPrescriptionsProps, {}> {
 
     constructor(props) {
         super(props);

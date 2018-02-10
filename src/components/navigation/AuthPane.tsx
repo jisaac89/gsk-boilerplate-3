@@ -6,9 +6,11 @@ import { observer, inject } from 'mobx-react';
 
 import RouterButton from '../helpers/RouterButton';
 
-@inject('appStore', 'prescriptionsStore','authStore')
+import {IAuthPaneProps} from '../../interfaces/components/navigation/IAuthPaneProps';
+
+@inject('appStore','authStore')
 @observer
-export default class AuthPane extends React.Component<any, any> {
+export default class AuthPane extends React.Component<IAuthPaneProps, any> {
     toggleRegistering() {
         this.props.authStore.toggleRegistering();
     }
@@ -20,7 +22,7 @@ export default class AuthPane extends React.Component<any, any> {
     }
 
     registera(){
-        this.props.authStore.registera();
+        this.props.authStore.register();
     }
     render() {
 

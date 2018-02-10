@@ -6,9 +6,11 @@ import {observer, inject} from 'mobx-react';
 
 import RouterButton from '../helpers/RouterButton';
 
+import {IMenuPaneProps} from '../../interfaces/components/navigation/IMenuPaneProps';
+
 @inject('appStore', 'prescriptionsStore', 'labResultsStore')
 @observer
-export default class MenuPane extends React.Component<any, any> {
+export default class MenuPane extends React.Component<IMenuPaneProps, any> {
     signOut(){
         this.props.appStore.toggleAuth();
     }

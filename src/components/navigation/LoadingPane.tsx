@@ -4,9 +4,11 @@ import {Recoil, Table, Button, Toolbar, Input, Emerge, Layer, SlideIn, Loading, 
 
 import {observer, inject} from 'mobx-react';
 
+import {ILoadingPaneProps} from '../../interfaces/components/navigation/ILoadingPaneProps';
+
 @inject('appStore')
 @observer
-export default class LoadingPane extends React.Component<any, any> {
+export default class LoadingPane extends React.Component<ILoadingPaneProps, any> {
     render() {
 
         let appStore = this.props.appStore;
