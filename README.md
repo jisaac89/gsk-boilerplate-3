@@ -1,7 +1,7 @@
 ````
-git clone https://github.com/jisaac89/hyperledger-boilerplate.git
+git clone https://github.com/jisaac89/gsk-boilerplate-3.git
 
-cd hyperledger-boilerplate
+cd gsk-boilerplate-3
 
 git clone https://github.com/jisaac89/recoil.git
 
