@@ -17,7 +17,7 @@ import Prescriptions from './routes/prescriptions/Prescriptions';
 import LabResults from './routes/labResults/LabResults';
 import Discounts from './routes/discounts/Discounts';
 
-@inject('appStore', 'notificationStore')
+@inject('appStore', 'notificationStore', 'authStore')
 @observer
 export default class Entry extends React.Component<any, any> {
 
@@ -37,6 +37,9 @@ export default class Entry extends React.Component<any, any> {
 
     let appStore = this.props.appStore;
     let notificationStore = this.props.notificationStore;
+    let authStore = this.props.authStore;
+
+    let isAuthenticated = this.props.authStore.isAuthenticated;
         
     let styles = {
         overflow : true,
@@ -52,13 +55,13 @@ export default class Entry extends React.Component<any, any> {
                     </SlideIn>
                     <Layer flex {...styles}>
                         <Header />
-                        <Route exact path="/" component={Dashboard} />
+                        <PrivateRoute exact path="/" component={Dashboard} />
                         <PrivateRoute path="/prescriptions" component={Prescriptions} />
                         <PrivateRoute path="/labResults" component={LabResults} />
                         <PrivateRoute path="/discounts" component={Discounts} />
                     </Layer>
-                    <MenuPane history={this.props.history} />
-                    <AuthPane history={this.props.history} />
+                    {authStore.isAuthenticated ? <MenuPane history={this.props.history} /> : null }
+                    <Route path="/login" component={AuthPane}/>
                 </Layer>
             </Recoil>
         </Router>

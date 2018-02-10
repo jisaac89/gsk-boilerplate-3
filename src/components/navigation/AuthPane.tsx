@@ -5,7 +5,7 @@ import { Recoil, Table, Wizard, Button, Toolbar, Input, Emerge, Layer, SlideIn, 
 import { observer, inject } from 'mobx-react';
 
 import RouterButton from '../helpers/RouterButton';
-
+import {AuthButton} from '../helpers/AuthButton';
 import {IAuthPaneProps} from '../../interfaces/components/navigation/IAuthPaneProps';
 
 @inject('appStore','authStore')
@@ -42,10 +42,7 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
                                             <h1 className="mb10 text-left">Sign in to your account</h1>
                                             <RouterButton auth block size="xlarge" theme="primary" history={history} icon="facebook" route="/" title="Sign in" />
                                             <h2 className="mtb20">OR</h2>
-                                            <Input size="large" block placeholder="Username/Email" />
-                                            <Input size="large" block placeholder="Password" />
-
-                                            <Button size="xlarge" block>Login</Button>
+                                            <AuthButton />
                                         </Toolbar>
                                     </div>
                                 </Emerge>
