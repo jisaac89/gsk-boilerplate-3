@@ -1,8 +1,8 @@
-import {observable, computed, autorun, action} from 'mobx';
+import { observable, computed, autorun, action } from 'mobx';
 
-import {appStore} from '../stores/_GlobalStore';
+import { appStore } from '../stores/_GlobalStore';
 
-import {IAuthStore} from '../interfaces/stores/IAuthStore';
+import { IAuthStore } from '../interfaces/stores/IAuthStore';
 
 import * as passwordHash from 'password-hash';
 
@@ -14,7 +14,7 @@ import api from '../api';
 
 export class AuthStore implements IAuthStore {
 
-    @observable user : IUser = {
+    @observable user: IUser = {
         email: '',
         password: '',
         group: null,
@@ -23,20 +23,20 @@ export class AuthStore implements IAuthStore {
 
     //
 
-    @observable isAuthenticated : boolean = false;
-    @observable redirectToReferrer : boolean = false;
-    @observable loading : boolean = false;
+    @observable isAuthenticated: boolean = false;
+    @observable redirectToReferrer: boolean = false;
+    @observable loading: boolean = false;
 
     // register
 
-    @observable isRegistering : boolean = false;
-    @observable isRegistered : boolean = false;
+    @observable isRegistering: boolean = false;
+    @observable isRegistered: boolean = false;
 
     authenticate(cb) {
-        
+
         this.loading = true;
-        
-        setTimeout(()=>{
+
+        setTimeout(() => {
             this.isAuthenticated = true;
             this.loading = false;
             cb();
@@ -44,7 +44,7 @@ export class AuthStore implements IAuthStore {
         }, 1000);
     }
 
-    signout(cb? : ()=> void) {
+    signout(cb?: () => void) {
         this.isAuthenticated = false
         this.user.email = '';
         this.user.password = '';
@@ -52,37 +52,37 @@ export class AuthStore implements IAuthStore {
         cb ? setTimeout(cb, 100) : null;
     }
 
-    setEmail(email){
+    setEmail(email) {
         this.user.email = email;
     }
 
-    setPassword(password){
+    setPassword(password) {
         this.user.password = password;
     }
 
     // register
 
 
-    toggleRegistering(){
+    toggleRegistering() {
         this.isRegistering = !this.isRegistering;
         this.resetRegisterUser();
     }
 
-    resetRegisterUser(){
+    resetRegisterUser() {
         this.user.email = '';
         this.user.password = '';
         this.isRegistered = false;
     }
 
-    onChangeCompanyCode(companyCode){
+    onChangeCompanyCode(companyCode) {
         this.user.companyCode = companyCode;
     }
 
-    onChangeEmail(email){
+    onChangeEmail(email) {
         this.user.email = email;
     }
 
-    onChangePassword(password){
+    onChangePassword(password) {
         this.user.password = password;
     }
 
@@ -91,30 +91,33 @@ export class AuthStore implements IAuthStore {
     @action logina() {
         this.loading = true;
         return api.Auth.login(this.user.email, this.user.password)
-          .then(({ user }) => appStore.setToken(user.token))
-          .then(() => userStore.pullUser())
-          .catch(action((err) => {
-            throw err;
-          }))
-          .finally(action(() => { this.loading = false; }));
-      }
-    
-      @action register() {
+            .then(({ user }) => appStore.setToken(user.token))
+            .then(() => userStore.pullUser())
+            .catch(action((err) => {
+                throw err;
+            }))
+            .finally(action(() => { this.loading = false; }));
+    }
+
+    @action register() {
         this.loading = true;
         return api.Auth.register(this.user.email, this.user.password)
-          .then(({ user }) => appStore.setToken(user.token))
-          .then(() => userStore.pullUser())
-          .catch(action((err) => {
-            throw err;
-          }))
-          .finally(action(() => { this.loading = false; }));
-      }
+            //   .then(({ user }) => appStore.setToken(user.token))
+            //   .then(() => userStore.pullUser())
+            .catch(action((err) => {
+                throw err;
+            }))
+            .finally(action(() => {
+                this.loading = false;
+                this.isRegistered = true;
+            }));
+    }
 
-      @action logouta() {
+    @action logouta() {
         appStore.setToken(undefined);
         userStore.forgetUser();
         return Promise.resolve();
-      }
+    }
 
 }
 

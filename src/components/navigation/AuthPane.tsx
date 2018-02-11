@@ -21,7 +21,7 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
         this.props.authStore.setPassword(password);
     }
 
-    registera(){
+    register(){
         this.props.authStore.register();
     }
     render() {
@@ -29,6 +29,8 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
         let { history } = this.props;
         let appStore = this.props.appStore;
         let authStore = this.props.authStore;
+
+        let {isRegistered} = authStore;
 
         return (
             <SlideIn className="z4" if={!authStore.isAuthenticated} from="top" fill>
@@ -40,7 +42,7 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
                                     <div className="p10">
                                         <Toolbar block className="w400px center-width" spacing vertical>
                                             <h1 className="mb10 text-left">Sign in to your account</h1>
-                                            <RouterButton auth block size="xlarge" theme="primary" history={history} icon="facebook" route="/" title="Sign in" />
+                                            <RouterButton disabled auth block size="xlarge" theme="primary" history={history} icon="facebook" route="/" title="Sign in" />
                                             <h2 className="mtb20">OR</h2>
                                             <AuthButton />
                                         </Toolbar>
@@ -54,18 +56,16 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
                         <Layer flex fill theme="e-NightMode">
                             <Layer fill flexCenter className="text-center pt50">
                                 <div className="p10">
-                                    
                                     <Toolbar block className="w400px center-width" spacing vertical>
-                                        <h1 className="mb10 text-left">Register a new account</h1>
-                                        <Input onChange={this.setEmail.bind(this)} size="large" block placeholder="Email" />
-                                        <Input onChange={this.setPassword.bind(this)} size="large" block placeholder="Password" />
-
-                                        <Button onClick={this.registera.bind(this)} theme="primary" size="xlarge" block>Register</Button>
+                                        <h1 className={!isRegistered ? "mb10 text-left" : "mb10 text-center"}>{!isRegistered ? "Register a new account" : "Please check your email"}</h1>
+                                        {!isRegistered ? <Input onChange={this.setEmail.bind(this)} size="large" block placeholder="Email" />: null}
+                                        {!isRegistered ? <Input onChange={this.setPassword.bind(this)} size="large" block placeholder="Password" />: null}
+                                        {!isRegistered ? <Button theme="primary" onClick={this.register.bind(this)} size="xlarge" block>Register</Button> : null}
                                     </Toolbar>
                                 </div>
                             </Layer>
                             <Toolbar textCenter block className="border-top p10">
-                                <Button icon="chevron-left" onClick={this.toggleRegistering.bind(this)} outline size="large" block>Cancel</Button>
+                                <Button loading={authStore.loading} icon="chevron-left" onClick={this.toggleRegistering.bind(this)} outline size="large" block>Login</Button>
                             </Toolbar>
                         </Layer>
                     </Wizard>

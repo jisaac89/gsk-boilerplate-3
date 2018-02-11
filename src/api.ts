@@ -2,10 +2,12 @@ import {requests} from './connections/request';
 import {hyperledger_requests} from './connections/hyperledger_request';
 import { IPrescription } from './interfaces/data/IPrescription';
 
-let Doctor  = (email, password)  =>{
+let Patient  = (email, password)  =>{
   return {
     email : email,
-    password: password
+    "pass": password,
+    "firstName":email,
+    "lastName":email,
   } 
 }
 
@@ -13,9 +15,9 @@ const Auth = {
   current: () =>
     requests.get('/user'),
   login: (email, password) =>
-    requests.post('/loginhcp', Doctor(email, password)),
+    requests.post('/loginhcp', Patient(email, password)),
   register: (email, password) =>
-    requests.put('/doctor/'+email, Doctor(email, password)),
+    requests.put('/patients/'+email, Patient(email, password)),
   save: (user) =>
     requests.put('/patients/', user)
 };

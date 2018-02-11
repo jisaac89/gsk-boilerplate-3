@@ -4,10 +4,6 @@ class NotificationStore{
 
     @observable list : Array<any> = [];
 
-    constructor() {
-
-    }
-
     pushNotification(data, type: 'prescription' | 'labresult'){
         
         if (type === 'prescription'){
