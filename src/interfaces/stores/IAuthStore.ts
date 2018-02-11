@@ -19,4 +19,5 @@ export interface IAuthStore{
     redirectToReferrer: boolean;
     setPassword(password: string);
     setEmail(email: string); 
+    signout(): void;
 }

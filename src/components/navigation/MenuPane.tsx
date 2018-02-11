@@ -8,11 +8,11 @@ import RouterButton from '../helpers/RouterButton';
 
 import {IMenuPaneProps} from '../../interfaces/components/navigation/IMenuPaneProps';
 
-@inject('appStore', 'prescriptionsStore', 'labResultsStore')
+@inject('appStore', 'prescriptionsStore', 'labResultsStore', 'authStore')
 @observer
 export default class MenuPane extends React.Component<IMenuPaneProps, any> {
     signOut(){
-        this.props.appStore.toggleAuth();
+        this.props.authStore.signout();
     }
     render() {
 

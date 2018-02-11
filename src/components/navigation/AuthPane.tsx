@@ -31,7 +31,7 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
         let authStore = this.props.authStore;
 
         return (
-            <SlideIn className="z4" if={appStore.auth} from="top" fill>
+            <SlideIn className="z4" if={!authStore.isAuthenticated} from="top" fill>
                 <Layer fill flex theme="e-NightMode">
                     <Wizard fill slideIndex={authStore.isRegistering ? 1 : 0}>
                         <Layer fill flex>
@@ -73,4 +73,4 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
             </SlideIn>
         )
     }
-}  
+}
