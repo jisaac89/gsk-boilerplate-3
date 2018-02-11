@@ -4,6 +4,6 @@ export interface IPrescriptionsStore{
     slideIndex: number;
     gotoSlideIndex(n: number) : void;
     selectPrescription(prescription: IPrescription): void;
-    list : Array<any>;
+    prescriptions : IPrescription[];
     selectedPrescription: IPrescription;
 } 

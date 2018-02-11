@@ -1,38 +1,34 @@
 import {observable, computed, ObservableMap, toJS} from 'mobx';
 
-import BaseStore from './BaseStore';
 import { IPatient } from '../interfaces/data/IPatient';
 
 import {notificationStore} from '../stores/NotificationStore';
 
 import {ILabResultsStore} from '../interfaces/stores/ILabResultsStore';
 
-function *pollForLabResults(){
-  while(true){
-    yield fetch('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/cloud.aperio.viiv.viralLoadTest',{
-      method: 'get'
-    }).then(function(d){
-      var json = d.json();
-      return json;
-    });
-  }
-}
+import api from '../api';
+import { ILabTest } from '../interfaces/data/ILabTest';
 
-export class LabResultsStore extends BaseStore implements ILabResultsStore {
+export class LabResultsStore implements ILabResultsStore {
 
+  @observable list = [];
   @observable slideIndex : number = 0;
   @observable currentDataSourceLength : number = 0;
 
   constructor(){
-    super('viralLoadTest')
+    this.init();
+  }
+
+  init(){
+    const context = this;
+    return api.LabResults.all().then((data)=>{
+        this.list = data;
+        this.listenForNotifications();
+    })
   }
 
   gotoSlideIndex(n: number){
     this.slideIndex = n;
-  }
-
-  addObject(){
-    return null;
   }
 
   listenForNotifications(){
@@ -43,28 +39,10 @@ export class LabResultsStore extends BaseStore implements ILabResultsStore {
 
   pollLabResults(){
       const context = this;
-      function runPolling(generator ? : any){
-          if(!generator){
-            generator = pollForLabResults();
-          }
-        
-          var p = generator.next();
-          p.value.then(function(d){
-            if(d.length > context.list.length){
-              runPolling(generator);
-              context.currentDataSourceLength = d.length;
-              context.list = d;
-              notificationStore.pushNotification(d.reverse()[d.length - 1], 'labresult');
-            } else {
-              // console.log(d);
-            }
-          });
-        }
-        runPolling();
-  }
-
-  afterAdd(){
-    this.listenForNotifications();
+      api.LabResults.poll(this.list, (newDataSource : ILabTest[])=>{
+        this.list = newDataSource;
+        notificationStore.push('New ' + newDataSource[newDataSource.length - 1].description + ' added.')
+      });
   }
 
 }

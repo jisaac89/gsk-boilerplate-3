@@ -2,11 +2,7 @@ import { observable, computed, action, reaction } from 'mobx';
 
 import { IAppStore } from '../interfaces/stores/IAppStore';
 
-import { patientStore } from './_GlobalStore';
-import { PatientStore } from './PatientStore';
-import { labResultsStore } from './LabResultsStore';
-import { prescriptionsStore } from './PrescriptionsStore';
-import { discountsStore } from './DiscountsStore';
+import { labResultsStore, prescriptionsStore, discountsStore } from './_GlobalStore';
 
 export class AppStore implements IAppStore {
 

@@ -1,4 +1,4 @@
-import { authStore, appStore } from '../stores/_GlobalStore';
+import { authStore, appStore, notificationStore } from '../stores/_GlobalStore';
 
 import * as superagentPromise from 'superagent-promise';
 import * as _superagent from 'superagent';
@@ -19,6 +19,17 @@ export const tokenPlugin = req => {
         req.set('authorization', `Token ${appStore.token}`);
     }
 };
+
+function* pollForUrl(root, url: string) {
+    while (true) {
+        yield fetch(`${root}${url}`, {
+            method: 'get'
+        }).then(function (d) {
+            var json = d.json();
+            return json;
+        });
+    }
+}
 
 export const requestHelper = (root) => {
     return {
@@ -49,6 +60,24 @@ export const requestHelper = (root) => {
                 .withCredentials()
                 // .use(tokenPlugin)
                 .end(handleErrors)
-                .then(responseBody)
+                .then(responseBody),
+        poll: (url, currentDataSource, cb) => {
+            const context = this;
+            let currentDataSourceLength = currentDataSource.length || 0;
+            function runPolling(generator?: any) {
+                if (!generator) {
+                    generator = pollForUrl(root, url);
+                }
+                var p = generator.next();
+                p.value.then(function (d) {
+                    if (d.length > currentDataSourceLength) {
+                        currentDataSourceLength = d.length;
+                        runPolling(generator);
+                        cb(d);
+                    }
+                });
+            }
+            runPolling();
+        }
     }
 };

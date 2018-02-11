@@ -105,12 +105,18 @@ export class AuthStore implements IAuthStore {
             //   .then(({ user }) => appStore.setToken(user.token))
             //   .then(() => userStore.pullUser())
             .catch(action((err) => {
-                throw err;
+                 alert('Please check email or password.');
+                 this.loading = false;
+                 throw err;
             }))
-            .finally(action(() => {
-                this.loading = false;
-                this.isRegistered = true;
-            }));
+            .then((data) => {
+                if (data) {
+                    this.loading = false;
+                    this.isRegistered = true;
+                } else {
+                    this.loading = false;
+                }
+            });
     }
 
     @action logouta() {

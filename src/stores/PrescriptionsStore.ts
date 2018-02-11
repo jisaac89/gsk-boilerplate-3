@@ -2,77 +2,46 @@ import {observable, computed, autorun} from 'mobx';
 
 import {appStore} from '../stores/_GlobalStore';
 
-import BaseStore from './BaseStore';
-
 import {notificationStore} from '../stores/NotificationStore';
 
 import {IPrescription} from '../interfaces/data/IPrescription';
 
+import api from '../api';
+import Prescriptions from '../components/routes/prescriptions/Prescriptions';
 
-function *pollForPrescriptions(){
-    while(true){
-      yield fetch('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/cloud.aperio.viiv.Prescription',{
-        method: 'get'
-      }).then(function(d){
-        var json = d.json();
-        return json;
-      });
-    }
-  }
+export class PrescriptionsStore {
 
-export class PrescriptionsStore extends BaseStore {
-
+    @observable prescriptions: IPrescription[] = [];
     @observable slideIndex: number = 0;
-    @observable selectedPrescription : IPrescription = {}
+    @observable selectedPrescription : IPrescription = {};
 
-    @observable currentDataSourceLength : number = 0;
-    
-    constructor(){
-       super('Prescription')
+    init(){
+      const context = this;
+      return api.Prescriptions.all().then((data)=>{
+          this.prescriptions = data;
+          this.listenForNewPrescriptions();
+      })
     }
 
     gotoSlideIndex(n: number){
         this.slideIndex = n;
     }
 
-    addObject(){
-        return null;
-    }
-
     selectPrescription(prescription : IPrescription){
         this.selectedPrescription = prescription;
     }
 
-    listenForNotifications(){
+    listenForNewPrescriptions(){
         setInterval(()=>{
             this.pollPrescriptions();
         }, 1000)
     }
 
     pollPrescriptions(){
-        const context = this;
-        function runPolling(generator ? : any){
-            if(!generator){
-              generator = pollForPrescriptions();
-            }
-          
-            var p = generator.next();
-            p.value.then(function(d){
-              if(d.length > context.list.length){
-                runPolling(generator);
-                context.currentDataSourceLength = d.length;
-                context.list = d;
-                notificationStore.pushNotification(d.reverse()[d.length - 1], 'prescription');
-              } else {
-                // console.log(d);
-              }
-            });
-          }
-          runPolling();
-    }
-
-    afterAdd(){
-      this.listenForNotifications();
+        api.Prescriptions.poll(this.prescriptions, (newDataSource : IPrescription[])=>{
+          this.prescriptions = newDataSource;
+          notificationStore.push('New ' + newDataSource[newDataSource.length - 1].drug + ' added.')
+        });
     }
 
 }

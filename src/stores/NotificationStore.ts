@@ -4,22 +4,11 @@ class NotificationStore{
 
     @observable list : Array<any> = [];
 
-    pushNotification(data, type: 'prescription' | 'labresult'){
-        
-        if (type === 'prescription'){
-            this.list.push({
-                title: 'You have recieved a prescription for ' + data.drug,
-                type: 'success',
-                id: data.prescriptionuuid
-            });
-        } else {
-            this.list.push({
-                title: 'You have recieved a new labresult',
-                type: 'success',
-                id: data.owner
-            }); 
-        }
-        
+    push(message){ 
+        this.list.push({
+            title: message,
+            type: 'success'
+        });
     }
 }
 

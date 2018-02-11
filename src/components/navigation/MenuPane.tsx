@@ -39,7 +39,7 @@ export default class MenuPane extends React.Component<IMenuPaneProps, any> {
                             <RouterButton block size="large" history={history} route="/labResults" title="Lab Results" />
                         </Toolbar>
                         <Toolbar block flush flex className="mb20">
-                            {prescriptionsStore.list.length ? <Button theme="error">{prescriptionsStore.list.length}</Button> : null}
+                            {prescriptionsStore.prescriptions.length ? <Button theme="error">{prescriptionsStore.prescriptions.length}</Button> : null}
                             <RouterButton block size="large" history={history} route="/prescriptions" title="Prescriptions" />
                         </Toolbar>
                         <Toolbar block flush flex className="mb20">

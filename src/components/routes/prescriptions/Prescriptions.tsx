@@ -61,7 +61,7 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                 <Layer fill flex>
                     <Wizard fill flex slideIndex={prescriptionsStore.slideIndex}>
                         <Layer fill flexCenter>
-                            {prescriptionsStore.list.length === 0 ?
+                            {prescriptionsStore.prescriptions.length === 0 ?
                                 <Emerge if={!appStore.menu}>
                                     <Layer className="p20">
                                         <i className="material-icons super-xl mb20 floatL">link</i>
@@ -81,7 +81,7 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                                             Below is a list of recent prescriptions.
                                         </h1>
                                         <Layer className="text-left">
-                                            <Table rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={appStore.mobile ? [{ template: mobileTemplate }, { template: menuTemplate }] : [{ name: 'drug', width: '200px' }, { name: 'dose' }, { name: 'issueUnit' }, { template: menuTemplate }]} hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.list} />
+                                            <Table rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={appStore.mobile ? [{ template: mobileTemplate }, { template: menuTemplate }] : [{ name: 'drug', width: '200px' }, { name: 'dose' }, { name: 'issueUnit' }, { template: menuTemplate }]} hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.prescriptions} />
                                         </Layer>
                                     </Layer>
                                 </Emerge>
