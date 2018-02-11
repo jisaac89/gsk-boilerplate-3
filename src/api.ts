@@ -34,13 +34,7 @@ const Patients = {
     hyperledger_requests.get(`Patient`)
 };
 
-const All = {
-  history: () =>
-    hyperledger_requests.getHistory()
-};
-
 export default {
-  All,
   Auth,
   Patients,
   Prescriptions

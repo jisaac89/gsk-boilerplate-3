@@ -5,18 +5,11 @@ import {observer, inject} from 'mobx-react';
 
 import { Button, IButtonProps, Toolbar, Input } from '../../../recoil/src/index';
 
-import {IAuthStore} from '../../interfaces/stores/IAuthStore';
-
-interface IAuthProps{
-    authStore ?: IAuthStore;
-    location?: any;
-    state ?: any;
-    pathname: any;
-}
+import {IAuthLoginProps} from '../../interfaces/components/helpers/IAuthLoginProps';
 
 @inject('authStore')
 @observer
-export default class AuthLogin extends React.Component<IAuthProps, {}>{
+export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
 
     login = () => {
         this.props.authStore.authenticate(() => {
