@@ -21,6 +21,7 @@ export default class AuthorizePrescription extends React.Component<IAuthorizePre
 
     componentDidMount() {
         this.props.authorizePrescriptionStore.gotoSlideIndex(0);
+        this.props.authorizePrescriptionStore.setFindEntity('');
     }
 
     gotoSlideIndex(n: number) {
@@ -36,10 +37,11 @@ export default class AuthorizePrescription extends React.Component<IAuthorizePre
         const prescriptionsStore = this.props.prescriptionsStore;
         const authorizePrescriptionStore = this.props.authorizePrescriptionStore;
         let { selectedPrescription } = prescriptionsStore;
+        let mobile = this.props.appStore.mobile;
 
         return (
             <Layer fill flex>
-                <Layer fill flex>
+                <Layer fill flex className="p20" scrollY>
                     <Wizard fill flex slideIndex={authorizePrescriptionStore.slideIndex}>
                         <Layer flexCenter fill>
                             <Emerge if={authorizePrescriptionStore.slideIndex === 0}>
@@ -93,8 +95,7 @@ export default class AuthorizePrescription extends React.Component<IAuthorizePre
                         </Layer>
                         <Layer flexCenter fill>
                             <Layer className="w500px center-width">
-                                <img height={145} width={145} src="https://www.qrstuff.com/images/default_qrcode.png" />
-                                <h2 className="mb20">Authorize: {prescriptionsStore.selectedPrescription.prescriptionuuid}</h2>
+                                <h2 className="mb20">Authorize: ViiV-test</h2>
                                 <h1 className="mb20">
                                     <small>How would you like to authorize this asset?</small>
                                 </h1>
@@ -102,21 +103,21 @@ export default class AuthorizePrescription extends React.Component<IAuthorizePre
                                 <hr />
                                 <div className="border-all p10 mb20">
                                     <Toolbar flex noRadius block className="mb20">
-                                        <Button outline block className="mr5"><strong>Patient:</strong> {selectedPrescription.owner}</Button>
+                                        <Button outline block className="mr5"><strong>{!mobile ? "Patient:" : null}</strong> {selectedPrescription.owner}</Button>
                                         <Toolbar spacing flex>
                                             <Button>Read</Button>
                                             <Button checked advanced>Hide</Button>
                                         </Toolbar>
                                     </Toolbar>
                                     <Toolbar flex block className="mb20">
-                                        <Button outline block className="mr5"><strong>Prescription:</strong> {selectedPrescription.drug} {selectedPrescription.dose} {selectedPrescription.issueUnit}</Button>
+                                        <Button outline block className="mr5"><strong>{!mobile ? "Prescription:": null}</strong> {selectedPrescription.drug} {selectedPrescription.dose} {selectedPrescription.issueUnit}</Button>
                                         <Toolbar spacing flex>
-                                            <Button>Read</Button>
-                                            <Button checked advanced>Hide</Button>
+                                            <Button checked advanced>Read</Button>
+                                            <Button>Hide</Button>
                                         </Toolbar>
                                     </Toolbar>
                                     <Toolbar flex block>
-                                        <Button outline block className="mr5"><strong>Inscription:</strong>{selectedPrescription.inscription}</Button>
+                                        <Button outline block className="mr5"><strong>{!mobile ? "Inscription:": null}</strong>{selectedPrescription.inscription}</Button>
                                         <Toolbar spacing flex>
                                             <Button>Read</Button>
                                             <Button checked advanced>Hide</Button>

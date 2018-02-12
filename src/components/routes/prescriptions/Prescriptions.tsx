@@ -89,7 +89,7 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                                             Below is a list of recent prescriptions.
                                         </h1>
                                         <Layer className="text-left">
-                                            <Table rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={appStore.mobile ? [{ template: mobileTemplate }, { template: menuTemplate }] : [{ name: 'drug', width: '200px' }, { name: 'dose' }, { name: 'issueUnit' }, { template: menuTemplate }]} hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.prescriptions} />
+                                            <Table rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={[{ template: mobileTemplate }, { template: menuTemplate }]} hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.prescriptions} />
                                             <Toolbar textCenter vertical spacing block size="large" className="mt20 w500px center-width">
                                                 <RouterButton simple icon="chevron-left" block history={history} route={`/`} title="Go back" />
                                             </Toolbar>
@@ -99,7 +99,7 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                             }
                         </Layer>
                         <Layer flexCenter={!appStore.mobile} scrollY fill className={appStore.mobile ? "text-center" : "border-right"}>
-                            <Layer className="w500px center-width">
+                            <Layer className="w500px center-width p20">
                                 <img height={145} width={145} src="https://www.qrstuff.com/images/default_qrcode.png" />
                                 <h2 className="mb20">Prescription: {prescriptionsStore.selectedPrescription.prescriptionuuid}</h2>
                                 <h4 className="text-left">Rx</h4>

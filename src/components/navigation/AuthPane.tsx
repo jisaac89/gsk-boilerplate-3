@@ -53,7 +53,7 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
                                 </Emerge>
                             </Layer>
                             <Toolbar textCenter block className="border-top p10">
-                                <Button icon="chevron-right" onClick={this.toggleRegistering.bind(this)} outline size="large" block>First time? Register a new account.</Button>
+                                <Button icon="chevron-right" onClick={this.toggleRegistering.bind(this)} outline size="large" block>Register a new account.</Button>
                             </Toolbar>
                         </Layer>
                         <Layer flex fill theme="e-NightMode">
