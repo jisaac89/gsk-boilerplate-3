@@ -25,6 +25,10 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
         super(props);
     }
 
+    componentDidMount(){
+        this.props.prescriptionsStore.gotoSlideIndex(0);
+    }
+
     gotoSlideIndex(n: number) {
         this.props.prescriptionsStore.gotoSlideIndex(n);
     }
