@@ -27,10 +27,6 @@ export default class Entry extends React.Component<any, any> {
         super(props);
     }
 
-    componentDidMount() {
-        this.props.appStore.initializeApp();
-    }
-
     onMobile(isMobile) {
         this.props.appStore.onMobile(isMobile);
     }

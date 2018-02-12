@@ -1,17 +1,18 @@
-import {observable, computed, autorun} from 'mobx';
+import {observable, computed, autorun, action} from 'mobx';
 
-import {appStore} from '../stores/_GlobalStore';
+export class AuthorizePrescriptionStore {
 
-import {notificationStore} from '../stores/NotificationStore';
+    @observable slideIndex : number = 0;
+    @observable findEntity : string = '';
 
-import {IPrescription} from '../interfaces/data/IPrescription';
+    @action gotoSlideIndex(n: number) {
+        this.slideIndex = n;
+    }
 
-import api from '../api';
-import Prescriptions from '../components/routes/prescriptions/Prescriptions';
-
-export class AuthorizePrescriptionsStore {
-
+    setFindEntity(entiryEmailOrId : string){
+        this.findEntity = entiryEmailOrId;
+    }
   
 }
 
-export const authorizePrescriptionsStore = new AuthorizePrescriptionsStore();
+export const authorizePrescriptionStore = new AuthorizePrescriptionStore();

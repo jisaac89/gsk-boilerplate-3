@@ -7,17 +7,18 @@ import * as promiseFinally from 'promise.prototype.finally';
 
 import { Provider } from 'mobx-react';
 
-import { appStore, labResultsStore, authStore, prescriptionsStore, discountsStore, notificationStore } from './stores/_GlobalStore'
+import { appStore,authorizePrescriptionStore, labResultsStore, authStore, prescriptionsStore, discountsStore, notificationStore } from './stores/_GlobalStore'
 
 import 'core-js';
 
 const stores = {
     appStore,
+    authorizePrescriptionStore,
     authStore,
     prescriptionsStore,
     notificationStore,
     discountsStore,
-    labResultsStore
+    labResultsStore,
 };
 
 // debug

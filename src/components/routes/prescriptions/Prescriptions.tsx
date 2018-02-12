@@ -90,6 +90,9 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                                         </h1>
                                         <Layer className="text-left">
                                             <Table rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={appStore.mobile ? [{ template: mobileTemplate }, { template: menuTemplate }] : [{ name: 'drug', width: '200px' }, { name: 'dose' }, { name: 'issueUnit' }, { template: menuTemplate }]} hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.prescriptions} />
+                                            <Toolbar textCenter vertical spacing block size="large" className="mt20 w500px center-width">
+                                                <RouterButton simple icon="chevron-left" block history={history} route={`/`} title="Go back" />
+                                            </Toolbar>
                                         </Layer>
                                     </Layer>
                                 </Emerge>
@@ -100,7 +103,7 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                                 <img height={145} width={145} src="https://www.qrstuff.com/images/default_qrcode.png" />
                                 <h2 className="mb20">Prescription: {prescriptionsStore.selectedPrescription.prescriptionuuid}</h2>
                                 <h4 className="text-left">Rx</h4>
-                                <hr/>
+                                <hr />
                                 <div className="border-all p10 mb20">
                                     <Toolbar flex noRadius block className="mb20">
                                         <Button outline block><strong>Patient:</strong> {selectedPrescription.owner}</Button>
@@ -117,7 +120,7 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                                     <Button disabled block>Request Advocacy</Button>
                                     <Button disabled block>Request Benefits Verification</Button>
                                     <Button disabled block>Send to Pharmacy</Button>
-                                    <Button block onClick={this.cancelSelectPrescription.bind(this)} icon="chevron-left">Go Back</Button>
+                                    <Button simple block onClick={this.cancelSelectPrescription.bind(this)} icon="chevron-left">Go Back</Button>
                                 </Toolbar>
                             </Layer>
                         </Layer>

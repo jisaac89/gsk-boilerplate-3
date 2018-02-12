@@ -11,7 +11,7 @@ import RouterButton from '../../../helpers/RouterButton';
 
 import { IAuthorizePrescriptionProps } from '../../../../interfaces/components/routes/prescriptions/authorizedPrescriptions/IAuthorizePrescriptionProps'
 
-@inject('appStore', 'prescriptionsStore')
+@inject('appStore', 'prescriptionsStore', 'authorizePrescriptionStore')
 @observer
 export default class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps, {}> {
 
@@ -19,60 +19,121 @@ export default class AuthorizePrescription extends React.Component<IAuthorizePre
         super(props);
     }
 
+    componentDidMount() {
+        this.props.authorizePrescriptionStore.gotoSlideIndex(0);
+    }
+
+    gotoSlideIndex(n: number) {
+        this.props.authorizePrescriptionStore.gotoSlideIndex(n)
+    }
+
+    setFindEntity(s: string) {
+        this.props.authorizePrescriptionStore.setFindEntity(s);
+    }
+
     render() {
 
         const prescriptionsStore = this.props.prescriptionsStore;
+        const authorizePrescriptionStore = this.props.authorizePrescriptionStore;
         let { selectedPrescription } = prescriptionsStore;
 
         return (
             <Layer fill flex>
                 <Layer fill flex>
-                    <Wizard fill flex slideIndex={0}>
+                    <Wizard fill flex slideIndex={authorizePrescriptionStore.slideIndex}>
                         <Layer flexCenter fill>
-                            <Emerge if={true}>
+                            <Emerge if={authorizePrescriptionStore.slideIndex === 0}>
                                 <Layer className="w500px center-width">
-                                    <img height={145} width={145} src="https://www.qrstuff.com/images/default_qrcode.png" />
-                                    <h2 className="mb20">Authorize: {prescriptionsStore.selectedPrescription.prescriptionuuid}</h2>
+                                    <i className="material-icons super-xl mb20 floatL">lock</i>
+                                    <h2 className="mb20">Authorize Asset</h2>
                                     <h1 className="mb20">
-                                        <small>How Would you like to authorize this asset?</small>
+                                        <small>This wizard will take you through the steps to authorize your asset.</small>
                                     </h1>
                                     <h4 className="text-left">Rx</h4>
                                     <hr />
                                     <div className="border-all p10 mb20">
-                                        <Toolbar flex noRadius block className="mb20">
-                                            <Button outline block className="mr5"><strong>Patient:</strong> {selectedPrescription.owner}</Button>
-                                            <Toolbar spacing flex>
-                                                <Button>Read</Button>
-                                                <Button checked advanced>Hide</Button>
-                                            </Toolbar>
-                                        </Toolbar>
-                                        <Toolbar flex block className="mb20">
-                                            <Button outline block className="mr5"><strong>Prescription:</strong> {selectedPrescription.drug} {selectedPrescription.dose} {selectedPrescription.issueUnit}</Button>
-                                            <Toolbar spacing flex>
-                                                <Button>Read</Button>
-                                                <Button checked advanced>Hide</Button>
-                                            </Toolbar>
-                                        </Toolbar>
+                                        {/* <Toolbar flex noRadius block className="mb20">
+                                            <Button outline block><strong>Patient:</strong> {selectedPrescription.owner}</Button>
+                                        </Toolbar> */}
                                         <Toolbar flex block>
-                                            <Button outline block className="mr5"><strong>Inscription:</strong>{selectedPrescription.inscription}</Button>
-                                            <Toolbar spacing flex>
-                                                <Button>Read</Button>
-                                                <Button checked advanced>Hide</Button>
-                                            </Toolbar>
+                                            <Button outline block><strong>Prescription:</strong> {selectedPrescription.drug} {selectedPrescription.dose} {selectedPrescription.issueUnit}</Button>
                                         </Toolbar>
+                                        {/* <Toolbar flex block>
+                                            <Button outline block><strong>Inscription:</strong>{selectedPrescription.inscription}</Button>
+                                        </Toolbar> */}
                                     </div>
-                                    <Toolbar vertical spacing block className="mb20 text-left">
-                                        <div className="mb20">
-                                            <Checkbox icon="check" title="Allow this entity to re-share your asset." />
-                                        </div>
-                                        <Checkbox icon="check" title="Save these settings as a template." />
-                                    </Toolbar>
                                     <Toolbar block size="large" vertical spacing className="mt20">
-                                        <Button theme="primary" block>Continue</Button>
-                                        <RouterButton block history={history} route={`/prescriptions/`} title="Cancel" />
+                                        <Button onClick={this.gotoSlideIndex.bind(this, 1)} icon="chevron-right" theme="primary" block>Continue</Button>
+                                        <RouterButton simple icon="chevron-left" block history={history} route={`/prescriptions/`} title="Go back" />
                                     </Toolbar>
                                 </Layer>
                             </Emerge>
+                        </Layer>
+                        <Layer flexCenter fill>
+                            <Layer className="w500px center-width">
+                                <i className="material-icons super-xl mb20 floatL">person</i>
+                                <h2 className="mb20">Find Entity to Authorize</h2>
+                                <h1 className="mb20">
+                                    <small>Lets start by looking for the entity you would like to authorize.</small>
+                                </h1>
+                                <Toolbar block>
+                                    <Input onChange={this.setFindEntity.bind(this)} block placeholder="Search by email or ID." />
+                                </Toolbar>
+                                <Open openToHeight={'45px'} if={authorizePrescriptionStore.findEntity !== ''}>
+                                    <Toolbar block className="mt10">
+                                        <Button icon="check" simple loading={authorizePrescriptionStore.findEntity === 'viiv-test' ? false : true}>{authorizePrescriptionStore.findEntity === 'viiv-test' ? "ViiV - Location, Scottsdale, Arizona" : "Searching"}</Button>
+                                    </Toolbar>
+                                </Open>
+                                <Toolbar block size="large" vertical spacing className="mt20">
+                                    <Button disabled={authorizePrescriptionStore.findEntity !== 'viiv-test'} onClick={this.gotoSlideIndex.bind(this, 2)} icon="chevron-right" theme="primary" block>Continue</Button>
+                                    <Button onClick={this.gotoSlideIndex.bind(this, 0)} simple icon="chevron-left" block>Go back</Button>
+                                </Toolbar>
+                            </Layer>
+
+                        </Layer>
+                        <Layer flexCenter fill>
+                            <Layer className="w500px center-width">
+                                <img height={145} width={145} src="https://www.qrstuff.com/images/default_qrcode.png" />
+                                <h2 className="mb20">Authorize: {prescriptionsStore.selectedPrescription.prescriptionuuid}</h2>
+                                <h1 className="mb20">
+                                    <small>How would you like to authorize this asset?</small>
+                                </h1>
+                                <h4 className="text-left">Rx</h4>
+                                <hr />
+                                <div className="border-all p10 mb20">
+                                    <Toolbar flex noRadius block className="mb20">
+                                        <Button outline block className="mr5"><strong>Patient:</strong> {selectedPrescription.owner}</Button>
+                                        <Toolbar spacing flex>
+                                            <Button>Read</Button>
+                                            <Button checked advanced>Hide</Button>
+                                        </Toolbar>
+                                    </Toolbar>
+                                    <Toolbar flex block className="mb20">
+                                        <Button outline block className="mr5"><strong>Prescription:</strong> {selectedPrescription.drug} {selectedPrescription.dose} {selectedPrescription.issueUnit}</Button>
+                                        <Toolbar spacing flex>
+                                            <Button>Read</Button>
+                                            <Button checked advanced>Hide</Button>
+                                        </Toolbar>
+                                    </Toolbar>
+                                    <Toolbar flex block>
+                                        <Button outline block className="mr5"><strong>Inscription:</strong>{selectedPrescription.inscription}</Button>
+                                        <Toolbar spacing flex>
+                                            <Button>Read</Button>
+                                            <Button checked advanced>Hide</Button>
+                                        </Toolbar>
+                                    </Toolbar>
+                                </div>
+                                <Toolbar vertical spacing block className="mb20 text-left">
+                                    <div className="mb20">
+                                        <Checkbox icon="check" title="Allow this entity to re-share your asset." />
+                                    </div>
+                                    <Checkbox icon="check" title="Save these settings as a template." />
+                                </Toolbar>
+                                <Toolbar block size="large" vertical spacing className="mt20">
+                                    <Button onClick={this.gotoSlideIndex.bind(this, 3)} icon="lock" theme="error" block>Authorize</Button>
+                                    <Button onClick={this.gotoSlideIndex.bind(this, 1)} simple icon="chevron-left" block>Go back</Button>
+                                </Toolbar>
+                            </Layer>
                         </Layer>
                         <Layer fill flex overflow>
                             <Layer fill overflow flexCenter>
@@ -80,8 +141,8 @@ export default class AuthorizePrescription extends React.Component<IAuthorizePre
                                 <h1 className="mt20">
                                     <Emerge delay={2500} enter={"fadeIn"}>
                                         <small className="mb20 dblock">Please wait...</small>
-                                        <small className="mb20 dblock">Storing survey to private blockchain.</small>
-                                        <small>Sending secure form to provider.</small>
+                                        <small className="mb20 dblock">Generating permission based smart contract.</small>
+                                        <small className="mb20 dblock">Authorizing asset to entity through private blockchain.</small>
                                     </Emerge>
                                 </h1>
                             </Layer>

@@ -7,4 +7,5 @@ export interface IAppStore{
     toggleAuth(): void;
     toggleMenu(): void;
     auth?: boolean;
+    initializeApp(): void;
 }

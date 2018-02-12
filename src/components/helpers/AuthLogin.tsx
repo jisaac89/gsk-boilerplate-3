@@ -7,7 +7,7 @@ import { Button, IButtonProps, Toolbar, Input } from '../../../recoil/src/index'
 
 import {IAuthLoginProps} from '../../interfaces/components/helpers/IAuthLoginProps';
 
-@inject('authStore')
+@inject('authStore', 'appStore')
 @observer
 export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
 
@@ -15,6 +15,7 @@ export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
         this.props.authStore.authenticate(() => {
             this.props.authStore.redirectToReferrer = true;
             this.props.history.push('/');
+            this.props.appStore.initializeApp();
         })
     }
 
