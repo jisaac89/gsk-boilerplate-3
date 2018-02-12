@@ -13,6 +13,10 @@ export default class LabResults extends React.Component<any, {}> {
         super(props);
     }
 
+    componentDidMount(){
+        this.props.appStore.menu = false;
+    }
+
     gotoSlideIndex(n: number) {
         this.props.labResultsStore.gotoSlideIndex(n);
     }

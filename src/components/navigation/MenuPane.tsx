@@ -24,7 +24,7 @@ export default class MenuPane extends React.Component<IMenuPaneProps, any> {
         return (
             <SlideIn className="z3" if={appStore.menu} from="bottom" fill>
                {appStore.menu ? 
-                <Layer id="main" flexCenter={!appStore.mobile} fill className="text-left pt50" theme="light">
+                <Layer scrollY id="main" flexCenter={!appStore.mobile} fill className="text-left pt50" theme="light">
                 <div className="p20 w500px center-width">
                     <img className="profile-pic pull-left mb40" src="https://www.lawlogix.com/wp-content/uploads/2015/05/LW-603-p28-partner-profile.jpg" />
                     <div className="pull-left dinblock mt20 ml20">
@@ -36,7 +36,7 @@ export default class MenuPane extends React.Component<IMenuPaneProps, any> {
                         <div></div>
                         <Toolbar block flush flex className="mb20">
                             {labResultsStore.list.length ? <Button theme="error">{labResultsStore.list.length}</Button> : null}
-                            <RouterButton block size="large" history={history} route="/labResults" title="Lab Results" />
+                            <RouterButton tabIndex={-1} block size="large" history={history} route="/labResults" title="Lab Results" />
                         </Toolbar>
                         <Toolbar block flush flex className="mb20">
                             {prescriptionsStore.prescriptions.length ? <Button theme="error">{prescriptionsStore.prescriptions.length}</Button> : null}

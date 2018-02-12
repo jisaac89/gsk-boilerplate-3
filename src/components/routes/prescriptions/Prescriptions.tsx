@@ -27,6 +27,7 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
 
     componentDidMount(){
         this.props.prescriptionsStore.gotoSlideIndex(0);
+        this.props.appStore.menu = false;
     }
 
     gotoSlideIndex(n: number) {
@@ -94,7 +95,7 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                                 </Emerge>
                             }
                         </Layer>
-                        <Layer flexCenter={!appStore.mobile} scrollY={appStore.mobile} fill className={appStore.mobile ? "text-center" : "border-right"}>
+                        <Layer flexCenter={!appStore.mobile} scrollY fill className={appStore.mobile ? "text-center" : "border-right"}>
                             <Layer>
                                 <img height={175} width={175} src="https://www.qrstuff.com/images/default_qrcode.png" />
                                 <h2 className="mb20">Prescription ID : 0x210958102985108</h2>

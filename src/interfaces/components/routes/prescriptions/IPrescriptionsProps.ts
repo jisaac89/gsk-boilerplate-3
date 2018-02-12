@@ -1,5 +1,7 @@
 import { IPrescriptionsStore } from "../../../stores/IPrescriptionsStore";
+import { IAppStore } from "../../../stores/IAppStore";
 
 export interface IPrescriptionsProps{
-    prescriptionsStore: IPrescriptionsStore
+    prescriptionsStore: IPrescriptionsStore;
+    appStore: IAppStore;
 }

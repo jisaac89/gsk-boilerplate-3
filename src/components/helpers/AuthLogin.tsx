@@ -40,12 +40,12 @@ export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
         }
 
         return (
-            <Toolbar textCenter block vertical spacing>
+            <Toolbar form textCenter block vertical spacing>
 
-                <Input advanced onChange={this.setEmail.bind(this)} block placeholder="Username" />
+                <Input focusOnMount advanced onChange={this.setEmail.bind(this)} block placeholder="Username" />
                 <Input type="password" advanced required={user && user.email !== '' && user.password === ''} onChange={this.setPassword.bind(this)} block placeholder="Password" />
 
-                <Button disabled={user && user.email === '' || user.password === ''} theme={user && user.email === '' || user.password === '' ? "default" : "primary"} className="mb20" loading={authStore.loading} block onClick={this.login}>Log in</Button>
+                <Button submit disabled={user && user.email === '' || user.password === ''} theme={user && user.email === '' || user.password === '' ? "default" : "primary"} className="mb20" loading={authStore.loading} block onClick={this.login}>Log in</Button>
 
                 <Button disabled block outline size="small">Forgot your password?</Button>
                 <Button onClick={this.toggleRegistering.bind(this)} block outline size="small">Not a member? Join Today</Button>

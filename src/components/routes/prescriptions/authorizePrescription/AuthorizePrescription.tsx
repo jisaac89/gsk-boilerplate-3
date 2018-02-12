@@ -28,13 +28,42 @@ export default class AuthorizePrescription extends React.Component<IAuthorizePre
                         <Layer fill flexCenter>
                             <Emerge if={true}>
                                 <Layer className="p20">
-                                    <i className="material-icons super-xl mb20 floatL">link</i>
+                                    <i className="material-icons super-xl mb20 floatL">opacity</i>
                                     <h2 className="mb20">Authorize Prescription: {prescriptionsStore.selectedPrescription.prescriptionuuid}</h2>
                                     <h1 className="mb20">
-                                        <small>Looks like you have nothing here.</small>
+                                        <small>Who would you like to authorize this asset?</small>
                                     </h1>
+                                    <Toolbar vertical spacing textCenter block className="w500px center-width">
+                                        <Input block placeholder="Search by email or id." />
+                                        <Button disabled={true} block theme="primary">Authorize Entity</Button>
+                                    </Toolbar>
                                 </Layer>
                             </Emerge>
+                        </Layer>
+                        <Layer fill flex overflow>
+                            <Layer fill overflow flexCenter>
+                                <Loading if={true} size="xlarge" />
+                                <h1 className="mt20">
+                                    <Emerge delay={2500} enter={"fadeIn"}>
+                                        <small className="mb20 dblock">Please wait...</small>
+                                        <small className="mb20 dblock">Storing survey to private blockchain.</small>
+                                        <small>Sending secure form to provider.</small>
+                                    </Emerge>
+                                </h1>
+                            </Layer>
+                        </Layer>
+                        <Layer flexCenter fill>
+                            <div className="w500px center-width">
+                                <i className="material-icons super-xl mb20 floatL">done</i>
+
+                                <h2 className="mb20 text-center">
+                                    <small>Survey Sent!</small>
+                                </h2>
+
+                                <Toolbar block className="mb20 text-center" spacing>
+                                    <Button>Go back</Button>
+                                </Toolbar>
+                            </div>
                         </Layer>
                     </Wizard>
                 </Layer>

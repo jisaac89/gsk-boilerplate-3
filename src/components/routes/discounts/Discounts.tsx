@@ -15,6 +15,7 @@ export default class Discounts extends React.Component<any, {}> {
 
     componentDidMount(){
         this.props.discountsStore.slideIndex = 0;
+        this.props.appStore.menu = false;
     }
 
     gotoSlideIndex(n: number) {
