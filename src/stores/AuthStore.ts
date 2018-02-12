@@ -40,7 +40,6 @@ export class AuthStore implements IAuthStore {
             this.isAuthenticated = true;
             this.loading = false;
             cb();
-            appStore.menu = true;
         }, 1000);
     }
 
