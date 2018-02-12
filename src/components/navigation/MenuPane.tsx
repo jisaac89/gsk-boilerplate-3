@@ -36,11 +36,11 @@ export default class MenuPane extends React.Component<IMenuPaneProps, any> {
                         <div></div>
                         <Toolbar block flush flex className="mb20">
                             {labResultsStore.list.length ? <Button theme="error">{labResultsStore.list.length}</Button> : null}
-                            <RouterButton tabIndex={-1} block size="large" history={history} route="/labResults" title="Lab Results" />
+                            <RouterButton loading={labResultsStore.loading} tabIndex={-1} block size="large" history={history} route="/labResults" title="Lab Results" />
                         </Toolbar>
                         <Toolbar block flush flex className="mb20">
                             {prescriptionsStore.prescriptions.length ? <Button theme="error">{prescriptionsStore.prescriptions.length}</Button> : null}
-                            <RouterButton block size="large" history={history} route="/prescriptions" title="Prescriptions" />
+                            <RouterButton loading={prescriptionsStore.loading} block size="large" history={history} route="/prescriptions" title="Prescriptions" />
                         </Toolbar>
                         <Toolbar block flush flex className="mb20">
                             <Button theme="error">1</Button>

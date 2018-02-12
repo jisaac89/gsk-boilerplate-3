@@ -98,7 +98,7 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                         <Layer flexCenter={!appStore.mobile} scrollY fill className={appStore.mobile ? "text-center" : "border-right"}>
                             <Layer>
                                 <img height={175} width={175} src="https://www.qrstuff.com/images/default_qrcode.png" />
-                                <h2 className="mb20">Prescription ID : 0x210958102985108</h2>
+                                <h2 className="mb20">Prescription ID : {selectedPrescription.prescriptionuuid}</h2>
                                 <h1 className="mb20">
                                     <small>Patient: <strong>{selectedPrescription.owner}</strong></small>
                                 </h1>
@@ -110,9 +110,9 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                                 </h1>
                                 <Toolbar textCenter vertical spacing block size="large" className="mt20 w300px center-width">
                                     <RouterButton theme="primary" block history={history} route={`/prescriptions/authorize/${selectedPrescription.prescriptionuuid}`} title="Authorize" />
-                                    <Button theme="primary" block>Request Advocacy</Button>
-                                    <Button theme="primary" block>Request Benefits Verification</Button>
-                                    <Button theme="primary" block>Send to Pharmacy</Button>
+                                    <Button disabled block>Request Advocacy</Button>
+                                    <Button disabled block>Request Benefits Verification</Button>
+                                    <Button disabled block>Send to Pharmacy</Button>
                                     <Button block onClick={this.cancelSelectPrescription.bind(this)} icon="chevron-left">Go Back</Button>
                                 </Toolbar>
                             </Layer>

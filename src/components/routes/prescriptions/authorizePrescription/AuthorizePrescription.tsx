@@ -7,7 +7,7 @@ import { observer, inject } from 'mobx-react';
 
 import SignatureCanvas from 'react-signature-canvas';
 
-import {IAuthorizePrescriptionProps} from '../../../../interfaces/components/routes/prescriptions/authorizedPrescriptions/IAuthorizePrescriptionProps'
+import { IAuthorizePrescriptionProps } from '../../../../interfaces/components/routes/prescriptions/authorizedPrescriptions/IAuthorizePrescriptionProps'
 
 @inject('appStore', 'prescriptionsStore')
 @observer
@@ -20,6 +20,7 @@ export default class AuthorizePrescription extends React.Component<IAuthorizePre
     render() {
 
         const prescriptionsStore = this.props.prescriptionsStore;
+        let { selectedPrescription } = prescriptionsStore;
 
         return (
             <Layer fill flex>
@@ -33,6 +34,24 @@ export default class AuthorizePrescription extends React.Component<IAuthorizePre
                                     <h1 className="mb20">
                                         <small>Who would you like to authorize this asset?</small>
                                     </h1>
+                                    <Toolbar noRadius block className="mb20">
+                                        <Button>Patient: {selectedPrescription.owner}</Button>
+                                        <div className="dinblock">
+                                            <Toggle simple type="strings" array={['Write', 'Read', 'Hide']} /> 
+                                        </div>
+                                    </Toolbar>
+                                    <Toolbar block className="mb20">
+                                        <Button>Prescription: {selectedPrescription.drug} {selectedPrescription.dose} {selectedPrescription.issueUnit}</Button>
+                                        <div className="dinblock">
+                                            <Toggle simple type="strings" array={['Write', 'Read', 'Hide']} /> 
+                                        </div>
+                                    </Toolbar>
+                                    <Toolbar block className="mb20">
+                                        <Button>Inscription:{selectedPrescription.inscription}</Button>
+                                        <div className="dinblock">
+                                            <Toggle simple type="strings" array={['Write', 'Read', 'Hide']} /> 
+                                        </div>
+                                    </Toolbar>
                                     <Toolbar vertical spacing textCenter block className="w500px center-width">
                                         <Input block placeholder="Search by email or id." />
                                         <Button disabled={true} block theme="primary">Authorize Entity</Button>

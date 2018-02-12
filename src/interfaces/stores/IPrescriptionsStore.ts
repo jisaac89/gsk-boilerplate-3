@@ -6,4 +6,5 @@ export interface IPrescriptionsStore{
     selectPrescription(prescription: IPrescription): void;
     prescriptions : IPrescription[];
     selectedPrescription: IPrescription;
+    loading?: boolean;
 } 

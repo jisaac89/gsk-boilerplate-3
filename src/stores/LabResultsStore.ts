@@ -14,16 +14,19 @@ export class LabResultsStore implements ILabResultsStore {
   @observable list = [];
   @observable slideIndex : number = 0;
   @observable currentDataSourceLength : number = 0;
+  @observable loading : boolean = false;
 
   constructor(){
     this.init();
   }
 
   init(){
+    this.loading = true;
     const context = this;
     return api.LabResults.all().then((data)=>{
         this.list = data;
         this.listenForNotifications();
+        this.loading = false;
     })
   }
 

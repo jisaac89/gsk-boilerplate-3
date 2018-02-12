@@ -14,12 +14,15 @@ export class PrescriptionsStore {
     @observable prescriptions: IPrescription[] = [];
     @observable slideIndex: number = 0;
     @observable selectedPrescription : IPrescription = {};
+    @observable loading : boolean = false;
 
     init(){
       const context = this;
+      this.loading = true;
       return api.Prescriptions.all().then((data)=>{
           this.prescriptions = data;
           this.listenForNewPrescriptions();
+          this.loading = false;
       })
     }
 
