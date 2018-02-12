@@ -74,6 +74,8 @@ export const requestHelper = (root) => {
                         currentDataSourceLength = d.length;
                         runPolling(generator);
                         cb(d);
+                    } else {
+                        currentDataSourceLength = d.length;
                     }
                 });
             }
