@@ -6,4 +6,6 @@ export interface IRouterButtonProps{
     title?: string;
     auth?: boolean;
     appStore?: IAppStore; 
+    params?: any;
+    match?: any;
 }

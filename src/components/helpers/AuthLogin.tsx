@@ -14,6 +14,7 @@ export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
     login = () => {
         this.props.authStore.authenticate(() => {
             this.props.authStore.redirectToReferrer = true;
+            this.props.history.push('/');
         })
     }
 
@@ -31,7 +32,7 @@ export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
 
     render() {
         const authStore = this.props.authStore;
-        const { from } = this.props.location.state || { from: { pathname: '/' } }
+        const { from } = this.props.history.location.state || { from: { pathname: '/' } }
         const { redirectToReferrer, user } = authStore;
 
         if (redirectToReferrer === true) {
@@ -48,7 +49,6 @@ export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
 
                 <Button disabled block outline size="small">Forgot your password?</Button>
                 <Button onClick={this.toggleRegistering.bind(this)} block outline size="small">Not a member? Join Today</Button>
-
             </Toolbar>
         )
     }

@@ -12,6 +12,11 @@ import {IRouterButtonProps} from '../../interfaces/components/helpers/IRouterBut
 @observer
 class RouterButton extends React.Component<IRouterButtonProps, any> {
 
+  componentDidMount() {
+    const { match: { params } } = this.props;
+
+  }
+
   gotoRoute(route) {
     if(this.props.auth){
       this.props.appStore.toggleAuth();

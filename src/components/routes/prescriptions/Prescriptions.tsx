@@ -14,6 +14,9 @@ import SignatureCanvas from 'react-signature-canvas';
 import { IPatient } from '../../../interfaces/data/IPatient';
 import MobileTemplate from '../../../../recoil/src/components/DatePicker/MobileTemplate';
 
+
+import RouterButton from '../../helpers/RouterButton';
+
 @inject('appStore','prescriptionsStore')
 @observer
 export default class Prescriptions extends React.Component<IPrescriptionsProps, {}> {
@@ -101,6 +104,7 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                                     <small>Inscription: <strong>{selectedPrescription.inscription}</strong></small>
                                 </h1>
                                 <Toolbar textCenter vertical spacing block size="large" className="mt20 w300px center-width">
+                                    <RouterButton theme="primary" block history={history} route={`/prescriptions/authorize/${selectedPrescription.prescriptionuuid}`} title="Authorize" />
                                     <Button theme="primary" block>Request Advocacy</Button>
                                     <Button theme="primary" block>Request Benefits Verification</Button>
                                     <Button theme="primary" block>Send to Pharmacy</Button>

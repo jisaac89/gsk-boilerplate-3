@@ -13,6 +13,6 @@ export const AuthButton = withRouter(({ history }) => (
             authStore.signout(() => history.push('/'))
         }}>Sign out</Button>
     ) : (
-        <AuthLogin pathname={'/login'} location={history.location} />
+        <AuthLogin pathname={'/login'} history={history} />
     )
   ))
