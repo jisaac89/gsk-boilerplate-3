@@ -6,16 +6,15 @@ import { labResultsStore, prescriptionsStore, discountsStore } from './_GlobalSt
 
 import { getAccessToken, setAccessToken, logout } from '../utils/AuthService'
 import { authStore } from './AuthStore';
-var regexp = new RegExp('#([^\\s]*)','g');
+var regexp = new RegExp('#([^\\s]*)', 'g');
 export class AppStore implements IAppStore {
 
     @observable nightmode = false;
     @observable mobile = false;
     @observable menu = false;
-    @observable loading = true;
+    @observable loading = false;
     @observable auth: boolean = true;
     //
-
     @observable appName = 'Prescription Prototype';
     @observable appLoaded = false;
     @observable token = window.localStorage.getItem('access_token');
@@ -29,7 +28,7 @@ export class AppStore implements IAppStore {
                 if (token) {
                     window.localStorage.setItem('access_token', token);
                 } else {
-                    window.localStorage.setItem('access_token', token);
+                    window.localStorage.removeItem('access_token');
                 }
             }
         );

@@ -33,6 +33,8 @@ export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
         const authStore = this.props.authStore;
         const appStore = this.props.appStore;
         let context = this;
+        
+        appStore.loading = true;
         // get access token then set
         getAccessToken().then((token) => {
             if (token) {
