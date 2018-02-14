@@ -9,14 +9,24 @@ import RouterButton from '../helpers/RouterButton';
 import { IMenuPaneProps } from '../../interfaces/components/navigation/IMenuPaneProps';
 import { clearAccessToken } from '../../utils/AuthService';
 
+import {withRouter} from 'react-router-dom';
+
 @inject('appStore', 'prescriptionsStore', 'labResultsStore', 'authStore')
 @observer
-export default class MenuPane extends React.Component<IMenuPaneProps, any> {
+class MenuPane extends React.Component<IMenuPaneProps, any> {
+    
     signOut() {
         clearAccessToken().then(()=>{
             this.props.authStore.signout();
         })
     }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.location.pathname === '/login' && this.props.authStore.isAuthenticated){
+            this.props.appStore.menu = true;
+        }
+    }
+
     render() {
 
         let { history } = this.props;
@@ -64,3 +74,5 @@ export default class MenuPane extends React.Component<IMenuPaneProps, any> {
         )
     }
 }
+
+export const MenuPaneRoute = withRouter(props => <MenuPane {...props}/>);

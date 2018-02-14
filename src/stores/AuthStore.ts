@@ -57,8 +57,8 @@ export class AuthStore implements IAuthStore {
                 appStore.initializeApp();
                 // run callback on view
                 cb();
-                console.log(getUserDetails(localStorage.getItem('access_token')));
-                console.log(getTokenExpirationDate(localStorage.getItem('access_token')));
+                // console.log(getUserDetails(localStorage.getItem('access_token')));
+                // console.log(getTokenExpirationDate(localStorage.getItem('access_token')));
             });
 
         }, 1000);

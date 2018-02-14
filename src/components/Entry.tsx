@@ -11,7 +11,7 @@ import { PrivateRoute } from './helpers/PrivateRoute';
 
 import Header from './navigation/Header';
 import LoadingPane from './navigation/LoadingPane';
-import MenuPane from './navigation/MenuPane';
+import {MenuPaneRoute} from './navigation/MenuPane';
 import AuthPane from './navigation/AuthPane';
 import Dashboard from './routes/dashboard/Dashboard';
 import Prescriptions from './routes/prescriptions/Prescriptions';
@@ -19,6 +19,8 @@ import LabResults from './routes/labResults/LabResults';
 import Discounts from './routes/discounts/Discounts';
 
 import AuthorizePrescription from './routes/prescriptions/authorizePrescription/AuthorizePrescription';
+
+
 
 @inject('appStore', 'notificationStore', 'authStore')
 @observer
@@ -62,7 +64,7 @@ export default class Entry extends React.Component<any, any> {
                                 <PrivateRoute path="/prescriptions/authorize/:id" component={AuthorizePrescription} />
                             </Switch>
                         </Layer>
-                        {authStore.isAuthenticated ? <MenuPane history={this.props.history} /> : <Route path="/login" component={AuthPane} />}
+                        {authStore.isAuthenticated ? <MenuPaneRoute /> : <Route path="/login" component={AuthPane} />}
                         <LoadingPane />
                     </Layer>
                 </Recoil>

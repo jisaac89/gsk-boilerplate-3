@@ -32,8 +32,6 @@ export class AppStore implements IAppStore {
                 }
             }
         );
-
-        console.log(this.firstLocation);
     }
 
     @action setToken(token) {
