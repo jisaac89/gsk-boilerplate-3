@@ -10,9 +10,7 @@ export interface IAuthStore{
     register() : void;
     isRegistered: boolean;
     isRegistering : boolean;
-    onChangeCompanyCode(companyCode: string) : void;
-    onChangeEmail(email: string) : void;
-    onChangePassword(password: string) : void;
+    setCompanyCode(companyCode: string) : void;
     
     //
     user : IUser;
@@ -20,4 +18,7 @@ export interface IAuthStore{
     setPassword(password: string);
     setEmail(email: string); 
     signout(): void;
+
+    isLoggedIn(): any;
+
 }

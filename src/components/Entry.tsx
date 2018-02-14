@@ -4,8 +4,9 @@ import { Recoil, Layer, Notifications, SlideIn } from '../../recoil/src/index';
 
 import { observer, inject } from 'mobx-react';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+// BrowserRouter not working on firefox and IE will need to debug - maybe browser method issue, good for SEO and server side paging.
+//
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from './helpers/PrivateRoute';
 
 import Header from './navigation/Header';
@@ -45,7 +46,7 @@ export default class Entry extends React.Component<any, any> {
         }
 
         return (
-            <Router>
+            <HashRouter>
                 <Recoil onMobile={this.onMobile.bind(this)} nightmode={appStore.nightmode} {...styles}>
                     <Layer {...styles}>
                         <SlideIn className="z5" from="top" if={true}>
@@ -61,11 +62,11 @@ export default class Entry extends React.Component<any, any> {
                                 <PrivateRoute path="/prescriptions/authorize/:id" component={AuthorizePrescription} />
                             </Switch>
                         </Layer>
-                        {authStore.isAuthenticated ? <MenuPane history={this.props.history} /> : null}
-                        <Route path="/login" component={AuthPane} />
+                        {authStore.isAuthenticated ? <MenuPane history={this.props.history} /> : <Route path="/login" component={AuthPane} />}
+                        <LoadingPane />
                     </Layer>
                 </Recoil>
-            </Router>
+            </HashRouter>
         )
     }
 }

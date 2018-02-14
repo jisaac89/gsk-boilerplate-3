@@ -11,9 +11,9 @@ import {IAuthPaneProps} from '../../interfaces/components/navigation/IAuthPanePr
 @inject('appStore','authStore')
 @observer
 export default class AuthPane extends React.Component<IAuthPaneProps, any> {
-    componentDidMount(){
-        this.props.authStore.signout();
-    }
+    // componentDidMount(){
+    //     // this.props.authStore.signout();
+    // }
     toggleRegistering() {
         this.props.authStore.toggleRegistering();
     }

@@ -36,21 +36,21 @@ export const requestHelper = (root) => {
         del: url =>
             superagent
                 .del(`${root}${url}`)
-                // .use(tokenPlugin)
+                .use(tokenPlugin)
                 .end(handleErrors)
                 .then(responseBody),
         get: url =>
             superagent
                 .get(`${root}${url}`)
                 .set('Content-Type', 'application/json')
-                // .use(tokenPlugin)
+                .use(tokenPlugin)
                 .end(handleErrors)
                 .then(responseBody),
         put: (url, body) =>
             superagent
                 .put(`${root}${url}`, body)
                 .set('Content-Type', 'application/json')
-                // .use(tokenPlugin)
+                .use(tokenPlugin)
                 .end(handleErrors)
                 .then(responseBody),
         post: (url, body) =>
@@ -58,7 +58,7 @@ export const requestHelper = (root) => {
                 .post(`${root}${url}`, body)
                 .set('Content-Type', 'application/json')
                 .withCredentials()
-                // .use(tokenPlugin)
+                .use(tokenPlugin)
                 .end(handleErrors)
                 .then(responseBody),
         poll: (url, currentDataSource, cb) => {

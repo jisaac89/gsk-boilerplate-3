@@ -1,3 +1,5 @@
+// handles user sign-in and registration
+
 import { observable, computed, autorun, action } from 'mobx';
 
 import { appStore } from '../stores/_GlobalStore';
@@ -12,6 +14,16 @@ import userStore from './UserStore';
 
 import api from '../api';
 
+import {
+    setAccessToken,
+    getAccessToken,
+    getUserDetails,
+    getTokenExpirationDate,
+    logout,
+    isLoggedIn
+} from '../utils/AuthService'
+
+
 export class AuthStore implements IAuthStore {
 
     @observable user: IUser = {
@@ -21,13 +33,9 @@ export class AuthStore implements IAuthStore {
         companyCode: ''
     }
 
-    //
-
     @observable isAuthenticated: boolean = false;
     @observable redirectToReferrer: boolean = false;
     @observable loading: boolean = false;
-
-    // register
 
     @observable isRegistering: boolean = false;
     @observable isRegistered: boolean = false;
@@ -36,19 +44,37 @@ export class AuthStore implements IAuthStore {
 
         this.loading = true;
 
+        // fake server call that we are waiting for.
         setTimeout(() => {
             this.isAuthenticated = true;
+            appStore.menu = true;
+            this.redirectToReferrer = true;
             this.loading = false;
-            cb();
+           
+            // mocking up fake jwt token
+            setAccessToken().then(() => {
+                localStorage.getItem('access_token');
+                appStore.initializeApp();
+                // run callback on view
+                cb();
+                console.log(getUserDetails(localStorage.getItem('access_token')));
+                console.log(getTokenExpirationDate(localStorage.getItem('access_token')));
+            });
+
         }, 1000);
     }
 
     signout(cb?: () => void) {
-        this.isAuthenticated = false
-        this.user.email = '';
-        this.user.password = '';
+        logout().then(() => {
+            this.isAuthenticated = false;
+            this.user.email = '';
+            this.user.password = '';
+            cb ? setTimeout(cb, 100) : null;
+        });
+    }
 
-        cb ? setTimeout(cb, 100) : null;
+    setCompanyCode(companyCode) {
+        this.user.companyCode = companyCode;
     }
 
     setEmail(email) {
@@ -72,30 +98,7 @@ export class AuthStore implements IAuthStore {
         this.isRegistered = false;
     }
 
-    onChangeCompanyCode(companyCode) {
-        this.user.companyCode = companyCode;
-    }
-
-    onChangeEmail(email) {
-        this.user.email = email;
-    }
-
-    onChangePassword(password) {
-        this.user.password = password;
-    }
-
     // 
-
-    @action logina() {
-        this.loading = true;
-        return api.Auth.login(this.user.email, this.user.password)
-            .then(({ user }) => appStore.setToken(user.token))
-            .then(() => userStore.pullUser())
-            .catch(action((err) => {
-                throw err;
-            }))
-            .finally(action(() => { this.loading = false; }));
-    }
 
     @action register() {
         this.loading = true;
@@ -103,9 +106,9 @@ export class AuthStore implements IAuthStore {
             //   .then(({ user }) => appStore.setToken(user.token))
             //   .then(() => userStore.pullUser())
             .catch(action((err) => {
-                 alert('Please check email or password.');
-                 this.loading = false;
-                 throw err;
+                alert('Please check email or password.');
+                this.loading = false;
+                throw err;
             }))
             .then((data) => {
                 if (data) {
@@ -117,10 +120,8 @@ export class AuthStore implements IAuthStore {
             });
     }
 
-    @action logouta() {
-        appStore.setToken(undefined);
-        userStore.forgetUser();
-        return Promise.resolve();
+    async isLoggedIn() {
+        return await isLoggedIn();
     }
 
 }

@@ -13,7 +13,7 @@ export default class LabResults extends React.Component<any, {}> {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.appStore.menu = false;
     }
 
@@ -34,9 +34,18 @@ export default class LabResults extends React.Component<any, {}> {
             )
         }
 
-        let submitTestForDiscount = (item, index) =>{
+        let submitTestForDiscount = (item, index) => {
             return (
-                <Button right theme="error">Submit for discount</Button>
+                <Button right theme="primary">Submit for discount</Button>
+            )
+        }
+
+
+        let mobileTemplate = (item, index) => {
+            return (
+                <div>
+                    <p>{item.description}</p>
+                </div>
             )
         }
 
@@ -57,18 +66,16 @@ export default class LabResults extends React.Component<any, {}> {
                                     </Layer>
                                 </Emerge>
                                 :
-                                <Emerge if={!appStore.menu}>
-                                    <Layer className="w80 center-width">
-                                        <i className="material-icons super-xl mb20">opacity</i>
-                                        <h2 className="mb20">Lab results</h2>
-                                        <h1 className="mtb20">
-                                            Below is a list of recently sent results.
+                                <Layer className="w500px center-width">
+                                    <i className="material-icons super-xl mb20">opacity</i>
+                                    <h2 className="mb20">Lab results</h2>
+                                    <h1 className="mtb20">
+                                        Below is a list of recently sent results.
                                         </h1>
-                                        <Layer className="text-left">
-                                            <Table columns={[{name:'description'},{name:'owner'}, {template:submitTestForDiscount}]}  hidePageSize pageSize={5} overflow dataSource={labResultsStore.list} />
-                                        </Layer>
+                                    <Layer className="text-left">
+                                        <Table columns={[{ template: mobileTemplate }, { template: submitTestForDiscount }]} hidePageSize pageSize={5} overflow dataSource={labResultsStore.list} />
                                     </Layer>
-                                </Emerge>
+                                </Layer>
                             }
                         </Layer>
                     </Wizard>

@@ -15,9 +15,8 @@ export default class LoadingPane extends React.Component<ILoadingPaneProps, any>
 
         return (
             <SlideIn className="z5" if={appStore.loading} from="bottom" fill>
-                <Layer fill flexCenter theme="light">
-                    <Loading size="xlarge" if={appStore.loading} />
-                    <Button simple>loading...</Button>
+                <Layer fill flexCenter theme="dark">
+                    <Loading theme="primary" icon="lock" tabIndex={0} size="xlarge" if={appStore.loading} />
                 </Layer>
             </SlideIn>
         )

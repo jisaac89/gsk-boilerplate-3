@@ -4,30 +4,37 @@ import { IAppStore } from '../interfaces/stores/IAppStore';
 
 import { labResultsStore, prescriptionsStore, discountsStore } from './_GlobalStore';
 
+import { getAccessToken, setAccessToken, logout } from '../utils/AuthService'
+import { authStore } from './AuthStore';
+var regexp = new RegExp('#([^\\s]*)','g');
 export class AppStore implements IAppStore {
 
     @observable nightmode = false;
     @observable mobile = false;
     @observable menu = false;
-    @observable loading = false;
+    @observable loading = true;
     @observable auth: boolean = true;
     //
 
     @observable appName = 'Prescription Prototype';
-    @observable token = window.localStorage.getItem('jwt');
     @observable appLoaded = false;
+    @observable token = window.localStorage.getItem('access_token');
+
+    @observable firstLocation = window.location.hash.substring(1);
 
     constructor() {
         reaction(
             () => this.token,
             token => {
                 if (token) {
-                    window.localStorage.setItem('jwt', token);
+                    window.localStorage.setItem('access_token', token);
                 } else {
-                    window.localStorage.removeItem('jwt');
+                    window.localStorage.setItem('access_token', token);
                 }
             }
         );
+
+        console.log(this.firstLocation);
     }
 
     @action setToken(token) {

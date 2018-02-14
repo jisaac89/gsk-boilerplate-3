@@ -7,12 +7,15 @@ import { observer, inject } from 'mobx-react';
 import RouterButton from '../helpers/RouterButton';
 
 import { IMenuPaneProps } from '../../interfaces/components/navigation/IMenuPaneProps';
+import { clearAccessToken } from '../../utils/AuthService';
 
 @inject('appStore', 'prescriptionsStore', 'labResultsStore', 'authStore')
 @observer
 export default class MenuPane extends React.Component<IMenuPaneProps, any> {
     signOut() {
-        this.props.authStore.signout();
+        clearAccessToken().then(()=>{
+            this.props.authStore.signout();
+        })
     }
     render() {
 
@@ -23,7 +26,7 @@ export default class MenuPane extends React.Component<IMenuPaneProps, any> {
 
         return (
             <SlideIn className="z3" if={appStore.menu} from="bottom" fill>
-                {appStore.menu ?
+               
                     <Layer scrollY id="main" flexCenter={!appStore.mobile} fill className="text-left pt50" theme="light">
                         <div className="p20 w500px center-width">
                             <img className="profile-pic pull-left mb40" src="https://www.lawlogix.com/wp-content/uploads/2015/05/LW-603-p28-partner-profile.jpg" />
@@ -57,7 +60,6 @@ export default class MenuPane extends React.Component<IMenuPaneProps, any> {
                             </Layer>
                         </SlideIn>
                     </Layer>
-                    : null}
             </SlideIn>
         )
     }

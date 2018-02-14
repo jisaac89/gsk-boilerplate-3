@@ -44,7 +44,7 @@ export default class AuthorizePrescription extends React.Component<IAuthorizePre
                 <Layer fill flex className="p20" scrollY>
                     <Wizard fill flex slideIndex={authorizePrescriptionStore.slideIndex}>
                         <Layer flexCenter fill>
-                            <Emerge if={authorizePrescriptionStore.slideIndex === 0}>
+                            <Emerge enter="fadeIn" if={authorizePrescriptionStore.slideIndex === 0}>
                                 <Layer className="w500px center-width">
                                     <i className="material-icons super-xl mb20 floatL">lock</i>
                                     <h2 className="mb20">Authorize Asset</h2>

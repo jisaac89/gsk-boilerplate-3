@@ -7,4 +7,5 @@ export interface IAuthLoginProps{
     history?: any;
     state ?: any;
     pathname: any;
+    firstLocation?: string;
 }

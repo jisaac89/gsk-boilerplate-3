@@ -30,6 +30,7 @@
     "history": "^4.7.2",
     "intersection-observer": "^0.5.0",
     "json-loader": "0.5.7",
+    "jwt-decode": "^2.2.0",
     "less": "^2.7.2",
     "less-loader": "4.0.5",
     "mobx": "^3.3.2",

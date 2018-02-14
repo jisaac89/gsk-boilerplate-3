@@ -3,9 +3,11 @@ export interface IAppStore{
     mobile : boolean;
     menu : boolean;
     loading : boolean;
-    token: string;
+    token: any;
     toggleAuth(): void;
     toggleMenu(): void;
     auth?: boolean;
     initializeApp(): void;
+    firstLocation: any;
+    
 }

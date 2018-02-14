@@ -69,37 +69,51 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                 <Layer fill flex>
                     <Wizard fill flex slideIndex={prescriptionsStore.slideIndex}>
                         <Layer fill flexCenter>
-                            {prescriptionsStore.prescriptions.length === 0 ?
-                                <Emerge if={!appStore.menu}>
-                                    <Layer className="p20">
-                                        <i className="material-icons super-xl mb20 floatL">link</i>
-                                        <h2 className="mb20">No Prescriptions Found</h2>
-                                        <h1 className="mb20">
-                                            <small>Looks like you have nothing here.</small>
-                                        </h1>
+                            {(() => {
+                                if (prescriptionsStore.loading) {
+                                    return (
+                                        <Emerge enter="fadeIn" if={!appStore.menu}>
+                                            <Layer className="p20">
+                                                <i className="material-icons super-xl mb20 floatL">link</i>
+                                                <h2 className="mb20">Loading Prescriptions</h2>
+                                                <h1 className="mb20">
+                                                    <small>Please wait...</small>
+                                                </h1>
+                                            </Layer>
+                                        </Emerge>
+                                    )
+                                } else {
+                                    return prescriptionsStore.prescriptions.length === 0 ?
+                                        <Emerge enter="fadeIn" if={!appStore.menu}>
+                                            <Layer className="p20">
+                                                <i className="material-icons super-xl mb20 floatL">link</i>
+                                                <h2 className="mb20">No Prescriptions Found</h2>
+                                                <h1 className="mb20">
+                                                    <small>Looks like you have nothing here.</small>
+                                                </h1>
 
-                                    </Layer>
-                                </Emerge>
-                                :
-                                <Emerge if={!appStore.menu}>
-                                    <Layer className="w500px center-width">
-                                        <i className="material-icons super-xl mb20">link</i>
-                                        <h2 className="mb20">Your Prescriptions</h2>
-                                        <h1 className="mtb20">
-                                            Below is a list of recent prescriptions.
-                                        </h1>
-                                        <Layer className="text-left">
-                                            <Table rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={[{ template: mobileTemplate }, { template: menuTemplate }]} hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.prescriptions} />
-                                            <Toolbar textCenter vertical spacing block size="large" className="mt20 w500px center-width">
-                                                <RouterButton simple icon="chevron-left" block history={history} route={`/`} title="Go back" />
-                                            </Toolbar>
-                                        </Layer>
-                                    </Layer>
-                                </Emerge>
-                            }
+                                            </Layer>
+                                        </Emerge>
+                                        :
+                                        <Layer className="w500px center-width">
+                                            <i className="material-icons super-xl mb20">link</i>
+                                            <h2 className="mb20">Your Prescriptions</h2>
+                                            <h1 className="mtb20">
+                                                Below is a list of recent prescriptions.
+                                                </h1>
+                                            <Layer className="text-left">
+                                                <Table className="w500px" rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={[{ template: mobileTemplate }, { template: menuTemplate }]} hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.prescriptions} />
+                                                <Toolbar textCenter vertical spacing block size="large" className="mt20 w500px center-width">
+                                                    <RouterButton simple icon="chevron-left" block history={history} route={`/`} title="Go back" />
+                                                </Toolbar>
+                                            </Layer>
+                                        </Layer>    
+
+                                }
+                            })()}
                         </Layer>
                         <Layer flexCenter={!appStore.mobile} scrollY fill className={appStore.mobile ? "text-center" : "border-right"}>
-                            <Layer className="w500px center-width p20">
+                            <Layer enter="fadeIn" className="w500px center-width p20">
                                 <img height={145} width={145} src="https://www.qrstuff.com/images/default_qrcode.png" />
                                 <h2 className="mb20">Prescription: {prescriptionsStore.selectedPrescription.prescriptionuuid}</h2>
                                 <h4 className="text-left">Rx</h4>

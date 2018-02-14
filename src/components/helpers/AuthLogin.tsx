@@ -1,33 +1,61 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom'
 
-import {observer, inject} from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
 import { Button, IButtonProps, Toolbar, Input } from '../../../recoil/src/index';
 
-import {IAuthLoginProps} from '../../interfaces/components/helpers/IAuthLoginProps';
+import { IAuthLoginProps } from '../../interfaces/components/helpers/IAuthLoginProps';
+
+import { setAccessToken, getAccessToken, getUserDetails, getTokenExpirationDate, isLoggedIn } from '../../../src/utils/AuthService'
+import { authStore } from '../../stores/AuthStore';
 
 @inject('authStore', 'appStore')
 @observer
 export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
 
-    login = () => {
+    componentDidMount() {
+        this.checkIfUserLoggedIn(); 
+    }
+
+    login(token?: boolean) {
+        let appStore = this.props.appStore;
+        const context = this;
         this.props.authStore.authenticate(() => {
-            this.props.authStore.redirectToReferrer = true;
-            this.props.history.push('/');
-            this.props.appStore.initializeApp();
+            this.props.history.push(appStore.firstLocation);  
+            if (token) {
+                context.props.appStore.loading = false;
+            }
+        });
+    }
+
+    checkIfUserLoggedIn() {
+        const authStore = this.props.authStore;
+        const appStore = this.props.appStore;
+        let context = this;
+        // get access token then set
+        getAccessToken().then((token) => {
+            if (token) {
+                setAccessToken(token).then(() => {
+                    if (authStore.isLoggedIn()) {
+                        context.login(true);
+                    }
+                })
+            } else {
+                appStore.loading = false;
+            }
         })
     }
 
-    setEmail(value){
+    setEmail(value) {
         this.props.authStore.setEmail(value);
     }
 
-    setPassword(password){
+    setPassword(password) {
         this.props.authStore.setPassword(password);
     }
 
-    toggleRegistering(){
+    toggleRegistering() {
         this.props.authStore.toggleRegistering();
     }
 
@@ -46,7 +74,7 @@ export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
                 <Input focusOnMount advanced onChange={this.setEmail.bind(this)} block placeholder="Username" />
                 <Input type="password" advanced required={user && user.email !== '' && user.password === ''} onChange={this.setPassword.bind(this)} block placeholder="Password" />
 
-                <Button submit disabled={user && user.email === '' || user.password === ''} theme={user && user.email === '' || user.password === '' ? "default" : "primary"} className="mb20" loading={authStore.loading} block onClick={this.login}>Log in</Button>
+                <Button submit disabled={user && user.email === '' || user.password === ''} theme={user && user.email === '' || user.password === '' ? "default" : "primary"} className="mb20" loading={authStore.loading} block onClick={this.login.bind(this, false)}>Log in</Button>
 
                 <Button disabled block outline size="small">Forgot your password?</Button>
                 <Button onClick={this.toggleRegistering.bind(this)} block outline size="small">Not a member? Join Today</Button>
