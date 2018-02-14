@@ -56,11 +56,11 @@ export default class MenuPane extends React.Component<IMenuPaneProps, any> {
                         </div>
                         <SlideIn if={true} from="bottom">
                             <Layer theme="e-NightMode" className="border-top text-center p10">
-                                <Button onClick={this.signOut.bind(this)} size="large" block>Sign Out</Button>
+                                <Button icon="unlock" onClick={this.signOut.bind(this)} size="large" block>Sign Out</Button>
                             </Layer>
                         </SlideIn>
                     </Layer>
             </SlideIn>
         )
     }
-}  
+}
