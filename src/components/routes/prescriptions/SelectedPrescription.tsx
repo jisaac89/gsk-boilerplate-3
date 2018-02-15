@@ -39,7 +39,7 @@ class SelectedPrescription extends React.Component<IPrescriptionsProps, {}> {
             <Layer flexCenter={!appStore.mobile} scrollY fill className={appStore.mobile ? "text-center" : "border-right"}>
                 <Emerge enter="fadeIn" if={true}>
                     <Layer className="w500px center-width p20">
-                        <img height={145} width={145} src="https://www.qrstuff.com/images/default_qrcode.png" />
+                        <img height={80} width={80} src="https://www.qrstuff.com/images/default_qrcode.png" />
 
                         <h4 className="text-left">Rx</h4>
                         <hr />

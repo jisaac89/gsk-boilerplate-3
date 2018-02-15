@@ -1,4 +1,7 @@
+Make sure webpack && webpack-dev-server is installed.
+
 ````
+
 git clone https://github.com/jisaac89/gsk-boilerplate-3.git
 
 cd gsk-boilerplate-3

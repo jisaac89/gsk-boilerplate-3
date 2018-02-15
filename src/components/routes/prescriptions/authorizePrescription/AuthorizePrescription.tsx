@@ -13,12 +13,16 @@ import { withRouter } from 'react-router-dom';
 
 import { IAuthorizePrescriptionProps } from '../../../../interfaces/components/routes/prescriptions/authorizedPrescriptions/IAuthorizePrescriptionProps'
 
-@inject('appStore', 'prescriptionsStore', 'authorizePrescriptionStore')
+@inject('appStore', 'prescriptionsStore', 'authorizePrescriptionStore', 'routerStore')
 @observer
 class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps, {}> {
 
     constructor(props) {
         super(props);
+    }
+
+    goBack() {
+        this.props.routerStore.goBack();
     }
 
     componentDidMount() {
@@ -59,7 +63,11 @@ class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps,
                         <Layer flexCenter fill>
                             <Emerge enter="fadeIn" if={authorizePrescriptionStore.slideIndex === 0}>
                                 <Layer className="w500px center-width">
-                                    <i className="material-icons super-xl mb20 floatL">lock</i>
+
+                                    <Toolbar block textCenter className="center-width">
+                                        <i className="material-icons super-xl mb20 floatL">lock</i>
+                                    </Toolbar>
+
                                     <h2 className="mb20">Authorize Asset</h2>
                                     <h1 className="mb20">
                                         <small>This wizard will take you through the steps to authorize your asset.</small>
@@ -73,7 +81,7 @@ class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps,
                                     </div>
                                     <Toolbar block size="large" vertical spacing className="mt20">
                                         <Button onClick={this.gotoSlideIndex.bind(this, 1)} icon="chevron-right" theme="primary" block>Continue</Button>
-                                        <RouterButton simple icon="chevron-left" block history={history} route={`/prescriptions/`} title="Go back" />
+                                        <Button simple icon="chevron-left" block onClick={this.goBack.bind(this)} >Go back</Button>
                                     </Toolbar>
                                 </Layer>
                             </Emerge>
@@ -174,7 +182,7 @@ class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps,
                         </Layer>
                     </Wizard>
                 </Layer>
-            </Layer>
+            </Layer >
         )
     }
 }
