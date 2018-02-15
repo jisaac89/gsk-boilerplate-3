@@ -1,27 +1,34 @@
+import 'core-js';
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-
-import Entry from './components/Entry';
-
 import * as promiseFinally from 'promise.prototype.finally';
 
 import { Provider } from 'mobx-react';
+import Entry from './components/Entry';
 
-import { appStore,authorizePrescriptionStore, labResultsStore, authStore, prescriptionsStore, discountsStore, notificationStore } from './stores/_GlobalStore'
-
-import 'core-js';
+import {
+    appStore,
+    authorizePrescriptionStore,
+    authStore,
+    discountsStore,
+    labResultsStore,
+    notificationStore,
+    prescriptionsStore,
+    routerStore
+} from './stores/_GlobalStore'
 
 const stores = {
     appStore,
     authorizePrescriptionStore,
     authStore,
-    prescriptionsStore,
-    notificationStore,
     discountsStore,
     labResultsStore,
+    notificationStore,
+    prescriptionsStore,
+    routerStore
 };
 
-// debug
+// for debug purposes
 window['stores'] = stores;
 
 promiseFinally.shim();

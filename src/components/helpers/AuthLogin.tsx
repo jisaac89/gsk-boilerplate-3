@@ -10,30 +10,35 @@ import { IAuthLoginProps } from '../../interfaces/components/helpers/IAuthLoginP
 import { setAccessToken, getAccessToken, getUserDetails, getTokenExpirationDate, isLoggedIn } from '../../../src/utils/AuthService'
 import { authStore } from '../../stores/AuthStore';
 
-@inject('authStore', 'appStore')
+@inject('authStore', 'appStore', 'routerStore')
 @observer
 export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
 
     componentDidMount() {
-        this.checkIfUserLoggedIn(); 
+        this.checkIfUserLoggedIn();
     }
 
-    login(token?: boolean) {
-        let appStore = this.props.appStore;
+    login(token?: boolean, event?: React.MouseEvent<MouseEvent>) {
+        event ? event.preventDefault() : null;
         const context = this;
+        const appStore = context.props.appStore;
+        const routerStore = context.props.routerStore;
         this.props.authStore.authenticate(() => {
-            this.props.history.push(appStore.firstLocation);  
             if (token) {
                 context.props.appStore.loading = false;
             }
+            routerStore.push(routerStore.initialLocation);
         });
+
+        // fix firefox bug - much wow (basicallly form submit should return false to prevent full refresh)
+        return false;
     }
 
     checkIfUserLoggedIn() {
         const authStore = this.props.authStore;
         const appStore = this.props.appStore;
         let context = this;
-        
+
         appStore.loading = true;
         // get access token then set
         getAccessToken().then((token) => {

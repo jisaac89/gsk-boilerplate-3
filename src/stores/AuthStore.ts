@@ -46,17 +46,19 @@ export class AuthStore implements IAuthStore {
 
         // fake server call that we are waiting for.
         setTimeout(() => {
-            this.isAuthenticated = true;
+
             appStore.menu = true;
             this.redirectToReferrer = true;
             this.loading = false;
-           
+
             // mocking up fake jwt token
             setAccessToken().then(() => {
                 localStorage.getItem('access_token');
                 appStore.initializeApp();
+                this.isAuthenticated = true;
                 // run callback on view
                 cb();
+
                 // console.log(getUserDetails(localStorage.getItem('access_token')));
                 // console.log(getTokenExpirationDate(localStorage.getItem('access_token')));
             });

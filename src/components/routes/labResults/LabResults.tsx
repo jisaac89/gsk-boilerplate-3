@@ -5,12 +5,16 @@ import { Layer, Emerge, Table, Button, Wizard, Toolbar } from '../../../../recoi
 
 import { observer, inject } from 'mobx-react';
 
-@inject('appStore', 'labResultsStore')
+@inject('appStore', 'labResultsStore', 'routerStore')
 @observer
 export default class LabResults extends React.Component<any, {}> {
 
     constructor(props) {
         super(props);
+    }
+
+    goBack() {
+        this.props.routerStore.push('/');
     }
 
     componentDidMount() {
@@ -36,17 +40,20 @@ export default class LabResults extends React.Component<any, {}> {
 
         let submitTestForDiscount = (item, index) => {
             return (
-                <Button right theme="primary">Submit for discount</Button>
+                <Button right theme="primary"></Button>
             )
         }
 
 
         let mobileTemplate = (item, index) => {
             return (
-                <div>
-                    <p>{item.description}</p>
-                </div>
+                <Toolbar block key={index}>
+                    <Button simple >{item.description}</Button>
+                    <Button right iconLocation="right" icon="chevron-right" simple></Button>
+                </Toolbar>
             )
+
+            // Submit for discount
         }
 
         return (
@@ -73,7 +80,10 @@ export default class LabResults extends React.Component<any, {}> {
                                         Below is a list of recently sent results.
                                         </h1>
                                     <Layer className="text-left">
-                                        <Table columns={[{ template: mobileTemplate }, { template: submitTestForDiscount }]} hidePageSize pageSize={5} overflow dataSource={labResultsStore.list} />
+                                        <Table columns={[{ template: mobileTemplate }]} hidePageSize pageSize={5} overflow dataSource={labResultsStore.list} />
+                                        <Toolbar textCenter vertical spacing block size="large" className="mt20 w500px center-width">
+                                            <Button onClick={this.goBack.bind(this)} simple icon="chevron-left" block >Go Back</Button>
+                                        </Toolbar>
                                     </Layer>
                                 </Layer>
                             }

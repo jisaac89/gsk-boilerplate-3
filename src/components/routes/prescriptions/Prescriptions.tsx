@@ -14,15 +14,18 @@ import SignatureCanvas from 'react-signature-canvas';
 import { IPatient } from '../../../interfaces/data/IPatient';
 import MobileTemplate from '../../../../recoil/src/components/DatePicker/MobileTemplate';
 
-
 import RouterButton from '../../helpers/RouterButton';
 
-@inject('appStore', 'prescriptionsStore')
+@inject('appStore', 'prescriptionsStore', 'routerStore')
 @observer
 export default class Prescriptions extends React.Component<IPrescriptionsProps, {}> {
 
     constructor(props) {
         super(props);
+    }
+
+    goBack() {
+        this.props.routerStore.push('/');
     }
 
     componentDidMount() {
@@ -36,12 +39,11 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
 
     selectPrescription(prescription) {
         this.props.prescriptionsStore.selectPrescription(prescription);
-        this.gotoSlideIndex(1);
+        this.props.routerStore.push(`/prescriptions/${prescription.prescriptionuuid}`);
     }
 
     cancelSelectPrescription() {
         this.props.prescriptionsStore.selectPrescription({});
-        this.gotoSlideIndex(0);
     }
 
     render() {
@@ -49,21 +51,23 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
         let prescriptionsStore = this.props.prescriptionsStore;
         let { selectedPrescription } = prescriptionsStore;
 
-        let menuTemplate = (item, index) => {
+        let menuTemplate = (prescription, index) => {
             return (
                 <Toolbar block key={index}>
-                    <Button icon="chevron-right" theme="primary" right>Select</Button>
+                    <Button right theme="primary" onClick={this.selectPrescription.bind(this, prescription)} >Select</Button>
                 </Toolbar>
             )
         }
 
-        let mobileTemplate = (item, index) => {
+        let mobileTemplate = (prescription, index) => {
             return (
-                <div>
-                    <p>{item.drug + ' ' + item.dose + ' ' + item.issueUnit}</p>
-                </div>
+                <Toolbar flex block key={index}>
+                    <Button simple block onClick={this.selectPrescription.bind(this, prescription)} >{prescription.drug}</Button>
+                    <Button icon="chevron-right" simple onClick={this.selectPrescription.bind(this, prescription)} ></Button>
+                </Toolbar>
             )
         }
+
         return (
             <Layer fill flex>
                 <Layer fill flex>
@@ -95,19 +99,21 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
                                             </Layer>
                                         </Emerge>
                                         :
-                                        <Layer className="w500px center-width">
-                                            <i className="material-icons super-xl mb20">link</i>
-                                            <h2 className="mb20">Your Prescriptions</h2>
-                                            <h1 className="mtb20">
-                                                Below is a list of recent prescriptions.
+                                        <Emerge enter="fadeIn" if={true}>
+                                            <Layer className="w500px center-width">
+                                                <i className="material-icons super-xl mb20">link</i>
+                                                <h2 className="mb20">Your Prescriptions</h2>
+                                                <h1 className="mtb20">
+                                                    Below is a list of recent prescriptions.
                                                 </h1>
-                                            <Layer className="text-left">
-                                                <Table className="w500px" rowIsSelectable="single" onRowSelect={this.selectPrescription.bind(this)} searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={[{ template: mobileTemplate }, { template: menuTemplate }]} hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.prescriptions} />
-                                                <Toolbar textCenter vertical spacing block size="large" className="mt20 w500px center-width">
-                                                    <RouterButton simple icon="chevron-left" block history={history} route={`/`} title="Go back" />
-                                                </Toolbar>
+                                                <Layer className="text-left">
+                                                    <Table className="w500px" searchableKeys={['drug']} searchTitle="Search by drug name or ID" columns={[{ template: mobileTemplate }]} hidePageSize pageSize={5} overflow dataSource={prescriptionsStore.prescriptions} />
+                                                    <Toolbar textCenter vertical spacing block size="large" className="mt20 w500px center-width">
+                                                        <Button onClick={this.goBack.bind(this)} simple icon="chevron-left" block >Go Back</Button>
+                                                    </Toolbar>
+                                                </Layer>
                                             </Layer>
-                                        </Layer>    
+                                        </Emerge>
 
                                 }
                             })()}

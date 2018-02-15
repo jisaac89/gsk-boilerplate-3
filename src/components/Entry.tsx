@@ -6,26 +6,32 @@ import { observer, inject } from 'mobx-react';
 
 // BrowserRouter not working on firefox and IE will need to debug - maybe browser method issue, good for SEO and server side paging.
 //
-import { HashRouter, Route, Switch } from 'react-router-dom';
-import { PrivateRoute } from './helpers/PrivateRoute';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
+// import { PrivateRoute } from './helpers/PrivateRoute';
 
 import Header from './navigation/Header';
 import LoadingPane from './navigation/LoadingPane';
-import {MenuPaneRoute} from './navigation/MenuPane';
+import { MenuPaneRoute } from './navigation/MenuPane';
 import AuthPane from './navigation/AuthPane';
 import Dashboard from './routes/dashboard/Dashboard';
 import Prescriptions from './routes/prescriptions/Prescriptions';
 import LabResults from './routes/labResults/LabResults';
 import Discounts from './routes/discounts/Discounts';
-import {AuthorizePrescriptionRoute} from './routes/prescriptions/authorizePrescription/AuthorizePrescription';
+import { AuthorizePrescriptionRoute } from './routes/prescriptions/authorizePrescription/AuthorizePrescription';
+import { SelectedPrescriptionRoute } from './routes/prescriptions/SelectedPrescription';
+import createBrowserHistory from 'history/createBrowserHistory'
+
+const browserHistory = createBrowserHistory();
+
+import { routerStore } from '../stores/RouterStore';
+
+import { syncHistoryWithStore } from '../sync';
+
+const history = syncHistoryWithStore(browserHistory, routerStore);
 
 @inject('appStore', 'notificationStore', 'authStore')
 @observer
 export default class Entry extends React.Component<any, any> {
-
-    constructor(props) {
-        super(props);
-    }
 
     onMobile(isMobile) {
         this.props.appStore.onMobile(isMobile);
@@ -44,8 +50,19 @@ export default class Entry extends React.Component<any, any> {
             fill: true
         }
 
+        const PrivateRoute = ({ component: Component, ...rest }) => (
+            <Route {...rest} render={(props) => (
+                authStore.isAuthenticated === true
+                    ? <Component {...props} />
+                    : <Redirect to={{
+                        pathname: '/login',
+                        state: { from: props.location }
+                    }} />
+            )} />
+        )
+
         return (
-            <HashRouter>
+            <Router history={history}>
                 <Recoil onMobile={this.onMobile.bind(this)} nightmode={appStore.nightmode} {...styles}>
                     <Layer {...styles}>
                         <SlideIn className="z5" from="top" if={true}>
@@ -54,18 +71,22 @@ export default class Entry extends React.Component<any, any> {
                         <Layer flex {...styles}>
                             <Header />
                             <PrivateRoute exact path="/" component={Dashboard} />
+                            {/* Lab Test Results */}
                             <PrivateRoute path="/labResults" component={LabResults} />
-                            <PrivateRoute path="/discounts" component={Discounts} />
+                            {/* Prescriptions */}
                             <Switch>
                                 <PrivateRoute exact path="/prescriptions" component={Prescriptions} />
-                                <PrivateRoute path="/prescriptions/authorize/:id" component={AuthorizePrescriptionRoute} />
+                                <PrivateRoute path="/prescriptions/:id" component={SelectedPrescriptionRoute} />
+                                <PrivateRoute path="/authorize/:id" component={AuthorizePrescriptionRoute} />
                             </Switch>
+                            {/* Discoutns */}
+                            <PrivateRoute path="/discounts" component={Discounts} />
                         </Layer>
                         {authStore.isAuthenticated ? <MenuPaneRoute /> : <Route path="/login" component={AuthPane} />}
                         <LoadingPane />
                     </Layer>
                 </Recoil>
-            </HashRouter>
+            </Router>
         )
     }
 }

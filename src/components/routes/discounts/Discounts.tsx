@@ -5,7 +5,7 @@ import { Layer, Open, Emerge, Stepper, Loading, Checkbox, Table, Button, Wizard,
 
 import { observer, inject } from 'mobx-react';
 
-@inject('appStore', 'discountsStore', 'labResultsStore')
+@inject('appStore', 'discountsStore', 'labResultsStore', 'routerStore')
 @observer
 export default class Discounts extends React.Component<any, {}> {
 
@@ -13,7 +13,11 @@ export default class Discounts extends React.Component<any, {}> {
         super(props);
     }
 
-    componentDidMount(){
+    goBack() {
+        this.props.routerStore.push('/');
+    }
+
+    componentDidMount() {
         this.props.discountsStore.slideIndex = 0;
         this.props.appStore.menu = false;
     }
@@ -22,7 +26,7 @@ export default class Discounts extends React.Component<any, {}> {
         this.props.discountsStore.gotoSlideIndex(n);
     }
 
-    submitSurvey(){
+    submitSurvey() {
         this.props.discountsStore.submitSurvey();
     }
 
@@ -50,10 +54,10 @@ export default class Discounts extends React.Component<any, {}> {
         let mobileTemplate = (item, index) => {
             return (
                 <Layer className="p10 border-all">
-                    <h1 className="mb10">{item.name}</h1>
-                    <p>{item.description}</p>
+                    <h1 className="mb10 border-bottom pb10">{item.name}</h1>
+                    <p><small>{item.description}</small></p>
                     <Toolbar textCenter className="mt10" block key={index}>
-                        <Button onClick={this.gotoSlideIndex.bind(this, 1)} block theme="error" right>Take Survey</Button>
+                        <Button onClick={this.gotoSlideIndex.bind(this, 1)} block theme="primary" right>Take Survey</Button>
                     </Toolbar>
                 </Layer>
             )
@@ -65,21 +69,24 @@ export default class Discounts extends React.Component<any, {}> {
                     <Wizard fill flex slideIndex={discountsStore.slideIndex}>
                         <Layer fill flexCenter>
                             <Emerge if={!appStore.menu}>
-                                <Layer className="w80 center-width">
+                                <Layer className="w500px center-width">
                                     <i className="material-icons super-xl mb20">star</i>
-                                    <h2 className="mb20">Discounts</h2>
+                                    <h2 className="mb20 ">Discounts</h2>
 
-                                    <h1 className="mtb40">
-                                        Take a functional survey to recieve discounts of from your co-pay.
+                                    <h1 className="mtb20">
+                                        Take surveys to recieve discounts of from your co-pay.
                                     </h1>
                                     <Layer className="text-left">
-                                        <Table hideHeader hidePageSize columns={appStore.mobile ? [{ template: mobileTemplate }] : [{ name: 'name', width: '200px' }, { name: 'description' }, { template: surveyTemplate }]} pageSize={5} overflow dataSource={[{ name: 'Personal Health', description: 'Take this anon survey and recieve 10% off copay' }]} />
+                                        <Table hideHeader hidePageSize columns={[{ template: mobileTemplate }]} pageSize={5} overflow dataSource={[{ name: 'Personal Health', description: 'Take this anonymous survey and recieve 10% off copay' }]} />
+                                        <Toolbar textCenter vertical spacing block size="large" className="mt20 w500px center-width">
+                                            <Button onClick={this.goBack.bind(this)} simple icon="chevron-left" block >Go Back</Button>
+                                        </Toolbar>
                                     </Layer>
                                 </Layer>
                             </Emerge>
                         </Layer>
                         <Layer fill flex scrollY>
-                            <Layer  className="w600px center-width">
+                            <Layer flexCenter className="w600px center-width">
                                 <Emerge if={discountsStore.slideIndex === 1}>
                                     <Layer className="w80 center-width">
                                         <h2 className="mb20 text-center">Personal Health Survey</h2>

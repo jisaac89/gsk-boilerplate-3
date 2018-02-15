@@ -1,5 +1,5 @@
 import * as React from "react";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import { authStore } from '../../stores/_GlobalStore';
 
@@ -13,6 +13,6 @@ export const AuthButton = withRouter(({ history }) => (
             authStore.signout(() => history.push('/'))
         }}>Sign out</Button>
     ) : (
-        <AuthLogin pathname={'/login'} history={history} />
-    )
-  ))
+            <AuthLogin pathname={'/login'} history={history} />
+        )
+))

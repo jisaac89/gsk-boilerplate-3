@@ -19,7 +19,6 @@ export class AppStore implements IAppStore {
     @observable appLoaded = false;
     @observable token = window.localStorage.getItem('access_token');
 
-    @observable firstLocation = window.location.hash.substring(1);
 
     constructor() {
         reaction(

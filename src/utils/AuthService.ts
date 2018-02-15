@@ -4,7 +4,7 @@ const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
 export async function login() {
-// client connection to server goes here.
+  // client connection to server goes here.
 }
 
 export async function logout() {
@@ -13,7 +13,7 @@ export async function logout() {
 }
 
 export async function signUp(email, password) {
-// client connection to server goes here.
+  // client connection to server goes here.
 }
 
 export function getIdToken() {
@@ -37,7 +37,7 @@ function getParameterByName(name) {
 }
 
 // Get and store access_token in local storage
-export async function setAccessToken(t ? : any) {
+export async function setAccessToken(t?: any) {
   let accessToken = t || getParameterByName('access_token');
   await localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
 }

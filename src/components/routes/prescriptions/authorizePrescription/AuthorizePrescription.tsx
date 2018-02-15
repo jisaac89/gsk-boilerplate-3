@@ -22,13 +22,19 @@ class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps,
     }
 
     componentDidMount() {
-        let prescriptionId = this.props.location.pathname.replace("/prescriptions/authorize/",'')
+        let prescriptionId = this.props.location.pathname.replace("/authorize/",'')
         this.props.prescriptionsStore.setPrescriptionId(prescriptionId);
 
         this.props.appStore.menu = false;
-        
+
         this.props.authorizePrescriptionStore.gotoSlideIndex(0);
         this.props.authorizePrescriptionStore.setFindEntity('');
+    }
+
+    // check if really needed
+    componentWillReceiveProps(nextProps){
+        let prescriptionId = nextProps.location.pathname.replace("/prescriptions/authorize/",'')
+        this.props.prescriptionsStore.setPrescriptionId(prescriptionId);      
     }
 
     gotoSlideIndex(n: number) {
