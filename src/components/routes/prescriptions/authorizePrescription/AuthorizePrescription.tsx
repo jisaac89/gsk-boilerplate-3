@@ -9,7 +9,7 @@ import SignatureCanvas from 'react-signature-canvas';
 
 import RouterButton from '../../../helpers/RouterButton';
 
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { IAuthorizePrescriptionProps } from '../../../../interfaces/components/routes/prescriptions/authorizedPrescriptions/IAuthorizePrescriptionProps'
 
@@ -22,7 +22,7 @@ class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps,
     }
 
     componentDidMount() {
-        let prescriptionId = this.props.location.pathname.replace("/authorize/",'')
+        let prescriptionId = this.props.location.pathname.replace("/authorize/", '')
         this.props.prescriptionsStore.setPrescriptionId(prescriptionId);
 
         this.props.appStore.menu = false;
@@ -32,9 +32,9 @@ class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps,
     }
 
     // check if really needed
-    componentWillReceiveProps(nextProps){
-        let prescriptionId = nextProps.location.pathname.replace("/prescriptions/authorize/",'')
-        this.props.prescriptionsStore.setPrescriptionId(prescriptionId);      
+    componentWillReceiveProps(nextProps) {
+        let prescriptionId = nextProps.location.pathname.replace("/prescriptions/authorize/", '')
+        this.props.prescriptionsStore.setPrescriptionId(prescriptionId);
     }
 
     gotoSlideIndex(n: number) {
@@ -67,15 +67,9 @@ class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps,
                                     <h4 className="text-left">Rx</h4>
                                     <hr />
                                     <div className="border-all p10 mb20">
-                                        {/* <Toolbar flex noRadius block className="mb20">
-                                            <Button outline block><strong>Patient:</strong> {selectedPrescription.owner}</Button>
-                                        </Toolbar> */}
                                         <Toolbar flex block>
                                             <Button outline block><strong>Prescription:</strong> {selectedPrescription.drug} {selectedPrescription.dose} {selectedPrescription.issueUnit}</Button>
                                         </Toolbar>
-                                        {/* <Toolbar flex block>
-                                            <Button outline block><strong>Inscription:</strong>{selectedPrescription.inscription}</Button>
-                                        </Toolbar> */}
                                     </div>
                                     <Toolbar block size="large" vertical spacing className="mt20">
                                         <Button onClick={this.gotoSlideIndex.bind(this, 1)} icon="chevron-right" theme="primary" block>Continue</Button>
@@ -92,7 +86,7 @@ class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps,
                                     <small>Lets start by looking for the entity you would like to authorize.</small>
                                 </h1>
                                 <Toolbar block>
-                                    <Input onChange={this.setFindEntity.bind(this)} block placeholder="Search by email or ID." />
+                                    <Input focusOnMount onChange={this.setFindEntity.bind(this)} block placeholder="Search by email or ID." />
                                 </Toolbar>
                                 <Open openToHeight={'45px'} if={authorizePrescriptionStore.findEntity !== ''}>
                                     <Toolbar block className="mt10">
@@ -123,14 +117,14 @@ class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps,
                                         </Toolbar>
                                     </Toolbar>
                                     <Toolbar flex block className="mb20">
-                                        <Button outline block className="mr5"><strong>{!mobile ? "Prescription:": null}</strong> {selectedPrescription.drug} {selectedPrescription.dose} {selectedPrescription.issueUnit}</Button>
+                                        <Button outline block className="mr5"><strong>{!mobile ? "Prescription:" : null}</strong> {selectedPrescription.drug} {selectedPrescription.dose} {selectedPrescription.issueUnit}</Button>
                                         <Toolbar spacing flex>
                                             <Button checked advanced>Read</Button>
                                             <Button>Hide</Button>
                                         </Toolbar>
                                     </Toolbar>
                                     <Toolbar flex block>
-                                        <Button outline block className="mr5"><strong>{!mobile ? "Inscription:": null}</strong>{selectedPrescription.inscription}</Button>
+                                        <Button outline block className="mr5"><strong>{!mobile ? "Inscription:" : null}</strong>{selectedPrescription.inscription}</Button>
                                         <Toolbar spacing flex>
                                             <Button>Read</Button>
                                             <Button checked advanced>Hide</Button>
@@ -138,7 +132,11 @@ class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps,
                                     </Toolbar>
                                 </div>
                                 <Toolbar vertical spacing block className="mb20 text-left">
-                                    <div className="mb20">
+                                    <Toolbar flush flex block>
+                                        <Button outline block>Contract expiration:</Button>
+                                        <DatePicker selectTime />
+                                    </Toolbar>
+                                    <div className="mtb20">
                                         <Checkbox icon="check" title="Allow this entity to re-share your asset." />
                                     </div>
                                     <Checkbox icon="check" title="Save these settings as a template." />
@@ -179,15 +177,6 @@ class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps,
             </Layer>
         )
     }
-}
-
-{
-    /* 
-    <Toolbar vertical spacing textCenter block className="w500px center-width">
-        <Input block placeholder="Search by email or id." />
-        <Button disabled={true} block theme="primary">Authorize Entity</Button>
-    </Toolbar> 
-    */
 }
 
 export const AuthorizePrescriptionRoute = withRouter(props => <AuthorizePrescription {...props} />)
