@@ -15,14 +15,16 @@ export class PrescriptionsStore {
     @observable slideIndex: number = 0;
     @observable selectedPrescription : IPrescription = {};
     @observable loading : boolean = false;
+    @observable prescriptionId = '';
 
     init(){
       const context = this;
       this.loading = true;
       return api.Prescriptions.all().then((data)=>{
           this.prescriptions = data;
-          this.listenForNewPrescriptions();
           this.loading = false;
+          this.listenForNewPrescriptions();
+          this.selectPrescriptionById(this.prescriptionId);
       })
     }
 
@@ -45,6 +47,16 @@ export class PrescriptionsStore {
           this.prescriptions = newDataSource;
           notificationStore.push('New ' + newDataSource[newDataSource.length - 1].drug + ' added.')
         });
+    }
+
+    selectPrescriptionById(prescriptionId?: string | number) {
+        let selectedPrescription = this.prescriptions.filter((item) => item.prescriptionuuid !== prescriptionId);
+    
+        this.selectPrescription(selectedPrescription[0]);
+    }
+
+    setPrescriptionId(id){
+        this.prescriptionId = id;
     }
 
 }

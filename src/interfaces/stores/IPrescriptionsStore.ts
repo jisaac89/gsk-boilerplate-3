@@ -7,4 +7,6 @@ export interface IPrescriptionsStore{
     prescriptions : IPrescription[];
     selectedPrescription: IPrescription;
     loading?: boolean;
+    selectPrescriptionById(id?: string | number) : void;
+    setPrescriptionId(id?: string | number) : void;
 } 

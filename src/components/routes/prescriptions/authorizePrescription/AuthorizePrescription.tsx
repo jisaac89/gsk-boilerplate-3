@@ -9,17 +9,24 @@ import SignatureCanvas from 'react-signature-canvas';
 
 import RouterButton from '../../../helpers/RouterButton';
 
+import {withRouter} from 'react-router-dom';
+
 import { IAuthorizePrescriptionProps } from '../../../../interfaces/components/routes/prescriptions/authorizedPrescriptions/IAuthorizePrescriptionProps'
 
 @inject('appStore', 'prescriptionsStore', 'authorizePrescriptionStore')
 @observer
-export default class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps, {}> {
+class AuthorizePrescription extends React.Component<IAuthorizePrescriptionProps, {}> {
 
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
+        let prescriptionId = this.props.location.pathname.replace("/prescriptions/authorize/",'')
+        this.props.prescriptionsStore.setPrescriptionId(prescriptionId);
+
+        this.props.appStore.menu = false;
+        
         this.props.authorizePrescriptionStore.gotoSlideIndex(0);
         this.props.authorizePrescriptionStore.setFindEntity('');
     }
@@ -176,3 +183,5 @@ export default class AuthorizePrescription extends React.Component<IAuthorizePre
     </Toolbar> 
     */
 }
+
+export const AuthorizePrescriptionRoute = withRouter(props => <AuthorizePrescription {...props} />)

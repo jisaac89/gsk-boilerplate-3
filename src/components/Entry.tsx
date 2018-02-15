@@ -17,10 +17,7 @@ import Dashboard from './routes/dashboard/Dashboard';
 import Prescriptions from './routes/prescriptions/Prescriptions';
 import LabResults from './routes/labResults/LabResults';
 import Discounts from './routes/discounts/Discounts';
-
-import AuthorizePrescription from './routes/prescriptions/authorizePrescription/AuthorizePrescription';
-
-
+import {AuthorizePrescriptionRoute} from './routes/prescriptions/authorizePrescription/AuthorizePrescription';
 
 @inject('appStore', 'notificationStore', 'authStore')
 @observer
@@ -61,7 +58,7 @@ export default class Entry extends React.Component<any, any> {
                             <PrivateRoute path="/discounts" component={Discounts} />
                             <Switch>
                                 <PrivateRoute exact path="/prescriptions" component={Prescriptions} />
-                                <PrivateRoute path="/prescriptions/authorize/:id" component={AuthorizePrescription} />
+                                <PrivateRoute path="/prescriptions/authorize/:id" component={AuthorizePrescriptionRoute} />
                             </Switch>
                         </Layer>
                         {authStore.isAuthenticated ? <MenuPaneRoute /> : <Route path="/login" component={AuthPane} />}

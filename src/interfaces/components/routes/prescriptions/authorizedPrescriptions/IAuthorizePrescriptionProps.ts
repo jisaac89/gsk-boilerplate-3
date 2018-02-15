@@ -6,4 +6,5 @@ export interface IAuthorizePrescriptionProps{
     prescriptionsStore: IPrescriptionsStore;
     appStore: IAppStore;
     authorizePrescriptionStore: IAuthorizePrescriptionStore;
+    location?: {pathname: string};
 }
