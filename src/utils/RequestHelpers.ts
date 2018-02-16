@@ -7,7 +7,8 @@ const superagent = superagentPromise(_superagent, Promise);
 
 export const handleErrors = err => {
     if (err && err.response && err.response.status === 401) {
-        authStore.signout();
+        // handle Server errors here - maybe use notification component
+        // authStore.signout();
     }
     return err;
 };

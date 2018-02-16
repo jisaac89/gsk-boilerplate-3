@@ -9,7 +9,8 @@ export async function login() {
 
 export async function logout() {
   clearIdToken();
-  await clearAccessToken();
+  clearAccessToken();
+  return await null;
 }
 
 export async function signUp(email, password) {
