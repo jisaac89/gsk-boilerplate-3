@@ -5,9 +5,11 @@ import { Layer, Open, Emerge, Stepper, Loading, Checkbox, Table, Button, Wizard,
 
 import { observer, inject } from 'mobx-react';
 
+import { IDiscountsProps } from '../../../interfaces/components/routes/discounts/IDiscountsProps';
+
 @inject('appStore', 'discountsStore', 'labResultsStore', 'routerStore')
 @observer
-export default class Discounts extends React.Component<any, {}> {
+export default class Discounts extends React.Component<IDiscountsProps, {}> {
 
     constructor(props) {
         super(props);

@@ -1,10 +1,12 @@
-import {observable, computed, ObservableMap, toJS} from 'mobx';
+import { observable, computed, ObservableMap, toJS } from 'mobx';
 
-class NotificationStore{
+import { INotifcationStore } from '../interfaces/stores/INotificationStore';
 
-    @observable list : Array<any> = [];
+class NotificationStore implements INotifcationStore {
 
-    push(message){ 
+    @observable list: Array<any> = [];
+
+    push(message) {
         this.list.push({
             title: message,
             type: 'success'

@@ -8,5 +8,5 @@ export interface IAppStore {
     toggleMenu(): void;
     auth?: boolean;
     initializeApp(): void;
-
+    onMobile(isMobile: boolean): void;
 }

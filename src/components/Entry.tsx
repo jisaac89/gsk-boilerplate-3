@@ -4,8 +4,6 @@ import { Recoil, Layer, Notifications, SlideIn } from '../../recoil/src/index';
 
 import { observer, inject } from 'mobx-react';
 
-// BrowserRouter not working on firefox and IE will need to debug - maybe browser method issue, good for SEO and server side paging.
-//
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 // import { PrivateRoute } from './helpers/PrivateRoute';
 
@@ -29,9 +27,11 @@ import { syncHistoryWithStore } from '../sync';
 
 const history = syncHistoryWithStore(browserHistory, routerStore);
 
+import { IEntryProps } from '../interfaces/components/routes/IEntryProps';
+
 @inject('appStore', 'notificationStore', 'authStore')
 @observer
-export default class Entry extends React.Component<any, any> {
+export default class Entry extends React.Component<IEntryProps, any> {
 
     onMobile(isMobile) {
         this.props.appStore.onMobile(isMobile);

@@ -5,9 +5,11 @@ import { Layer, Emerge, Table, Button, Wizard, Toolbar } from '../../../../recoi
 
 import { observer, inject } from 'mobx-react';
 
+import { ILabResultsProps } from '../../../interfaces/components/routes/labResults/ILabResultsProps';
+
 @inject('appStore', 'labResultsStore', 'routerStore')
 @observer
-export default class LabResults extends React.Component<any, {}> {
+export default class LabResults extends React.Component<ILabResultsProps, {}> {
 
     constructor(props) {
         super(props);
