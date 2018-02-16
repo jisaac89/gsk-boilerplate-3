@@ -14,7 +14,7 @@ import { authStore } from '../../stores/AuthStore';
 @observer
 export default class AuthLogin extends React.Component<IAuthLoginProps, {}>{
 
-    componentDidMount() {
+    componentWillMount() {
         this.checkIfUserLoggedIn();
     }
 
