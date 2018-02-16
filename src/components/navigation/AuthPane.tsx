@@ -15,16 +15,21 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
     toggleRegistering() {
         this.props.authStore.toggleRegistering();
     }
+
     setEmail(email) {
         this.props.authStore.setEmail(email);
     }
+
     setPassword(password: string) {
         this.props.authStore.setPassword(password);
     }
 
-    register() {
+    register(event) {
+        event.preventDefault();
         this.props.authStore.register();
+        return false;
     }
+
     render() {
 
         let { appStore, authStore } = this.props;
@@ -55,16 +60,16 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
                         <Layer flex fill theme="e-NightMode">
                             <Layer fill flexCenter className="text-center pt50">
                                 <div className="p10">
-                                    <Toolbar block className="w400px center-width" spacing vertical>
+                                    <Toolbar form block className="w400px center-width" spacing vertical>
                                         <h1 className={!isRegistered ? "mb10 text-left" : "mb10 text-center"}>{!isRegistered ? "Register a new account" : "Please check your email"}</h1>
                                         {!isRegistered ? <Input onChange={this.setEmail.bind(this)} size="large" block placeholder="Email" /> : null}
                                         {!isRegistered ? <Input onChange={this.setPassword.bind(this)} size="large" block placeholder="Password" /> : null}
-                                        {!isRegistered ? <Button theme="primary" onClick={this.register.bind(this)} size="xlarge" block>Register</Button> : null}
+                                        {!isRegistered ? <Button submit loading={authStore.loading} theme="primary" onClick={this.register.bind(this)} size="xlarge" block>Register</Button> : null}
                                     </Toolbar>
                                 </div>
                             </Layer>
                             <Toolbar textCenter block className="border-top p10">
-                                <Button loading={authStore.loading} icon="chevron-left" onClick={this.toggleRegistering.bind(this)} outline size="large" block>Login</Button>
+                                <Button icon="chevron-left" onClick={this.toggleRegistering.bind(this)} outline size="large" block>Login</Button>
                             </Toolbar>
                         </Layer>
                     </Wizard>
