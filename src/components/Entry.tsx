@@ -5,26 +5,23 @@ import { Recoil, Layer, Notifications, SlideIn } from '../../recoil/src/index';
 import { observer, inject } from 'mobx-react';
 
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
-// import { PrivateRoute } from './helpers/PrivateRoute';
+import { PrivateRoute } from './helpers/PrivateRoute';
 
 import Header from './navigation/Header';
 import LoadingPane from './navigation/LoadingPane';
-import { MenuPaneRoute } from './navigation/MenuPane';
 import AuthPane from './navigation/AuthPane';
 import Dashboard from './routes/dashboard/Dashboard';
 import Prescriptions from './routes/prescriptions/Prescriptions';
 import LabResults from './routes/labResults/LabResults';
 import Discounts from './routes/discounts/Discounts';
+import { MenuPaneRoute } from './navigation/MenuPane';
 import { AuthorizePrescriptionRoute } from './routes/prescriptions/authorizePrescription/AuthorizePrescription';
 import { SelectedPrescriptionRoute } from './routes/prescriptions/SelectedPrescription';
+import { routerStore } from '../stores/RouterStore';
+import { syncHistoryWithStore } from '../sync';
 import createBrowserHistory from 'history/createBrowserHistory'
 
 const browserHistory = createBrowserHistory();
-
-import { routerStore } from '../stores/RouterStore';
-
-import { syncHistoryWithStore } from '../sync';
-
 const history = syncHistoryWithStore(browserHistory, routerStore);
 
 import { IEntryProps } from '../interfaces/components/routes/IEntryProps';
@@ -46,17 +43,6 @@ export default class Entry extends React.Component<IEntryProps, any> {
             overflow: true,
             fill: true
         }
-
-        const PrivateRoute = ({ component: Component, ...rest }) => (
-            <Route {...rest} render={(props) => (
-                authStore.isAuthenticated === true
-                    ? <Component {...props} />
-                    : <Redirect to={{
-                        pathname: '/login',
-                        state: { from: props.location }
-                    }} />
-            )} />
-        )
 
         return (
             <Router history={history}>
