@@ -6,7 +6,7 @@ import { observer, inject } from 'mobx-react';
 
 import { IHeaderProps } from '../../interfaces/components/navigation/IHeaderProps';
 
-@inject('appStore')
+@inject('appStore', 'authStore')
 @observer
 export default class Header extends React.Component<IHeaderProps, any> {
 
@@ -16,10 +16,10 @@ export default class Header extends React.Component<IHeaderProps, any> {
 
     render() {
 
-        let appStore = this.props.appStore;
+        let { appStore, authStore } = this.props;
 
-        return (
-            <Emerge enter="fadeIn" exit="fadeOut" if={!appStore.menu}>
+        return authStore.isAuthenticated && !appStore.menu ? (
+            <Emerge enter="fadeIn" exit="fadeOut" if={true}>
                 <Emerge if={!appStore.menu} className="z5">
                     <Toolbar block spacing className="p10 text-right">
                         <img height={32} width={32} src="https://www.lawlogix.com/wp-content/uploads/2015/05/LW-603-p28-partner-profile.jpg" />
@@ -27,6 +27,6 @@ export default class Header extends React.Component<IHeaderProps, any> {
                     </Toolbar>
                 </Emerge>
             </Emerge>
-        )
+        ) : null;
     }
 }
