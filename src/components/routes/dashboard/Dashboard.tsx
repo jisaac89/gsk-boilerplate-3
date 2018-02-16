@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import {observer, inject} from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
-import {IDashboardProps} from '../../../interfaces/components/routes/dashboard/IDashboardProps'
+import { IDashboardProps } from '../../../interfaces/components/routes/dashboard/IDashboardProps'
 
 @inject('appStore')
 @observer
@@ -12,12 +12,12 @@ export default class Dashboard extends React.Component<IDashboardProps, any> {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let appStore = this.props.appStore;
         appStore.menu = true;
     }
 
     render() {
         return null;
-    } 
+    }
 } 

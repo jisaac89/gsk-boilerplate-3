@@ -5,35 +5,31 @@ import { Recoil, Table, Wizard, Button, Toolbar, Input, Emerge, Layer, SlideIn, 
 import { observer, inject } from 'mobx-react';
 
 import RouterButton from '../helpers/RouterButton';
-import {AuthButton} from '../helpers/AuthButton';
-import {IAuthPaneProps} from '../../interfaces/components/navigation/IAuthPaneProps';
+import { AuthButton } from '../helpers/AuthButton';
+import { IAuthPaneProps } from '../../interfaces/components/navigation/IAuthPaneProps';
 
-@inject('appStore','authStore')
+@inject('appStore', 'authStore')
 @observer
 export default class AuthPane extends React.Component<IAuthPaneProps, any> {
-    // componentDidMount(){
-    //     // this.props.authStore.signout();
-    // }
+
     toggleRegistering() {
         this.props.authStore.toggleRegistering();
     }
-    setEmail(email){
+    setEmail(email) {
         this.props.authStore.setEmail(email);
     }
-    setPassword(password: string){
+    setPassword(password: string) {
         this.props.authStore.setPassword(password);
     }
 
-    register(){
+    register() {
         this.props.authStore.register();
     }
     render() {
 
+        let { appStore, authStore } = this.props;
         let { history } = this.props;
-        let appStore = this.props.appStore;
-        let authStore = this.props.authStore;
-
-        let {isRegistered} = authStore;
+        let { isRegistered } = authStore;
 
         return (
             <SlideIn className="z4" if={!authStore.isAuthenticated} from="top" fill>
@@ -61,8 +57,8 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
                                 <div className="p10">
                                     <Toolbar block className="w400px center-width" spacing vertical>
                                         <h1 className={!isRegistered ? "mb10 text-left" : "mb10 text-center"}>{!isRegistered ? "Register a new account" : "Please check your email"}</h1>
-                                        {!isRegistered ? <Input onChange={this.setEmail.bind(this)} size="large" block placeholder="Email" />: null}
-                                        {!isRegistered ? <Input onChange={this.setPassword.bind(this)} size="large" block placeholder="Password" />: null}
+                                        {!isRegistered ? <Input onChange={this.setEmail.bind(this)} size="large" block placeholder="Email" /> : null}
+                                        {!isRegistered ? <Input onChange={this.setPassword.bind(this)} size="large" block placeholder="Password" /> : null}
                                         {!isRegistered ? <Button theme="primary" onClick={this.register.bind(this)} size="xlarge" block>Register</Button> : null}
                                     </Toolbar>
                                 </div>

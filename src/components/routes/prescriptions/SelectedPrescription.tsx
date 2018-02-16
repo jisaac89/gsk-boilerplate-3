@@ -32,7 +32,7 @@ class SelectedPrescription extends React.Component<IPrescriptionsProps, {}> {
 
     render() {
 
-        let prescriptionsStore = this.props.prescriptionsStore;
+        let { prescriptionsStore } = this.props;
         let { selectedPrescription } = prescriptionsStore;
 
         return (

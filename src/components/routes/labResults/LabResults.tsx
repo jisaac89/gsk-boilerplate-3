@@ -29,8 +29,7 @@ export default class LabResults extends React.Component<ILabResultsProps, {}> {
 
     render() {
 
-        let appStore = this.props.appStore;
-        let labResultsStore = this.props.labResultsStore;
+        let { appStore, labResultsStore } = this.props;
 
         let menuTemplate = (item, index) => {
             return (

@@ -20,10 +20,6 @@ import RouterButton from '../../helpers/RouterButton';
 @observer
 export default class Prescriptions extends React.Component<IPrescriptionsProps, {}> {
 
-    constructor(props) {
-        super(props);
-    }
-
     goBack() {
         this.props.routerStore.push('/');
     }
@@ -48,7 +44,7 @@ export default class Prescriptions extends React.Component<IPrescriptionsProps, 
 
     render() {
 
-        let prescriptionsStore = this.props.prescriptionsStore;
+        let { prescriptionsStore } = this.props;
         let { selectedPrescription } = prescriptionsStore;
 
         let menuTemplate = (prescription, index) => {

@@ -39,11 +39,8 @@ export default class Entry extends React.Component<IEntryProps, any> {
 
     render() {
 
-        let appStore = this.props.appStore;
-        let notificationStore = this.props.notificationStore;
-        let authStore = this.props.authStore;
-
-        let isAuthenticated = this.props.authStore.isAuthenticated;
+        let { appStore, authStore, notificationStore } = this.props;
+        let isAuthenticated = authStore.isAuthenticated;
 
         let styles = {
             overflow: true,

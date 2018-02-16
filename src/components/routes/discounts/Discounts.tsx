@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 
-import { Layer, Open, Emerge, Stepper, Loading, Checkbox, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
+import { Layer, Table, Button, Wizard, Toolbar, Checkbox, Emerge, Loading, Toggle } from '../../../../recoil/src/index';
 
 import { observer, inject } from 'mobx-react';
 
@@ -10,10 +10,6 @@ import { IDiscountsProps } from '../../../interfaces/components/routes/discounts
 @inject('appStore', 'discountsStore', 'labResultsStore', 'routerStore')
 @observer
 export default class Discounts extends React.Component<IDiscountsProps, {}> {
-
-    constructor(props) {
-        super(props);
-    }
 
     goBack() {
         this.props.routerStore.push('/');
@@ -34,8 +30,7 @@ export default class Discounts extends React.Component<IDiscountsProps, {}> {
 
     render() {
 
-        let appStore = this.props.appStore;
-        let discountsStore = this.props.discountsStore;
+        let { appStore, discountsStore } = this.props;
 
         let menuTemplate = (item, index) => {
             return (
