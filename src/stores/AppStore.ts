@@ -19,7 +19,6 @@ export class AppStore implements IAppStore {
     @observable appLoaded = false;
     @observable token = window.localStorage.getItem('access_token');
 
-
     constructor() {
         reaction(
             () => this.token,
@@ -46,11 +45,6 @@ export class AppStore implements IAppStore {
     initializeApp() {
         labResultsStore.init();
         prescriptionsStore.init();
-
-
-        //
-
-
     }
 
     toggleNightmode() {
