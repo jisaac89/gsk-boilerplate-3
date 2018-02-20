@@ -7,7 +7,6 @@ import { observer, inject } from 'mobx-react';
 import RouterButton from '../helpers/RouterButton';
 
 import { IMenuPaneProps } from '../../interfaces/components/navigation/IMenuPaneProps';
-import { clearAccessToken } from '../../utils/AuthService';
 
 import { withRouter } from 'react-router-dom';
 
@@ -16,9 +15,7 @@ import { withRouter } from 'react-router-dom';
 class MenuPane extends React.Component<IMenuPaneProps, any> {
 
     signOut() {
-        clearAccessToken().then(() => {
-            this.props.authStore.signout();
-        })
+
     }
 
     componentWillReceiveProps(nextProps) {

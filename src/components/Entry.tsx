@@ -13,6 +13,7 @@ import AuthPane from './navigation/AuthPane';
 import Dashboard from './routes/dashboard/Dashboard';
 import Prescriptions from './routes/prescriptions/Prescriptions';
 import LabResults from './routes/labResults/LabResults';
+import Callback from './routes/callback/Callback';
 import Discounts from './routes/discounts/Discounts';
 import { MenuPaneRoute } from './navigation/MenuPane';
 import { AuthorizePrescriptionRoute } from './routes/prescriptions/authorizePrescription/AuthorizePrescription';
@@ -53,19 +54,20 @@ export default class Entry extends React.Component<IEntryProps, any> {
                         </SlideIn>
                         <Layer flex {...styles}>
                             <Header />
-                            <PrivateRoute exact path="/" component={Dashboard} />
-                            {/* Lab Test Results */}
-                            <PrivateRoute path="/labResults" component={LabResults} />
-                            {/* Prescriptions */}
                             <Switch>
+                                <PrivateRoute exact path="/" component={Dashboard} />
+                                {/* Lab Test Results */}
+                                <PrivateRoute path="/labResults" component={LabResults} />
+                                {/* Prescriptions */}
                                 <PrivateRoute exact path="/prescriptions" component={Prescriptions} />
                                 <PrivateRoute path="/prescriptions/:id" component={SelectedPrescriptionRoute} />
                                 <PrivateRoute path="/authorize/:id" component={AuthorizePrescriptionRoute} />
+                                {/* Discoutns */}
+                                <PrivateRoute path="/discounts" component={Discounts} />
                             </Switch>
-                            {/* Discoutns */}
-                            <PrivateRoute path="/discounts" component={Discounts} />
                         </Layer>
                         {authStore.isAuthenticated ? <MenuPaneRoute /> : <Route path="/login" component={AuthPane} />}
+                        <Route path="/callback" component={Callback} />
                         <LoadingPane />
                     </Layer>
                 </Recoil>

@@ -17,5 +17,5 @@ if (process.env.NODE_ENV !== 'production') {
 
 }
 
-app.listen(port)
+app.listen(port);
 console.log(`Listening at http://localhost:${port}`)
