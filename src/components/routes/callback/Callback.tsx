@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
-import { setIdToken, setAccessToken } from '../../../utils/AuthService';
+import { setIdToken, setAccessToken, getUserInfo } from '../../../utils/AuthService';
 
 
 @inject('authStore', 'appStore', 'routerStore')
@@ -8,10 +8,17 @@ import { setIdToken, setAccessToken } from '../../../utils/AuthService';
 class Callback extends React.Component<any, any> {
 
     componentDidMount() {
+        this.props.appStore.loading = true;
         setAccessToken();
         setIdToken();
-        this.props.authStore.isAuthenticated = true;
-        this.props.routerStore.push('/');
+        getUserInfo((user) => {
+            console.log(user);
+            this.props.authStore.user = user;
+            this.props.appStore.initializeApp();
+            this.props.authStore.isAuthenticated = true;
+            this.props.routerStore.push('/');
+            this.props.appStore.loading = false;
+        });
     }
 
     render() {

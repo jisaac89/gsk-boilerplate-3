@@ -10,12 +10,13 @@ import { IMenuPaneProps } from '../../interfaces/components/navigation/IMenuPane
 
 import { withRouter } from 'react-router-dom';
 
-@inject('appStore', 'prescriptionsStore', 'labResultsStore', 'authStore')
+@inject('appStore', 'prescriptionsStore', 'labResultsStore', 'authStore', 'routerStore')
 @observer
 class MenuPane extends React.Component<IMenuPaneProps, any> {
 
     signOut() {
-
+        this.props.authStore.signout();
+        this.props.routerStore.push('/')
     }
 
     componentWillReceiveProps(nextProps) {
@@ -26,18 +27,20 @@ class MenuPane extends React.Component<IMenuPaneProps, any> {
 
     render() {
 
-        let { appStore, labResultsStore, prescriptionsStore } = this.props;
+        let { appStore, labResultsStore, prescriptionsStore, authStore } = this.props;
         let { history } = this.props;
+        let { user } = authStore;
+
 
         return (
             <SlideIn className="z3" if={appStore.menu} from="bottom" fill>
                 <Layer fill flex>
                     <Layer scrollY id="main" flexCenter={!appStore.mobile} fill className="text-left pt50" theme="light">
                         <div className="p20 w500px center-width">
-                            <img className="profile-pic pull-left mb40" src="https://www.lawlogix.com/wp-content/uploads/2015/05/LW-603-p28-partner-profile.jpg" />
+                            <img className="profile-pic pull-left mb40" src={user.picture} />
                             <div className="pull-left dinblock mt20 ml20">
                                 <h1>Welcome back,</h1>
-                                <h2>Stokes</h2>
+                                <h1><strong>{user.email}</strong></h1>
                             </div>
                             <Toolbar block className="center-width text-left" spacing vertical>
                                 <Emerge enter="fadeIn" if={appStore.menu}>

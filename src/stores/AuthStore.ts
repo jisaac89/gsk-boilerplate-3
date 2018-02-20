@@ -45,7 +45,8 @@ export class AuthStore {
     }
 
     signout(cb?: () => void) {
-
+        this.isAuthenticated = false;
+        logout();
     }
 
 }

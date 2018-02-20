@@ -5,4 +5,5 @@ export interface IAuthStore {
     authenticate(cb): void;
     signout(): void;
     redirectToReferrer: boolean;
+    user?: any;
 }

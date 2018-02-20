@@ -87,3 +87,10 @@ function isTokenExpired(token) {
   const expirationDate = getTokenExpirationDate(token);
   return expirationDate < new Date();
 }
+
+export function getUserInfo(cb) {
+  let accessToken = getParameterByName('access_token');
+  auth.client.userInfo(accessToken, (error, user) => {
+    return cb(user);
+  });
+}
