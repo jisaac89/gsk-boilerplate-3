@@ -1,4 +1,4 @@
-import decode from 'jwt-decode';
+import * as decode from 'jwt-decode';
 import { browserHistory } from 'react-router';
 import * as auth0 from 'auth0-js';
 const ID_TOKEN_KEY = 'id_token';
@@ -74,7 +74,7 @@ export function isLoggedIn() {
 }
 
 function getTokenExpirationDate(encodedToken) {
-  const token = decode(encodedToken);
+  const token: any = decode(encodedToken);
   if (!token.exp) { return null; }
 
   const date = new Date(0);
@@ -93,4 +93,17 @@ export function getUserInfo(cb) {
   auth.client.userInfo(accessToken, (error, user) => {
     return cb(user);
   });
+}
+
+export function isLoggedInUser(cb, error) {
+  const idToken = getIdToken();
+  const access_token = getAccessToken();
+  if (!!idToken && !isTokenExpired(idToken)) {
+
+    auth.client.userInfo(access_token, (error, user) => {
+      return cb(user);
+    });
+  } else {
+    return error();
+  }
 }

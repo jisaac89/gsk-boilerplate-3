@@ -7,7 +7,7 @@ import { Button, IButtonProps, Toolbar, Input } from '../../../recoil/src/index'
 
 import { IAuthLoginProps } from '../../interfaces/components/helpers/IAuthLoginProps';
 
-import { setAccessToken, getAccessToken, isLoggedIn } from '../../../src/utils/AuthService'
+import { setAccessToken, getAccessToken, isLoggedInUser, setIdToken, getIdToken, getUserInfo } from '../../../src/utils/AuthService'
 import { authStore } from '../../stores/AuthStore';
 
 @inject('authStore', 'appStore', 'routerStore')
@@ -26,7 +26,21 @@ export default class AuthLogin extends React.Component<any, {}>{
     }
 
     checkIfUserLoggedIn() {
+        let context = this;
+        this.props.appStore.loading = true;
         // check if user logged in here?
+        getAccessToken();
+        getIdToken();
+
+        isLoggedInUser((user) => {
+            context.props.authStore.user = user;
+            context.props.appStore.initializeApp();
+            context.props.appStore.menu = true;
+            context.props.authStore.isAuthenticated = true;
+            context.props.appStore.loading = false;
+        }, () => {
+            context.props.appStore.loading = false;
+        })
     }
 
     render() {

@@ -16,8 +16,8 @@ class Callback extends React.Component<any, any> {
             this.props.authStore.user = user;
             this.props.appStore.initializeApp();
             this.props.authStore.isAuthenticated = true;
-            this.props.routerStore.push('/');
             this.props.appStore.loading = false;
+            this.props.routerStore.push('/');
         });
     }
 
