@@ -95,24 +95,20 @@ export default class Discounts extends React.Component<IDiscountsProps, {}> {
                                             <h3 className="mb20">Are you experiencing a headache in the morning?</h3>
                                             <Toggle array={['No', 'Yes']} />
                                             <h3 className="mtb20">What symptoms are you experiencing in the morning?</h3>
-                                            <Toolbar block spacing className="mb20">
+                                            <Toolbar vertical block spacing className="mb20">
                                                 <Checkbox title="Headache" />
                                                 <Checkbox title="Stomach pain" />
                                                 <Checkbox title="Flu like symptoms" />
-                                            </Toolbar>
-                                            <Toolbar block spacing>
                                                 <Checkbox title="Motion sickness" />
                                                 <Checkbox title="Blurry Vision" />
                                             </Toolbar>
                                             <h3 className="mtb20">Are you experiencing a headache in the evening?</h3>
                                             <Toggle array={['No', 'Yes']} />
                                             <h3 className="mtb20">What symptoms are you experiencing in the evening?</h3>
-                                            <Toolbar block spacing className="mb20">
+                                            <Toolbar vertical spacing block className="mb20">
                                                 <Checkbox title="Headache" />
                                                 <Checkbox title="Stomach pain" />
                                                 <Checkbox title="Flu like symptoms" />
-                                            </Toolbar>
-                                            <Toolbar block spacing>
                                                 <Checkbox title="Motion sickness" />
                                                 <Checkbox title="Blurry Vision" />
                                             </Toolbar>

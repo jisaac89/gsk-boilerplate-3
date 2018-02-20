@@ -55,7 +55,7 @@ class MenuPane extends React.Component<IMenuPaneProps, any> {
                                     </Toolbar>
                                     <Toolbar block flush flex className="mb20">
                                         <Button theme="error">1</Button>
-                                        <RouterButton block size="large" history={history} route="/discounts" title="Discounts" />
+                                        <RouterButton block size="large" history={history} route="/discounts" title="Discount" />
                                     </Toolbar>
                                     <RouterButton className="mb20" disabled block size="large" history={history} route="/" title="My Profile" />
                                     <RouterButton disabled block size="large" history={history} route="/" title="Settings" />

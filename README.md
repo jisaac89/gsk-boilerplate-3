@@ -8,9 +8,11 @@ cd gsk-boilerplate-3
 
 git clone https://github.com/jisaac89/recoil.git
 
-npm install
+in one instance run:
 
-webpack --watch
+npm run build
 
-npm run start:dev
+then in another instance run:
+
+npm run start
 ````

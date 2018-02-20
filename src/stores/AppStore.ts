@@ -4,7 +4,7 @@ import { IAppStore } from '../interfaces/stores/IAppStore';
 
 import { labResultsStore, prescriptionsStore, discountsStore } from './_GlobalStore';
 
-import { getAccessToken, setAccessToken, logout } from '../utils/AuthService'
+import { getAccessToken, setAccessToken, logout } from '../utils/AuthService';
 import { authStore } from './AuthStore';
 var regexp = new RegExp('#([^\\s]*)', 'g');
 export class AppStore implements IAppStore {
