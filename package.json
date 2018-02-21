@@ -5,6 +5,7 @@
   "main": "index",
   "scripts": {
     "build": "webpack --config webpack.config.js",
+    "watch": "webpack --watch --config webpack.config.js",
     "start": "node _app.js",
     "preinstall": "git clone https://www.github.com/jisaac89/recoil.git"
   },

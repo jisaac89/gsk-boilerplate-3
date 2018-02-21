@@ -6,7 +6,7 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'UtSVwHMRSxkrQmb0DuH7wZ6sU8HrnBTK';
 const CLIENT_DOMAIN = 'recoil.auth0.com';
-const REDIRECT = 'http://localhost:8000/Callback';
+const REDIRECT = window.location.origin + '/Callback';
 const AUDIENCE = 'https://recoil.auth0.com/api/v2/';
 
 var auth = new auth0.WebAuth({

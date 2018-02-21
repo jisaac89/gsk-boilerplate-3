@@ -6,11 +6,11 @@ git clone https://github.com/jisaac89/gsk-boilerplate-3.git
 
 cd gsk-boilerplate-3
 
-git clone https://github.com/jisaac89/recoil.git
+npm install
 
 in one instance run:
 
-npm run build
+npm run watch
 
 then in another instance run:
 
