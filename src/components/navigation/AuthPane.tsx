@@ -32,9 +32,6 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
                                 </div>
                             </Emerge>
                         </Layer>
-                        <Toolbar textCenter block className="border-top p10">
-                            <Button icon="chevron-right" outline size="large" block>Register a new account.</Button>
-                        </Toolbar>
                     </Layer>
                 </Layer>
             </SlideIn>

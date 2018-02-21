@@ -38,6 +38,7 @@ export default class AuthLogin extends React.Component<any, {}>{
             context.props.appStore.menu = true;
             context.props.authStore.isAuthenticated = true;
             context.props.appStore.loading = false;
+            context.props.routerStore.push(context.props.routerStore.initialLocation);
         }, () => {
             context.props.appStore.loading = false;
         })
