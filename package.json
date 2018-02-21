@@ -4,8 +4,9 @@
   "description": "boilerplate",
   "main": "index",
   "scripts": {
-    "build": "webpack --config webpack.config.js --watch",
-    "build:server": "node src/_app.js"
+    "build": "webpack --config webpack.config.js",
+    "start": "node _app.js",
+    "preinstall": "git clone https://www.github.com/jisaac89/recoil.git"
   },
   "author": "joseph isaac",
   "license": "MIT",

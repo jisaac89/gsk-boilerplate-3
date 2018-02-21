@@ -5,7 +5,7 @@ typings
 recoil/
 recoil/dist/
 public/bundle/
-
+recoil
 *.d.ts
 *.log
 *.tgz

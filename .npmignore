@@ -4,6 +4,7 @@ recoil/src/**/*.tsx
 recoil/src/**/*.ts
 recoil/docs/
 recoil/dist/docs/
+recoil
 public/bundle
 .vscode
 *.log
@@ -13,6 +14,3 @@ public/bundle
 .gitignore
 .jshintrc
 .npmignore
-tsconfig.json
-typings.json
-webpack.config.js

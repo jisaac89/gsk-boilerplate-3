@@ -12,7 +12,6 @@ import { IPrescriptionsProps } from '../../../interfaces/components/routes/presc
 import SignatureCanvas from 'react-signature-canvas';
 
 import { IPatient } from '../../../interfaces/data/IPatient';
-import MobileTemplate from '../../../../recoil/src/components/DatePicker/MobileTemplate';
 
 import RouterButton from '../../helpers/RouterButton';
 
