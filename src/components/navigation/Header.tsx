@@ -23,7 +23,7 @@ export default class Header extends React.Component<IHeaderProps, any> {
                 <Emerge if={!appStore.menu} className="z5">
                     <Toolbar block spacing className="p10 text-right">
                         <img height={32} width={32} src={authStore.user.picture} />
-                        <Button simple theme="primary" right materialIcon icon={"menu"} onClick={this.toggleMenu.bind(this)}> Stokes</Button>
+                        <Button simple theme="primary" right materialIcon icon={"menu"} onClick={this.toggleMenu.bind(this)}> {authStore.user.name}</Button>
                     </Toolbar>
                 </Emerge>
             </Emerge>
