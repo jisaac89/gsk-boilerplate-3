@@ -2,7 +2,7 @@
 
 import { observable, computed, autorun, action, isObservable } from 'mobx';
 
-import { appStore } from '../stores/_GlobalStore';
+import { appStore, routerStore } from '../stores/_GlobalStore';
 
 import { IAuthStore } from '../interfaces/stores/IAuthStore';
 
@@ -14,34 +14,26 @@ import userStore from './UserStore';
 
 import api from '../api';
 
-import {
-    setAccessToken,
-    getAccessToken,
-    login,
-    logout,
-    isLoggedIn
-} from '../utils/AuthService'
+import { setAccessToken, getAccessToken, auth0login, logout, isLoggedIn } from '../utils/AuthService'
+
+import { User } from '../model/UserModel';
 
 
 export class AuthStore {
 
-    @observable user: IUser = {
-        email: '',
-        password: '',
-        group: null,
-        companyCode: ''
-    }
-
-    @observable isAuthenticated: boolean = false;
-
-    @observable redirectToReferrer: boolean = false;
     @observable loading: boolean = false;
-
-    @observable isRegistering: boolean = false;
-    @observable isRegistered: boolean = false;
+    @observable isAuthenticated: boolean = false;
+    @observable user: IUser = User;
+    @observable redirectToReferrer: boolean = false;
 
     authenticate() {
-        login();
+        auth0login();
+    }
+
+    loginUser(user?: IUser) {
+        this.user = user;
+        this.isAuthenticated = true;
+        appStore.initializeApp();
     }
 
     signout(cb?: () => void) {

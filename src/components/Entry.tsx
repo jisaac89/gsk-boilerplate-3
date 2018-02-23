@@ -55,7 +55,7 @@ export default class Entry extends React.Component<IEntryProps, any> {
                         <Layer flex {...styles}>
                             <Header />
                             <Switch>
-                                <Route exact path="/" component={AuthPane} />
+                                <PrivateRoute exact path="/" component={Dashboard} />
                                 {/* Lab Test Results */}
                                 <PrivateRoute path="/labResults" component={LabResults} />
                                 {/* Prescriptions */}

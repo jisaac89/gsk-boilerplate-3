@@ -19,28 +19,26 @@ export default class AuthLogin extends React.Component<any, {}>{
     }
 
     login(token?: boolean, event?: React.MouseEvent<MouseEvent>) {
+        let { authStore } = this.props;
         event ? event.preventDefault() : null;
-        this.props.authStore.authenticate();
-        // fix firefox bug - much wow (basicallly form submit should return false to prevent full refresh)
+        authStore.authenticate();
         return false;
     }
 
     checkIfUserLoggedIn() {
         let context = this;
-        this.props.appStore.loading = true;
-        // check if user logged in here?
+        let { appStore, authStore, routerStore } = context.props;
+
+        appStore.loading = true;
+
         getAccessToken();
         getIdToken();
 
         isLoggedInUser((user) => {
-            context.props.authStore.user = user;
-            context.props.appStore.initializeApp();
-            context.props.appStore.menu = true;
-            context.props.authStore.isAuthenticated = true;
-            context.props.appStore.loading = false;
-            context.props.routerStore.push(context.props.routerStore.initialLocation);
+            authStore.loginUser(user);
+            routerStore.push(routerStore.initialLocation);
         }, () => {
-            context.props.appStore.loading = false;
+            appStore.loading = false;
         })
     }
 

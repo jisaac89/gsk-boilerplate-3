@@ -15,7 +15,6 @@ export default class Dashboard extends React.Component<IDashboardProps, any> {
     componentDidMount() {
         let appStore = this.props.appStore;
         appStore.menu = true;
-        appStore.auth = true;
     }
 
     render() {

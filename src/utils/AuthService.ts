@@ -6,20 +6,21 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'UtSVwHMRSxkrQmb0DuH7wZ6sU8HrnBTK';
 const CLIENT_DOMAIN = 'recoil.auth0.com';
-const REDIRECT = window.location.origin + '/callback-server';
+const REDIRECT = window.location.origin + '/callback';
 const AUDIENCE = 'https://recoil.auth0.com/api/v2/';
+
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+}
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
   domain: CLIENT_DOMAIN
 });
 
-export function login() {
-  // auth.authorize({
-  //   responseType: 'token id_token',
-  //   redirectUri: REDIRECT,
-  //   audience: AUDIENCE
-  // });
+export function auth0login() {
   window.location.href = '/login';
 }
 
@@ -59,13 +60,13 @@ function getParameterByName(name) {
 
 // Get and store access_token in local storage
 export function setAccessToken() {
-  let accessToken = getParameterByName('access_token');
+  let accessToken = getCookie('access_token');;
   localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
 }
 
 // Get and store id_token in local storage
 export function setIdToken() {
-  let idToken = getParameterByName('id_token');
+  let idToken = getCookie('id_token');;
   localStorage.setItem(ID_TOKEN_KEY, idToken);
 }
 
@@ -90,7 +91,7 @@ function isTokenExpired(token) {
 }
 
 export function getUserInfo(cb) {
-  let accessToken = getParameterByName('access_token');
+  let accessToken = getAccessToken();
   auth.client.userInfo(accessToken, (error, user) => {
     return cb(user);
   });
