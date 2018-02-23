@@ -1,12 +1,12 @@
 import * as decode from 'jwt-decode';
-import { browserHistory } from 'react-router';
+import { routerStore } from '../stores/RouterStore';
 import * as auth0 from 'auth0-js';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'UtSVwHMRSxkrQmb0DuH7wZ6sU8HrnBTK';
 const CLIENT_DOMAIN = 'recoil.auth0.com';
-const REDIRECT = window.location.origin + '/Callback';
+const REDIRECT = window.location.origin + '/callback-server';
 const AUDIENCE = 'https://recoil.auth0.com/api/v2/';
 
 var auth = new auth0.WebAuth({
@@ -15,17 +15,18 @@ var auth = new auth0.WebAuth({
 });
 
 export function login() {
-  auth.authorize({
-    responseType: 'token id_token',
-    redirectUri: REDIRECT,
-    audience: AUDIENCE
-  });
+  // auth.authorize({
+  //   responseType: 'token id_token',
+  //   redirectUri: REDIRECT,
+  //   audience: AUDIENCE
+  // });
+  window.location.href = '/login';
 }
 
 export function logout() {
   clearIdToken();
   clearAccessToken();
-  browserHistory.push('/');
+  routerStore.push('/');
 }
 
 export function requireAuth(nextState, replace) {
